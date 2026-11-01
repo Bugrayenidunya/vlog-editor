@@ -109,6 +109,14 @@ formats:
     lower-third: "top 780px, left 72px"
     captions: "bottom 110px, 71px base"
     components: "components/square/ → compositions/brand/"
+  horizontal-feed:
+    canvas: "1920×1080"
+    platforms: "TikTok, Instagram (horizontal video)"
+    hook: "top 150px, left 110px, right 640px, ≤ 3 lines, 90–150px"
+    recipe-card: "top 110px, 110px from the sides"
+    lower-third: "top 640px, left 110px"
+    captions: "bottom 110px, 97px base"
+    components: "components/horizontal-feed/ → compositions/brand/"
 motion:
   energy: "balanced"
   ease:

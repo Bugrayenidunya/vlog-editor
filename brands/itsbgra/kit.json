@@ -1,8 +1,8 @@
 {
   "schema": "vlog-editor/kit@1",
   "brand": "itsbgra",
-  "version": 6,
-  "builtAt": "2026-11-01T19:17:55.373Z",
+  "version": 7,
+  "builtAt": "2026-11-01T19:39:21.945Z",
   "files": {
     "design": "DESIGN.md",
     "tokens": "tokens.css",
@@ -41,12 +41,18 @@
       "components/square/brand-captions.html",
       "components/square/brand-lower-third.html",
       "components/square/brand-end-card.html",
-      "components/square/brand-recipe-card.html"
+      "components/square/brand-recipe-card.html",
+      "components/horizontal-feed/brand-hook.html",
+      "components/horizontal-feed/brand-captions.html",
+      "components/horizontal-feed/brand-lower-third.html",
+      "components/horizontal-feed/brand-end-card.html",
+      "components/horizontal-feed/brand-recipe-card.html"
     ],
     "formats": [
       "vertical",
       "horizontal",
-      "square"
+      "square",
+      "horizontal-feed"
     ],
     "logos": {},
     "preview": {

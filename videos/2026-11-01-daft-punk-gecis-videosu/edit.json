@@ -1,0 +1,55 @@
+{
+  "schema": "vlog-editor/edit@2",
+  "video": "2026-11-01-daft-punk-gecis-videosu",
+  "outputs": {
+    "tiktok": {
+      "file": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_2026-11-01-19-40-29.mp4",
+      "renderedAt": "2026-11-01T19:41:00.835Z",
+      "format": "horizontal-feed",
+      "seconds": 32,
+      "lufs": -14.24,
+      "window": {
+        "from": 0,
+        "to": 32
+      },
+      "brand": {
+        "slug": "itsbgra",
+        "version": 7,
+        "hash": "322ffb797cb2"
+      },
+      "hook": {
+        "text": "If you're a beginner DJ, steal this Daft Punk blend",
+        "emphasis": "Daft Punk blend"
+      },
+      "segments": [
+        {
+          "id": "s1",
+          "clip": "decks",
+          "role": "decks",
+          "seconds": 32
+        }
+      ],
+      "cutsPerMinute": 0,
+      "overlays": [
+        {
+          "type": "text",
+          "at": 4,
+          "dur": 3
+        },
+        {
+          "type": "lower-third",
+          "at": 14,
+          "dur": 3.5
+        },
+        {
+          "type": "recipe",
+          "at": 24.5,
+          "dur": 4.8
+        }
+      ],
+      "faceAtFrame0": false,
+      "captions": "burn"
+    }
+  },
+  "updatedAt": "2026-11-01T19:41:00.835Z"
+}

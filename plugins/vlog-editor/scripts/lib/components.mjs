@@ -175,6 +175,7 @@ export function defaultWords(text, start = 0.15, per = 0.32) {
 export function lowerThirdComponent(b, fontsCss, format = "vertical") {
   const L = layoutFor(b, format);
   const lt = L.lt;
+  const px = (n) => `${Math.round(n * (L.k || 1))}px`;
   return frame("brand-lower-third", {
     b,
     L,
@@ -184,10 +185,10 @@ export function lowerThirdComponent(b, fontsCss, format = "vertical") {
       { id: "subtitle", type: "string", label: "Subtitle", default: b.samples.lowerThird?.subtitle || "", maxLength: 60 },
     ],
     css: `
-    #root .lt { position: absolute; left: ${lt.left}px; top: ${lt.top}px; max-width: ${lt.maxWidth}px; display: flex; align-items: stretch; gap: 22px; padding: 22px 34px 24px 24px; background: color-mix(in srgb, var(--color-surface) 90%, transparent); border-radius: 26px; }
-    #root .lt-bar { width: 10px; border-radius: 6px; background: var(--color-accent); }
-    #root .lt-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 62px; line-height: 1; color: var(--color-ink); }
-    #root .lt-sub { font-family: var(--font-body); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--color-muted); margin-top: 8px; }`,
+    #root .lt { position: absolute; left: ${lt.left}px; top: ${lt.top}px; max-width: ${lt.maxWidth}px; display: flex; align-items: stretch; gap: ${px(22)}; padding: ${px(22)} ${px(34)} ${px(24)} ${px(24)}; background: color-mix(in srgb, var(--color-surface) 90%, transparent); border-radius: ${px(26)}; }
+    #root .lt-bar { width: ${px(10)}; border-radius: ${px(6)}; background: var(--color-accent); }
+    #root .lt-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: ${px(62)}; line-height: 1; color: var(--color-ink); }
+    #root .lt-sub { font-family: var(--font-body); font-weight: 700; font-size: ${px(30)}; line-height: 1.2; color: var(--color-muted); margin-top: ${px(8)}; }`,
     body: `    <div class="lt" id="lt"><div class="lt-bar" id="lt-bar"></div><div><div class="lt-title" id="lt-title"></div><div class="lt-sub" id="lt-sub"></div></div></div>`,
     script: `
       document.getElementById("lt-title").textContent = String(V.title || "");
@@ -220,9 +221,9 @@ ${logoCss("#root").replace(/^/gm, "    ")}
     #root .ec-glow { position: absolute; inset: 0; background: radial-gradient(${Math.round(Math.min(L.W, L.H) * 0.7)}px ${Math.round(Math.min(L.W, L.H) * 0.7)}px at 50% 42%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 70%); }
     #root .ec { position: absolute; left: 96px; right: 96px; top: ${e.top}px; display: flex; flex-direction: column; align-items: center; gap: ${e.gap}px; text-align: center; }
     #root .ec-cta { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: ${e.cta}px; color: var(--color-ink); }
-    #root .ec-handle { font-family: var(--font-body); font-weight: 700; font-size: 40px; color: var(--color-muted); }`,
+    #root .ec-handle { font-family: var(--font-body); font-weight: 700; font-size: ${Math.round(40 * (L.k || 1))}px; color: var(--color-muted); }`,
     body: `    <div class="ec-bg"></div><div class="ec-glow" id="ec-glow"></div>
-    <div class="ec"><div id="ec-logo">${logoHtml(b, b.logo.style, format === "vertical" ? 120 : 104)}</div><div class="ec-cta" id="ec-cta"></div><div class="ec-handle" id="ec-handle"></div></div>`,
+    <div class="ec"><div id="ec-logo">${logoHtml(b, b.logo.style, Math.round((format === "vertical" ? 120 : 104) * (L.k || 1)))}</div><div class="ec-cta" id="ec-cta"></div><div class="ec-handle" id="ec-handle"></div></div>`,
     script: `
       document.getElementById("ec-cta").textContent = String(V.cta || "");
       document.getElementById("ec-handle").textContent = String(V.handle || "");
@@ -245,7 +246,7 @@ export function recipeCardComponent(b, fontsCss, format = "vertical") {
     steps: ["then"],
     cta: b.samples.cta || "",
   };
-  const place = `left:${r.left == null ? "auto" : r.left + "px"};right:${r.right}px;${r.width ? `width:${r.width}px;` : ""}`;
+  const place = `left:${r.left == null ? "auto" : r.left + "px"};right:${r.right == null ? "auto" : r.right + "px"};${r.width ? `width:${r.width}px;` : ""}`;
   return frame("brand-recipe-card", {
     b,
     L,
@@ -253,14 +254,14 @@ export function recipeCardComponent(b, fontsCss, format = "vertical") {
     variables: [{ id: "top", type: "number", label: "Top (px)", default: r.top, min: 40, max: L.H - 300 }],
     css: `
 ${logoCss("#root").replace(/^/gm, "    ")}
-${recipeCss("#root").replace(/^/gm, "    ")}`,
+${recipeCss("#root", L.k || 1).replace(/^/gm, "    ")}`,
     body: `    <div id="rc-host"></div>`,
     script: `
       // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta}], steps:[], cta})
       var RECIPE = ${JSON.stringify(sample)};
       // @recipe-end
       var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-      var LOGO = ${JSON.stringify(logoHtml(b, b.logo.style, 34))};
+      var LOGO = ${JSON.stringify(logoHtml(b, b.logo.style, Math.round(34 * (L.k || 1))))};
       var rows = [];
       (RECIPE.tracks || []).forEach(function (t, i) {
         if (i > 0) rows.push('<div class="rc-step" id="rc-s' + i + '"><i>↓</i>' + esc((RECIPE.steps || [])[i - 1] || "") + "</div>");

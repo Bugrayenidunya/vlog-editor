@@ -114,6 +114,10 @@
     --rail-right: 150px;
     --pad-x: 72px;
     --cap-bottom: 650px;
+      --pad-x: 140px;
+      --rail-right: 400px;
+      --cap-bottom: 110px;
+      --cap-size: 97px;
       position: absolute;
       inset: 0;
       overflow: visible;
@@ -146,7 +150,7 @@
     #root [data-cap-style="kinetic"] .is-active .cap-txt { color: var(--cap-active); }
     #root .cap-group { opacity: 0; visibility: hidden; }
   </style>
-  <div id="root" data-composition-id="brand-captions" data-width="1080" data-height="1920">
+  <div id="root" data-composition-id="captions" data-width="1920" data-height="1080">
     <div id="cap-layer"></div>
   </div>
   <script>
@@ -155,10 +159,10 @@
       var V = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
       var M = {"ease":{"enter":"power3.out","exit":"power2.in","pop":"back.out(1.6)"},"d":{"fast":0.18,"base":0.34,"slow":0.6},"energy":"balanced"};
 
-      // @words-start — the video workflow replaces this array from transcript.json ([{text,start,end}], seconds, scene-local)
-      var WORDS = [{"text":"bass","start":0.15,"end":0.43},{"text":"swap","start":0.47,"end":0.75},{"text":"on","start":0.79,"end":1.07},{"text":"the","start":1.11,"end":1.39},{"text":"drop","start":1.43,"end":1.71},{"text":"and","start":1.75,"end":2.03},{"text":"nobody","start":2.07,"end":2.35},{"text":"notices","start":2.39,"end":2.67}];
+      // @words-start — the video workflow replaces this array ([{text,start,end}], seconds, scene-local)
+      var WORDS = [{"text":"filter","start":4,"end":4.409},{"text":"it","start":4.429,"end":4.837},{"text":"in,","start":4.857,"end":5.266},{"text":"then","start":5.286,"end":5.694},{"text":"EQ","start":5.714,"end":6.123},{"text":"the","start":6.143,"end":6.551},{"text":"mids","start":6.571,"end":6.98}];
       // @words-end
-      var STYLE = "pill", MAXW = 5, BASE = 84, MIN = 48;
+      var STYLE = "pill", MAXW = 5, BASE = 97, MIN = 55;
       var ACTIVE = getComputedStyle(document.getElementById("cap-layer")).getPropertyValue("--cap-active").trim() || "#F2B84B";
       var TEXT = "#FFFFFF", ONBOX = "#FFFFFF";
       var BASE_INK = STYLE === "pill" ? ONBOX : TEXT, ACTIVE_INK = STYLE === "highlight" ? ONBOX : ACTIVE;
@@ -176,9 +180,9 @@
         el.className = "cap-group"; el.id = "cap-g" + gi; el.setAttribute("data-cap-style", STYLE);
         var line = g.map(function (w) { return w.text; }).join(" ");
         var cs = getComputedStyle(layer), fam = cs.getPropertyValue(STYLE === "kinetic" ? "--font-display" : "--font-caption"), wt = cs.getPropertyValue(STYLE === "kinetic" ? "--display-weight" : "--cap-weight");
-        var tr = cs.getPropertyValue("--cap-transform").trim(), shown = tr === "uppercase" ? line.toLocaleUpperCase("tr") : line;
+        var tr = cs.getPropertyValue("--cap-transform").trim(), shown = tr === "uppercase" ? line.toLocaleUpperCase() : line;
         var scale = STYLE === "kinetic" ? 1.6 : STYLE === "pill" ? 0.72 : STYLE === "clean" ? 0.78 : 1;
-        var size = BASE * scale, maxW = 1080 - 72 - 150 - 40;
+        var size = BASE * scale, maxW = 1340;
         while (size > MIN * scale) { cv.font = wt + " " + size + "px " + fam; if (cv.measureText(shown).width <= maxW * 1.9) break; size -= 2; }
         el.style.setProperty("--cap-size", (size / scale) + "px");
         g.forEach(function (w, wi) {
@@ -202,7 +206,7 @@
         tl.to(el, { opacity: 0, duration: 0.12, ease: M.ease.exit }, ge - 0.12);
         tl.set(el, { opacity: 0, visibility: "hidden" }, ge);
       });
-      window.__timelines["brand-captions"] = tl;
+      window.__timelines["captions"] = tl;
     })();
   </script>
 </template>

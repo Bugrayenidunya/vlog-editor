@@ -291,19 +291,20 @@ export function emphasize(text, phrase) {
  * Recipe card: an ordered list of items joined by steps (DJ: tracks joined by transitions; any niche: steps).
  * recipe = { label, title, tracks: [{ title, artist, meta }], steps: ["EQ blend, bass swap · 16 bars"], cta }
  */
-export function recipeCss(scope = "") {
+export function recipeCss(scope = "", k = 1) {
   const s = scope ? scope + " " : "";
+  const px = (n) => `${Math.round(n * k)}px`;
   return `
-${s}.rc { position: absolute; left: var(--pad-x); right: var(--rail-right); background: var(--color-surface); border-radius: 34px; padding: 30px 32px 24px; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
-${s}.rc-label { font-family: var(--font-body); font-weight: 700; font-size: 28px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-muted); }
-${s}.rc-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 60px; line-height: 1.02; color: var(--color-ink); margin: 6px 0 20px; }
-${s}.rc-track { display: flex; align-items: center; gap: 20px; }
-${s}.rc-num { flex: none; width: 84px; height: 84px; border-radius: 18px; background: var(--color-primary); color: var(--color-on-primary); display: grid; place-items: center; font-family: var(--font-body); font-weight: 800; font-size: 36px; }
-${s}.rc-track b { display: block; font-family: var(--font-body); font-weight: 700; font-size: 36px; line-height: 1.15; color: var(--color-ink); }
-${s}.rc-track span { display: block; font-family: var(--font-body); font-weight: 500; font-size: 28px; line-height: 1.3; color: var(--color-muted); }
-${s}.rc-step { display: flex; align-items: center; gap: 14px; margin: 12px 0 12px 20px; font-family: var(--font-body); font-weight: 700; font-size: 29px; color: var(--color-accent); }
-${s}.rc-step i { font-style: normal; font-size: 34px; line-height: 1; }
-${s}.rc-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 2px solid color-mix(in srgb, var(--color-ink) 10%, transparent); font-family: var(--font-body); font-weight: 700; font-size: 28px; color: var(--color-muted); }
+${s}.rc { position: absolute; left: var(--pad-x); right: var(--rail-right); background: var(--color-surface); border-radius: ${px(34)}; padding: ${px(30)} ${px(32)} ${px(24)}; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+${s}.rc-label { font-family: var(--font-body); font-weight: 700; font-size: ${px(28)}; letter-spacing: .14em; text-transform: uppercase; color: var(--color-muted); }
+${s}.rc-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: ${px(60)}; line-height: 1.02; color: var(--color-ink); margin: ${px(6)} 0 ${px(20)}; }
+${s}.rc-track { display: flex; align-items: center; gap: ${px(20)}; }
+${s}.rc-num { flex: none; width: ${px(84)}; height: ${px(84)}; border-radius: ${px(18)}; background: var(--color-primary); color: var(--color-on-primary); display: grid; place-items: center; font-family: var(--font-body); font-weight: 800; font-size: ${px(36)}; }
+${s}.rc-track b { display: block; font-family: var(--font-body); font-weight: 700; font-size: ${px(36)}; line-height: 1.15; color: var(--color-ink); }
+${s}.rc-track span { display: block; font-family: var(--font-body); font-weight: 500; font-size: ${px(28)}; line-height: 1.3; color: var(--color-muted); }
+${s}.rc-step { display: flex; align-items: center; gap: ${px(14)}; margin: ${px(12)} 0 ${px(12)} ${px(20)}; font-family: var(--font-body); font-weight: 700; font-size: ${px(29)}; color: var(--color-accent); }
+${s}.rc-step i { font-style: normal; font-size: ${px(34)}; line-height: 1; }
+${s}.rc-foot { display: flex; justify-content: space-between; align-items: center; gap: ${px(16)}; margin-top: ${px(20)}; padding-top: ${px(16)}; border-top: 2px solid color-mix(in srgb, var(--color-ink) 10%, transparent); font-family: var(--font-body); font-weight: 700; font-size: ${px(28)}; color: var(--color-muted); }
 ${s}.rc-foot b { color: var(--color-highlight); }
 `.trim();
 }
@@ -324,16 +325,32 @@ export const FORMATS = {
   vertical: { W: 1080, H: 1920, resolution: "portrait", label: "9:16", platforms: "TikTok, Instagram Reels, YouTube Shorts" },
   horizontal: { W: 1920, H: 1080, resolution: "landscape", label: "16:9", platforms: "YouTube" },
   square: { W: 1080, H: 1080, resolution: "square", label: "1:1", platforms: "Instagram feed" },
+  // A 16:9 video shown in a vertical feed (TikTok, Reels): it plays at ~0.56× in the middle of the phone with the
+  // app's buttons over its right edge, so type is 1.5× larger and nothing sits under the right-hand icons.
+  "horizontal-feed": { W: 1920, H: 1080, resolution: "landscape", label: "16:9 in a vertical feed", platforms: "TikTok, Instagram (horizontal video)" },
 };
 
 /** Pixel layout for each component in a format. Vertical keeps the platform-UI safe zones from brand.layout. */
 export function layoutFor(b, format = "vertical") {
   const f = FORMATS[format] || FORMATS.vertical;
   const capSize = b.captions?.size ?? 84;
+  if (format === "horizontal-feed")
+    return {
+      ...f,
+      name: "horizontal-feed",
+      k: 1.5,
+      hook: { top: 150, left: 110, right: 640, lines: 3, max: 150, min: 90, scrim: "left" },
+      recipe: { top: 110, left: 110, right: null, width: 980 },
+      lt: { top: 640, left: 110, maxWidth: 1250 },
+      cap: { bottom: 110, left: 140, right: 400, size: Math.round(capSize * 1.15) },
+      end: { top: 220, gap: 44, cta: 120 },
+      pip: { width: 560, height: 315, right: 300, bottom: 70 },
+    };
   if (format === "horizontal")
     return {
       ...f,
       name: "horizontal",
+      k: 1,
       // YouTube: no app UI over the frame; keep words inside the 80% title-safe box (96 px / 54 px margins at 90%).
       hook: { top: 300, left: 120, right: 760, lines: 3, max: 118, min: 60, scrim: "left" },
       recipe: { top: 96, left: null, right: 96, width: 660 },
@@ -346,6 +363,7 @@ export function layoutFor(b, format = "vertical") {
     return {
       ...f,
       name: "square",
+      k: 1,
       hook: { top: 110, left: 72, right: 72, lines: 3, max: 120, min: 60, scrim: "top" },
       recipe: { top: 400, left: 120, right: 120, width: null },
       lt: { top: 780, left: 72, maxWidth: 936 },
@@ -357,6 +375,7 @@ export function layoutFor(b, format = "vertical") {
   return {
     ...f,
     name: "vertical",
+    k: 1,
     hook: { top: 250, left: L.padX, right: L.railRight, lines: 3, max: 150, min: 76, scrim: "top" },
     recipe: { top: 560, left: L.padX, right: L.railRight, width: null },
     lt: { top: 930, left: L.padX, maxWidth: 1080 - L.padX - L.railRight },

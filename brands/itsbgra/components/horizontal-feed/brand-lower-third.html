@@ -114,28 +114,19 @@
     --rail-right: 150px;
     --pad-x: 72px;
     --cap-bottom: 650px;
+
       position: absolute;
       inset: 0;
       overflow: visible;
     }
 
-    #root .logo { display: inline-flex; align-items: center; gap: 0.32em; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1; color: var(--color-ink); white-space: nowrap; }
-    #root .logo-dot { display: inline-block; width: 0.2em; height: 0.2em; border-radius: 50%; background: var(--color-accent); margin-left: 0.07em; vertical-align: baseline; }
-    #root .logo-underline { display: inline-flex; flex-direction: column; align-items: stretch; gap: 0.08em; }
-    #root .logo-underline .logo-bar { height: 0.12em; background: var(--color-accent); border-radius: 0.06em; }
-    #root .logo-mark { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; background: var(--color-primary); color: var(--color-on-primary); font-size: 1em; letter-spacing: 0; }
-    #root .logo-mark.is-circle { border-radius: 50%; }
-    #root .logo-mark.is-square { border-radius: 22%; }
-    #root .logo-mark span { font-size: 0.78em; transform: translateY(0.02em); }
-    #root .ec-bg { position: absolute; inset: 0; background: var(--color-ground); }
-    #root .ec-glow { position: absolute; inset: 0; background: radial-gradient(760px 760px at 50% 42%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 70%); }
-    #root .ec { position: absolute; left: var(--pad-x); right: var(--pad-x); top: 560px; display: flex; flex-direction: column; align-items: center; gap: 56px; text-align: center; }
-    #root .ec-cta { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: 92px; color: var(--color-ink); }
-    #root .ec-handle { font-family: var(--font-body); font-weight: 700; font-size: 40px; color: var(--color-muted); }
+    #root .lt { position: absolute; left: 110px; top: 640px; max-width: 1250px; display: flex; align-items: stretch; gap: 33px; padding: 33px 51px 36px 36px; background: color-mix(in srgb, var(--color-surface) 90%, transparent); border-radius: 39px; }
+    #root .lt-bar { width: 15px; border-radius: 9px; background: var(--color-accent); }
+    #root .lt-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 93px; line-height: 1; color: var(--color-ink); }
+    #root .lt-sub { font-family: var(--font-body); font-weight: 700; font-size: 45px; line-height: 1.2; color: var(--color-muted); margin-top: 12px; }
   </style>
-  <div id="root" data-composition-id="brand-end-card" data-width="1080" data-height="1920" data-composition-variables='[{"id":"cta","type":"string","label":"Call to action","default":"Save it in Mixnote","maxLength":40},{"id":"handle","type":"string","label":"Handle","default":"@itsbgra"}]'>
-    <div class="ec-bg"></div><div class="ec-glow" id="ec-glow"></div>
-    <div class="ec"><div id="ec-logo"><span class="logo" style="font-size:120px"><span>itsbgra<span class="logo-dot"></span></span></span></div><div class="ec-cta" id="ec-cta"></div><div class="ec-handle" id="ec-handle"></div></div>
+  <div id="root" data-composition-id="brand-lower-third" data-width="1920" data-height="1080" data-composition-variables='[{"id":"title","type":"string","label":"Title","default":"Bass swap","maxLength":40},{"id":"subtitle","type":"string","label":"Subtitle","default":"16 bars · 122 → 124 BPM","maxLength":60}]'>
+    <div class="lt" id="lt"><div class="lt-bar" id="lt-bar"></div><div><div class="lt-title" id="lt-title"></div><div class="lt-sub" id="lt-sub"></div></div></div>
   </div>
   <script>
     (function () {
@@ -143,14 +134,15 @@
       var V = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
       var M = {"ease":{"enter":"power3.out","exit":"power2.in","pop":"back.out(1.6)"},"d":{"fast":0.18,"base":0.34,"slow":0.6},"energy":"balanced"};
 
-      document.getElementById("ec-cta").textContent = String(V.cta || "");
-      document.getElementById("ec-handle").textContent = String(V.handle || "");
+      document.getElementById("lt-title").textContent = String(V.title || "");
+      document.getElementById("lt-sub").textContent = String(V.subtitle || "");
+      var dur = (window.__hyperframes && window.__hyperframes.duration) || 3;
       var tl = gsap.timeline({ paused: true });
-      tl.fromTo("#ec-glow", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: M.d.slow, ease: M.ease.enter }, 0);
-      tl.fromTo("#ec-logo", { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: M.d.base, ease: M.ease.pop }, 0.05);
-      tl.fromTo("#ec-cta", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: M.d.base, ease: M.ease.enter }, 0.2);
-      tl.fromTo("#ec-handle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: M.d.base, ease: M.ease.enter }, 0.32);
-      window.__timelines["brand-end-card"] = tl;
+      tl.fromTo("#lt", { clipPath: "inset(0% 100% 0% 0% round 26px)" }, { clipPath: "inset(0% 0% 0% 0% round 26px)", duration: M.d.base, ease: M.ease.enter }, 0.05);
+      tl.fromTo("#lt-title", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: M.d.base, ease: M.ease.enter }, 0.15);
+      tl.fromTo("#lt-sub", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: M.d.base, ease: M.ease.enter }, 0.22);
+      tl.to("#lt", { clipPath: "inset(0% 0% 0% 100% round 26px)", duration: M.d.base, ease: M.ease.exit }, Math.max(0.8, dur - M.d.base - 0.05));
+      window.__timelines["brand-lower-third"] = tl;
     })();
   </script>
 </template>
