@@ -1,0 +1,61 @@
+{
+  "source": "Google Fonts (SIL OFL / Apache 2.0 — check each license link)",
+  "families": [
+    {
+      "family": "Plus Jakarta Sans",
+      "weights": [
+        800
+      ],
+      "missingWeights": [],
+      "subsetsAvailable": [
+        "cyrillic-ext",
+        "vietnamese",
+        "latin-ext",
+        "latin"
+      ],
+      "subsetsSaved": [
+        "latin-ext",
+        "latin"
+      ],
+      "latinExt": true,
+      "files": [
+        "plus-jakarta-sans-800-latin-ext.woff2",
+        "plus-jakarta-sans-800-latin.woff2"
+      ],
+      "license": "https://fonts.google.com/specimen/Plus+Jakarta+Sans/license"
+    },
+    {
+      "family": "Inter",
+      "weights": [
+        400,
+        600,
+        700
+      ],
+      "missingWeights": [],
+      "subsetsAvailable": [
+        "cyrillic-ext",
+        "cyrillic",
+        "greek-ext",
+        "greek",
+        "vietnamese",
+        "latin-ext",
+        "latin"
+      ],
+      "subsetsSaved": [
+        "latin-ext",
+        "latin"
+      ],
+      "latinExt": true,
+      "files": [
+        "inter-400-latin-ext.woff2",
+        "inter-400-latin.woff2",
+        "inter-600-latin-ext.woff2",
+        "inter-600-latin.woff2",
+        "inter-700-latin-ext.woff2",
+        "inter-700-latin.woff2"
+      ],
+      "license": "https://fonts.google.com/specimen/Inter/license"
+    }
+  ],
+  "missing": []
+}

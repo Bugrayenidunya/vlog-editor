@@ -11,7 +11,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { parseArgs, log, die, exists, ensureDir, writeJson, run, runHf, warmHf, parseJsonLoose, escapeHtml } from "./lib/util.mjs";
 import { contrast } from "./lib/util.mjs";
-import { loadBrand, validateBrand, fontFamilies, cssVariables, captionCss, captionWordsHtml, logoCss, logoHtml, fitDisplaySize, emphasize } from "./lib/brand.mjs";
+import { loadBrand, validateBrand, fontFamilies, cssVariables, captionCss, captionWordsHtml, logoCss, logoHtml, fitDisplaySize, emphasize, recipeCss, recipeHtml } from "./lib/brand.mjs";
 import { fetchFonts } from "./fonts.mjs";
 
 const GSAP = "https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js";
@@ -20,7 +20,13 @@ function boardHtml(b, { fontsCss, chipId, chipLabel, sub, hasBg }) {
   const c = b.colors;
   // Captions live over footage, not over the brand ground: on a light ground, judge them on a footage-dark band.
   const needsPlate = !hasBg && b.captions.style !== "pill" && contrast(c.captionText, c.ground) < 3;
-  const hookSize = fitDisplaySize(b.samples.hook, { width: 1080 - b.layout.padX - b.layout.railRight, lines: 3, max: 150, min: 76, widthFactor: b.fonts.display.widthFactor ?? 0.5 });
+  const rec = b.samples.recipe || null;
+  const hookSize = rec
+    ? fitDisplaySize(b.samples.hook, { width: 1080 - b.layout.padX - b.layout.railRight, lines: 2, max: 118, min: 60, widthFactor: b.fonts.display.widthFactor ?? 0.5 })
+    : fitDisplaySize(b.samples.hook, { width: 1080 - b.layout.padX - b.layout.railRight, lines: 3, max: 150, min: 76, widthFactor: b.fonts.display.widthFactor ?? 0.5 });
+  const hookTop = rec ? 320 : 340;
+  const recipeTop = Math.round(hookTop + 2 * hookSize * (b.fonts.display.lineHeight ?? 1) + 56);
+  const recipeShown = rec ? { ...rec, tracks: (rec.tracks || []).slice(0, 2), steps: (rec.steps || []).slice(0, 1) } : null;
   const capWords = String(b.samples.caption).split(/\s+/).filter(Boolean);
   const groupSize = Math.max(...[].concat(b.captions.wordsPerGroup || [3]));
   const active = Math.min(b.samples.captionActive ?? 0, capWords.length - 1);
@@ -62,7 +68,7 @@ ${cssVariables(b)}
       .chip-id { flex: none; width: 68px; height: 68px; border-radius: 50%; background: var(--color-ink); color: var(--color-ground); display: grid; place-items: center; font-family: var(--font-body); font-weight: 700; font-size: 34px; }
       .chip-label { font-family: var(--font-body); font-weight: 700; font-size: 32px; line-height: 1.1; }
       .chip-sub { font-family: var(--font-body); font-weight: 400; font-size: 23px; line-height: 1.3; color: var(--color-muted); margin-top: 4px; }
-      .hook { position: absolute; top: 340px; left: var(--pad-x); right: var(--rail-right); font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: ${hookSize}px; color: var(--color-ink); text-wrap: balance; }
+      .hook { position: absolute; top: ${hookTop}px; left: var(--pad-x); right: var(--rail-right); font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: ${hookSize}px; color: var(--color-ink); text-wrap: balance; }
       .hook em { font-style: normal; color: var(--color-highlight); }
       .cap-plate { position: absolute; left: 0; right: 0; top: 1000px; height: 360px; background: linear-gradient(180deg, transparent 0%, rgba(24,20,18,.82) 28%, rgba(24,20,18,.82) 72%, transparent 100%); }
       .cap-plate span { position: absolute; right: var(--pad-x); bottom: 70px; font-family: var(--font-body); font-size: 18px; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); }
@@ -70,6 +76,7 @@ ${cssVariables(b)}
       .handle { font-family: var(--font-body); font-weight: 700; font-size: 30px; color: var(--color-muted); }
 ${captionCss()}
 ${logoCss()}
+${recipeCss()}
       .spec { position: absolute; left: 36px; right: 36px; bottom: 36px; height: 520px; background: var(--color-surface); border-radius: 40px; padding: 38px 44px; display: flex; flex-direction: column; gap: 30px; }
       .swatches { display: flex; justify-content: space-between; }
       .sw { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 150px; }
@@ -95,7 +102,7 @@ ${logoCss()}
         <div><div class="chip-label">${escapeHtml(chipLabel)}</div>${sub ? `<div class="chip-sub">${escapeHtml(sub)}</div>` : ""}</div>
       </div>
       <h1 class="hook">${emphasize(b.samples.hook, b.samples.hookEmphasis)}</h1>
-      <div class="brandline">${logoHtml(b, b.logo.style, 64)}${handle ? `<span class="handle">${escapeHtml(handle)}</span>` : ""}</div>
+      ${recipeShown ? recipeHtml(b, recipeShown).replace('class="rc"', `class="rc" style="top:${recipeTop}px"`) : `<div class="brandline">${logoHtml(b, b.logo.style, 64)}${handle ? `<span class="handle">${escapeHtml(handle)}</span>` : ""}</div>`}
       ${needsPlate ? '<div class="cap-plate"><span>over footage</span></div>' : ""}
       <div class="cap-group" data-cap-style="${escapeHtml(b.captions.style)}">${captionWordsHtml(shown, shownActive)}</div>
       <div class="spec">

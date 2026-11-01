@@ -1,0 +1,233 @@
+{
+  "schema": "vlog-editor/brand@1",
+  "name": "itsbgra",
+  "positioning": "A DJ learning in public who turns every blend that works into a recipe beginners can copy — and save in Mixnote.",
+  "niche": "DJ journey and transitions",
+  "audience": "new and beginner DJs worldwide",
+  "handles": {
+    "tiktok": "@itsbgra"
+  },
+  "languages": [
+    "en"
+  ],
+  "personality": {
+    "energy": 0.6,
+    "polish": 0.65,
+    "warmth": 0.65,
+    "playfulness": 0.5
+  },
+  "layout": {
+    "safeTop": 168,
+    "textBottom": 1330,
+    "railRight": 150,
+    "padX": 72,
+    "captionBottom": 650
+  },
+  "voice": {
+    "tone": [
+      "honest",
+      "encouraging",
+      "practical",
+      "learning in public"
+    ],
+    "hookFormulas": [
+      "If you're a beginner DJ, steal this {bars}-bar blend",
+      "{Song A} → {Song B}: the blend that finally clicked",
+      "I practised this {technique} all week — here's the recipe",
+      "The {technique} mistake I kept making (and the fix)"
+    ],
+    "ctas": [
+      "Save it in Mixnote",
+      "The full recipe is in Mixnote",
+      "Which blend should I learn next?"
+    ],
+    "hashtags": [
+      "#djtransition",
+      "#djmix",
+      "#housemusic",
+      "#djlife",
+      "#mixnote"
+    ]
+  },
+  "rules": {
+    "do": [
+      "Frame 0 is you: your face, or you at the decks, filling the 9:16 frame",
+      "Shoot vertical: a phone above the decks plus one front angle; never letterbox landscape footage",
+      "Name the blend in the hook text: \"Song A → Song B\", and speak to beginners (\"If you're a beginner DJ…\")",
+      "Hook in the first 4 s, then let the blend play in long takes (8–24 s)",
+      "Show the recipe card once the blend lands: technique · bars, BPM · key",
+      "Master to about −14 LUFS; photo posts use the official track sound",
+      "Close on \"Save it in Mixnote\""
+    ],
+    "dont": [
+      "No blue/violet LED room as the look",
+      "No copied templates (a purple title box with a \"DJ Mix Tutorial\" pill)",
+      "No \"Day N\" numbering as the hook",
+      "No voice-over needed: on-screen text carries the teaching",
+      "Never quieter than the references: −20 LUFS or lower reads as broken"
+    ]
+  },
+  "evidence": {
+    "styleDna": "research/style-dna.md",
+    "summary": [
+      "Recipe cards are your top 2 posts: 633 and 208 likes vs a median of 11 for your videos",
+      "About 30 of 37 reference thumbnails show a person; 0 of your 11 do",
+      "Your videos: luma 33 and −31 LUFS vs references' 97 and −16.8 (letterboxed and quiet)",
+      "References' top half cut first at 3.7 s (vs 5.0 s) and then hold 24 s shots (vs 16.5 s)",
+      "6 of @offtherackjack's top 8 open by naming the beginner"
+    ]
+  },
+  "tagline": "A beginner's DJ notebook",
+  "direction": {
+    "id": "B",
+    "label": "Beginner's Notebook",
+    "summary": "Paper-white recipe cards, mono data, signal orange. Unlike any DJ feed.",
+    "rationale": "The opening: no reference shows recipe data, and every one sits in dark LED rooms behind TikTok's default white box. A paper-notebook system (light cards, monospace BPM and key, an orange cue line) makes the receipts the look while keeping the winning grammar: you at frame 0, fast in, long blend."
+  },
+  "colors": {
+    "ground": "#F3F0E8",
+    "surface": "#FFFFFF",
+    "ink": "#151412",
+    "muted": "#6E6A62",
+    "primary": "#FF5A1F",
+    "accent": "#FF5A1F",
+    "highlight": "#FF5A1F",
+    "captionText": "#FFFFFF",
+    "captionStroke": "#151412",
+    "captionBox": "#151412"
+  },
+  "fonts": {
+    "display": {
+      "family": "Archivo Black",
+      "weights": [
+        400
+      ],
+      "transform": "none",
+      "tracking": "-0.01em",
+      "lineHeight": 1.0,
+      "widthFactor": 0.6
+    },
+    "body": {
+      "family": "IBM Plex Mono",
+      "weights": [
+        400,
+        500,
+        700
+      ]
+    },
+    "caption": {
+      "family": "Archivo",
+      "weight": 800,
+      "transform": "none"
+    }
+  },
+  "captions": {
+    "style": "clean",
+    "wordsPerGroup": [
+      4,
+      6
+    ],
+    "size": 84,
+    "minSize": 48
+  },
+  "logo": {
+    "style": "wordmark-underline",
+    "case": "lower"
+  },
+  "motion": {
+    "energy": "balanced",
+    "ease": {
+      "enter": "power2.out",
+      "exit": "power2.in",
+      "pop": "back.out(1.4)"
+    },
+    "durations": {
+      "fast": 0.16,
+      "base": 0.3,
+      "slow": 0.55
+    },
+    "transitions": [
+      "hard cut on the downbeat",
+      "notebook card slide-in",
+      "match cut on the hands"
+    ],
+    "pace": {
+      "shotSeconds": [
+        8,
+        24
+      ],
+      "firstCutBy": 4
+    }
+  },
+  "look": {
+    "grade": "clean daylight",
+    "luma": 110,
+    "contrast": 58,
+    "saturation": 0.22,
+    "warmth": 0
+  },
+  "sound": {
+    "enabled": true,
+    "music": {
+      "moods": [
+        "focused",
+        "warm",
+        "deep"
+      ],
+      "genres": [
+        "deep house",
+        "disco classics"
+      ],
+      "bpm": [
+        118,
+        126
+      ],
+      "lufs": -14,
+      "vocals": "the mix itself"
+    },
+    "sting": {
+      "description": "a cue-button click into one deep-house kick and open hat, 0.6 s",
+      "file": null
+    },
+    "sfx": {
+      "whoosh": "low-pass filter sweep",
+      "pop": "pencil tick for each recipe line",
+      "click": "cue-button click",
+      "riser": "soft tape riser"
+    },
+    "voice": {
+      "style": "no voice-over; on-screen text carries the teaching"
+    }
+  },
+  "samples": {
+    "hook": "My DJ notebook: Show Me Love → Groovejet",
+    "hookEmphasis": "Show Me Love → Groovejet",
+    "caption": "thirty two bars of bass swap, slow and steady",
+    "captionActive": 2,
+    "lowerThird": {
+      "title": "EQ blend",
+      "subtitle": "32 bars"
+    },
+    "cta": "Save it in Mixnote",
+    "recipe": {
+      "label": "Combo",
+      "title": "Smooth run",
+      "tracks": [
+        {
+          "title": "Show Me Love (Stonebridge Club Mix)",
+          "artist": "Robin S.",
+          "meta": ""
+        },
+        {
+          "title": "Groovejet (If This Ain't Love)",
+          "artist": "Spiller",
+          "meta": ""
+        }
+      ],
+      "steps": [
+        "EQ blend, bass swap · 32 bars"
+      ],
+      "cta": "Save it in Mixnote"
+    }
+  }
+}

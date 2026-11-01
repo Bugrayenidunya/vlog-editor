@@ -17,7 +17,7 @@ import fsp from "node:fs/promises";
 import path from "node:path";
 import { parseArgs, log, die, exists, ensureDir, writeJson, readJson, runHf, warmHf, run } from "./lib/util.mjs";
 import { loadBrand, validateBrand, fontFamilies, cssVariables, captionCss, logoCss, emphasize } from "./lib/brand.mjs";
-import { hookComponent, captionsComponent, lowerThirdComponent, endCardComponent, logoStillHtml, defaultWords } from "./lib/components.mjs";
+import { hookComponent, captionsComponent, lowerThirdComponent, endCardComponent, recipeCardComponent, logoStillHtml, defaultWords } from "./lib/components.mjs";
 import { fetchFonts } from "./fonts.mjs";
 import { prepareBoard, snapshotBoard } from "./board.mjs";
 import { applyBrand } from "./apply-brand.mjs";
@@ -61,6 +61,7 @@ const components = {
   "brand-captions.html": captionsComponent(b, compFonts),
   "brand-lower-third.html": lowerThirdComponent(b, compFonts),
   "brand-end-card.html": endCardComponent(b, compFonts),
+  "brand-recipe-card.html": recipeCardComponent(b, compFonts),
 };
 for (const [f, html] of Object.entries(components)) await fsp.writeFile(path.join(compDir, f), html);
 
@@ -124,6 +125,7 @@ const front = {
     "hook-title": { file: "compositions/brand/brand-hook.html", variables: "hook, emphasis", description: "On screen at frame 0 (the thumbnail); first 2–3 s." },
     "lower-third": { file: "compositions/brand/brand-lower-third.html", variables: "title, subtitle", description: "Place or topic chip at y 930, above the caption band." },
     "end-card": { file: "compositions/brand/brand-end-card.html", variables: "cta, handle", description: "Last 2–3 s: logo, call to action, handle." },
+    "recipe-card": { file: "compositions/brand/brand-recipe-card.html", variables: "top", description: "Items joined by steps (tracks joined by transitions: technique · bars, BPM · key). Fill RECIPE between the @recipe markers." },
     logo: { style: b.logo.style, text: b.logo.text, monogram: b.logo.monogram, files: "assets/brand/avatar.png, assets/brand/wordmark.png" },
   },
   motion: { energy: b.motion.energy, ease: b.motion.ease, durations: b.motion.durations, transitions: list(b.motion.transitions), "shot-seconds": list(b.motion.pace?.shotSeconds), "first-cut-by": b.motion.pace?.firstCutBy ?? null },
@@ -230,10 +232,12 @@ if (!args["no-sizzle"]) {
   const proj = path.join(work, "sizzle");
   await fsp.rm(proj, { recursive: true, force: true });
   await applyBrand(brandDir, proj, { force: true });
+  const R = b.samples.recipe ? 4.2 : 0; // extra seconds for the recipe segment
+  const total = 9 + R;
   let footage = "";
   if (args.footage && exists(path.resolve(args.footage))) {
-    await run("ffmpeg", ["-v", "error", "-y", "-i", path.resolve(args.footage), "-t", "9", "-an", "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", path.join(proj, "assets", "footage.mp4")]);
-    footage = `<video id="footage" class="clip" src="assets/footage.mp4" data-start="0" data-duration="6.6" data-track-index="0" muted playsinline></video>`;
+    await run("ffmpeg", ["-v", "error", "-y", "-i", path.resolve(args.footage), "-t", String(total), "-an", "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", path.join(proj, "assets", "footage.mp4")]);
+    footage = `<video id="footage" class="clip" src="assets/footage.mp4" data-start="0" data-duration="${6.6 + R}" data-track-index="0" muted playsinline></video>`; // under everything but the end card
   }
   // The sizzle's captions use the sample line with even timings.
   const capFile = path.join(proj, "compositions", "brand", "brand-captions.html");
@@ -261,19 +265,20 @@ if (!args["no-sizzle"]) {
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="${total}" data-width="1080" data-height="1920">
       <div id="backdrop"><div id="glow-a"></div><div id="glow-b"></div></div>
       ${footage}
       ${host("brand-hook", 0, 2.8, 2, { hook: b.samples.hook, emphasis: b.samples.hookEmphasis || "" })}
-      ${host("brand-captions", 2.8, 3.8, 3, null, "captions")}
-      ${host("brand-lower-third", 3.0, 3.4, 4, { title: b.samples.lowerThird?.title || "", subtitle: b.samples.lowerThird?.subtitle || "" })}
-      ${host("brand-end-card", 6.6, 2.4, 5, { cta: b.samples.cta || "", handle })}
+      ${R ? host("brand-recipe-card", 2.8, 4.2, 6, { top: 520 }) : ""}
+      ${host("brand-captions", 2.8 + R, 3.8, 3, null, "captions")}
+      ${host("brand-lower-third", 3.0 + R, 3.4, 4, { title: b.samples.lowerThird?.title || "", subtitle: b.samples.lowerThird?.subtitle || "" })}
+      ${host("brand-end-card", 6.6 + R, 2.4, 5, { cta: b.samples.cta || "", handle })}
     </div>
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 260, y: 180, duration: 9, ease: "sine.inOut" }, 0);
-      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -220, y: -260, duration: 9, ease: "sine.inOut" }, 0);
+      tl.fromTo("#glow-a", { x: 0, y: 0 }, { x: 260, y: 180, duration: ${total}, ease: "sine.inOut" }, 0);
+      tl.fromTo("#glow-b", { x: 0, y: 0 }, { x: -220, y: -260, duration: ${total}, ease: "sine.inOut" }, 0);
       window.__timelines["main"] = tl;
     </script>
   </body>

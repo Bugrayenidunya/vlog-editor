@@ -1,0 +1,25 @@
+{
+  "directions": [
+    {
+      "id": "A",
+      "label": "Mixnote Native",
+      "summary": "Mixnote's warm black and gold arrows, clean bold sans, dark pill captions.",
+      "rationale": "Your two best posts are Mixnote cards (633 and 208 likes), so the brand speaks the app's language: warm near-black cards, gold step arrows, white bold titles. The adopted grammar is executed straight: you at frame 0, top hook, fast in then long blend, loud master.",
+      "risk": "Closest to the app's UI, so a viewer may read it as an ad rather than a creator. The dark cards need bright footage around them."
+    },
+    {
+      "id": "B",
+      "label": "Beginner's Notebook",
+      "summary": "Paper-white recipe cards, mono data, signal orange. Unlike any DJ feed.",
+      "rationale": "The opening: no reference shows recipe data, and every one sits in dark LED rooms behind TikTok's default white box. A paper-notebook system (light cards, monospace BPM and key, an orange cue line) makes the receipts the look while keeping the winning grammar: you at frame 0, fast in, long blend.",
+      "risk": "Light cards over dark club footage are bright: strong in the feed but less 'night out'. Monospace can feel technical if overused."
+    },
+    {
+      "id": "C",
+      "label": "Sunset Booth",
+      "summary": "Wine-dark ground, Mixnote's orange-to-magenta, rounded type, stroked captions.",
+      "rationale": "The person: a friend on the journey (warmth 0.65, playfulness 0.5) using the colours of Mixnote's own icon, orange into magenta, on a wine-dark ground. Rounded friendly type and stroked caps make the text-led teaching feel like a mate's notes, and the edits are punchier.",
+      "risk": "The most colourful option: stroked caps and magenta are loud next to the clean polish you chose; it relies on good light on your face."
+    }
+  ]
+}

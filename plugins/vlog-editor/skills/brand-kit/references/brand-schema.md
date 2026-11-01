@@ -67,7 +67,13 @@ carries a decision and leave the rest out.
   "samples": {                          // what boards and the sizzle show — write them in the brand's language
     "hook": "Nobody tells you this about Kapadokya", "hookEmphasis": "Kapadokya",
     "caption": "bu an her şeyi değiştirdi", "captionActive": 2,
-    "lowerThird": { "title": "Göreme", "subtitle": "Kapadokya, TR" }, "cta": "Follow for part 2"
+    "lowerThird": { "title": "Göreme", "subtitle": "Kapadokya, TR" }, "cta": "Follow for part 2",
+    "recipe": {                         // optional: a card of items joined by steps — shown on boards and as a component
+      "label": "Combo", "title": "Up the wheel",          // DJ: tracks joined by transitions; any niche: steps
+      "tracks": [ { "title": "At Night (Purple Disco Machine Remix)", "artist": "Shakedown", "meta": "122 BPM · 4A" },
+                  { "title": "Lola's Theme", "artist": "The Shapeshifters", "meta": "124 BPM · 5A" } ],
+      "steps": ["EQ blend, bass swap · 16 bars"], "cta": "Save it in Mixnote"
+    }
   },
   "evidence": { "styleDna": "research/style-dna.md", "summary": ["Top-half posts cut 0.4 s faster (1.1 s vs 1.5 s)"] }
 }

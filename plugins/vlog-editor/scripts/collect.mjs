@@ -152,7 +152,9 @@ async function download(entry, dir) {
   );
   const file = (await fsp.readdir(dir).catch(() => [])).find((f) => f.startsWith(entry.id + ".") && VIDEO_EXT.has(path.extname(f)));
   if (r.code === 0 && file) return { file: path.join(dir, file) };
-  if (/format is not available|No video formats/i.test(r.stderr)) {
+  // Photo/slideshow posts: the format chain falls through to the audio track, or yt-dlp says no video format.
+  const audioOnly = (await fsp.readdir(dir).catch(() => [])).some((f) => f.startsWith(entry.id + ".") && /\.(m4a|mp3|aac|ogg|opus)$/i.test(f));
+  if (audioOnly || /format is not available|No video formats/i.test(r.stderr)) {
     const photo = await downloadPhotoPost(entry, dir);
     if (photo) return photo;
   }

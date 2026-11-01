@@ -54,8 +54,9 @@ export function merge(base, over) {
 
 export function withDefaults(brand) {
   const b = merge(DEFAULTS, brand || {});
+  const lang = (b.languages || ["en"])[0];
   b.logo.text = b.logo.text || b.name;
-  b.logo.monogram = b.logo.monogram || initials(b.name);
+  b.logo.monogram = b.logo.monogram || initials(b.name, lang);
   b.derived = derive(b);
   return b;
 }
@@ -64,9 +65,10 @@ export async function loadBrand(file) {
   return withDefaults(await readJson(file));
 }
 
-function initials(name) {
+function initials(name, lang = "en") {
   const parts = String(name).trim().split(/\s+/).filter(Boolean);
-  return (parts.length > 1 ? parts[0][0] + parts[1][0] : (parts[0] || "?")[0]).toLocaleUpperCase("tr");
+  // Locale matters: Turkish uppercases i → İ, English → I.
+  return (parts.length > 1 ? parts[0][0] + parts[1][0] : (parts[0] || "?")[0]).toLocaleUpperCase(lang);
 }
 
 /** Pick whichever of the candidates reads best on `bg`. */
@@ -206,9 +208,9 @@ export function captionWordsHtml(words, activeIndex = -1, idPrefix = "") {
     .join(" ");
 }
 
-function caseText(text, mode) {
-  if (mode === "upper") return text.toLocaleUpperCase("tr");
-  if (mode === "lower") return text.toLocaleLowerCase("tr");
+function caseText(text, mode, lang = "en") {
+  if (mode === "upper") return text.toLocaleUpperCase(lang);
+  if (mode === "lower") return text.toLocaleLowerCase(lang);
   return text;
 }
 
@@ -228,7 +230,7 @@ ${s}.logo-mark span { font-size: 0.78em; transform: translateY(0.02em); }
 
 /** Logo as HTML (renders with the brand's own fonts in any composition). */
 export function logoHtml(b, style = b.logo.style, size = 64, id = "") {
-  const text = escapeHtml(caseText(b.logo.text, b.logo.case));
+  const text = escapeHtml(caseText(b.logo.text, b.logo.case, (b.languages || ["en"])[0]));
   const mono = escapeHtml(b.logo.monogram);
   const idAttr = id ? ` id="${id}"` : "";
   const st = `font-size:${size}px`;
@@ -283,4 +285,35 @@ export function emphasize(text, phrase) {
   const i = safe.toLocaleLowerCase("tr").indexOf(p.toLocaleLowerCase("tr"));
   if (i < 0) return safe;
   return `${safe.slice(0, i)}<em>${safe.slice(i, i + p.length)}</em>${safe.slice(i + p.length)}`;
+}
+
+/**
+ * Recipe card: an ordered list of items joined by steps (DJ: tracks joined by transitions; any niche: steps).
+ * recipe = { label, title, tracks: [{ title, artist, meta }], steps: ["EQ blend, bass swap · 16 bars"], cta }
+ */
+export function recipeCss(scope = "") {
+  const s = scope ? scope + " " : "";
+  return `
+${s}.rc { position: absolute; left: var(--pad-x); right: var(--rail-right); background: var(--color-surface); border-radius: 34px; padding: 30px 32px 24px; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+${s}.rc-label { font-family: var(--font-body); font-weight: 700; font-size: 21px; letter-spacing: .16em; text-transform: uppercase; color: var(--color-muted); }
+${s}.rc-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 56px; line-height: 1.02; color: var(--color-ink); margin: 6px 0 20px; }
+${s}.rc-track { display: flex; align-items: center; gap: 20px; }
+${s}.rc-num { flex: none; width: 80px; height: 80px; border-radius: 18px; background: var(--color-primary); color: var(--color-on-primary); display: grid; place-items: center; font-family: var(--font-body); font-weight: 800; font-size: 36px; }
+${s}.rc-track b { display: block; font-family: var(--font-body); font-weight: 700; font-size: 33px; line-height: 1.15; color: var(--color-ink); }
+${s}.rc-track span { display: block; font-family: var(--font-body); font-weight: 500; font-size: 25px; line-height: 1.3; color: var(--color-muted); }
+${s}.rc-step { display: flex; align-items: center; gap: 14px; margin: 12px 0 12px 20px; font-family: var(--font-body); font-weight: 700; font-size: 26px; color: var(--color-accent); }
+${s}.rc-step i { font-style: normal; font-size: 34px; line-height: 1; }
+${s}.rc-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 2px solid color-mix(in srgb, var(--color-ink) 10%, transparent); font-family: var(--font-body); font-weight: 700; font-size: 24px; color: var(--color-muted); }
+${s}.rc-foot b { color: var(--color-highlight); }
+`.trim();
+}
+
+export function recipeHtml(b, r, { idPrefix = "rc", logoSize = 34 } = {}) {
+  if (!r) return "";
+  const rows = [];
+  (r.tracks || []).forEach((t, i) => {
+    if (i > 0) rows.push(`<div class="rc-step" id="${idPrefix}-s${i}"><i>↓</i>${escapeHtml(r.steps?.[i - 1] || "")}</div>`);
+    rows.push(`<div class="rc-track" id="${idPrefix}-t${i}"><div class="rc-num">${i + 1}</div><div><b>${escapeHtml(t.title)}</b><span>${escapeHtml([t.artist, t.meta].filter(Boolean).join(" · "))}</span></div></div>`);
+  });
+  return `<div class="rc" id="${idPrefix}">${r.label ? `<div class="rc-label">${escapeHtml(r.label)}</div>` : ""}${r.title ? `<div class="rc-title">${escapeHtml(r.title)}</div>` : ""}${rows.join("")}<div class="rc-foot">${logoHtml(b, b.logo.style, logoSize)}${r.cta ? `<b>${escapeHtml(r.cta)}</b>` : ""}</div></div>`;
 }

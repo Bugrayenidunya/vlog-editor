@@ -1,0 +1,234 @@
+{
+  "schema": "vlog-editor/brand@1",
+  "name": "itsbgra",
+  "positioning": "A DJ learning in public who turns every blend that works into a recipe beginners can copy — and save in Mixnote.",
+  "niche": "DJ journey and transitions",
+  "audience": "new and beginner DJs worldwide",
+  "handles": {
+    "tiktok": "@itsbgra"
+  },
+  "languages": [
+    "en"
+  ],
+  "personality": {
+    "energy": 0.6,
+    "polish": 0.65,
+    "warmth": 0.65,
+    "playfulness": 0.5
+  },
+  "layout": {
+    "safeTop": 168,
+    "textBottom": 1330,
+    "railRight": 150,
+    "padX": 72,
+    "captionBottom": 650
+  },
+  "voice": {
+    "tone": [
+      "honest",
+      "encouraging",
+      "practical",
+      "learning in public"
+    ],
+    "hookFormulas": [
+      "If you're a beginner DJ, steal this {bars}-bar blend",
+      "{Song A} → {Song B}: the blend that finally clicked",
+      "I practised this {technique} all week — here's the recipe",
+      "The {technique} mistake I kept making (and the fix)"
+    ],
+    "ctas": [
+      "Save it in Mixnote",
+      "The full recipe is in Mixnote",
+      "Which blend should I learn next?"
+    ],
+    "hashtags": [
+      "#djtransition",
+      "#djmix",
+      "#housemusic",
+      "#djlife",
+      "#mixnote"
+    ]
+  },
+  "rules": {
+    "do": [
+      "Frame 0 is you: your face, or you at the decks, filling the 9:16 frame",
+      "Shoot vertical: a phone above the decks plus one front angle; never letterbox landscape footage",
+      "Name the blend in the hook text: \"Song A → Song B\", and speak to beginners (\"If you're a beginner DJ…\")",
+      "Hook in the first 4 s, then let the blend play in long takes (8–24 s)",
+      "Show the recipe card once the blend lands: technique · bars, BPM · key",
+      "Master to about −14 LUFS; photo posts use the official track sound",
+      "Close on \"Save it in Mixnote\""
+    ],
+    "dont": [
+      "No blue/violet LED room as the look",
+      "No copied templates (a purple title box with a \"DJ Mix Tutorial\" pill)",
+      "No \"Day N\" numbering as the hook",
+      "No voice-over needed: on-screen text carries the teaching",
+      "Never quieter than the references: −20 LUFS or lower reads as broken"
+    ]
+  },
+  "evidence": {
+    "styleDna": "research/style-dna.md",
+    "summary": [
+      "Recipe cards are your top 2 posts: 633 and 208 likes vs a median of 11 for your videos",
+      "About 30 of 37 reference thumbnails show a person; 0 of your 11 do",
+      "Your videos: luma 33 and −31 LUFS vs references' 97 and −16.8 (letterboxed and quiet)",
+      "References' top half cut first at 3.7 s (vs 5.0 s) and then hold 24 s shots (vs 16.5 s)",
+      "6 of @offtherackjack's top 8 open by naming the beginner"
+    ]
+  },
+  "tagline": "Learning to DJ, out loud",
+  "direction": {
+    "id": "C",
+    "label": "Sunset Booth",
+    "summary": "Wine-dark ground, Mixnote's orange-to-magenta, rounded type, stroked captions.",
+    "rationale": "The person: a friend on the journey (warmth 0.65, playfulness 0.5) using the colours of Mixnote's own icon, orange into magenta, on a wine-dark ground. Rounded friendly type and stroked caps make the text-led teaching feel like a mate's notes, and the edits are punchier."
+  },
+  "colors": {
+    "ground": "#1B0D14",
+    "surface": "#2B1620",
+    "ink": "#FFF6F0",
+    "muted": "#C9A9B5",
+    "primary": "#E8457A",
+    "accent": "#F7A23B",
+    "highlight": "#F7A23B",
+    "captionText": "#FFFFFF",
+    "captionStroke": "#1B0D14",
+    "captionBox": "#E8457A"
+  },
+  "fonts": {
+    "display": {
+      "family": "Bricolage Grotesque",
+      "weights": [
+        800
+      ],
+      "transform": "none",
+      "tracking": "-0.03em",
+      "lineHeight": 0.95,
+      "widthFactor": 0.52
+    },
+    "body": {
+      "family": "DM Sans",
+      "weights": [
+        400,
+        700
+      ]
+    },
+    "caption": {
+      "family": "Bricolage Grotesque",
+      "weight": 800,
+      "transform": "uppercase"
+    }
+  },
+  "captions": {
+    "style": "outline",
+    "wordsPerGroup": [
+      2,
+      4
+    ],
+    "size": 84,
+    "minSize": 48,
+    "strokeWidth": 9
+  },
+  "logo": {
+    "style": "lockup-circle",
+    "case": "as-is",
+    "monogram": "b"
+  },
+  "motion": {
+    "energy": "balanced",
+    "ease": {
+      "enter": "expo.out",
+      "exit": "power2.in",
+      "pop": "back.out(2)"
+    },
+    "durations": {
+      "fast": 0.16,
+      "base": 0.3,
+      "slow": 0.5
+    },
+    "transitions": [
+      "beat-synced punch-in",
+      "whip on the drop",
+      "hard cut"
+    ],
+    "pace": {
+      "shotSeconds": [
+        4,
+        16
+      ],
+      "firstCutBy": 3
+    }
+  },
+  "look": {
+    "grade": "warm sunset contrast",
+    "luma": 96,
+    "contrast": 64,
+    "saturation": 0.3,
+    "warmth": 14
+  },
+  "sound": {
+    "enabled": true,
+    "music": {
+      "moods": [
+        "euphoric",
+        "sunset",
+        "uplifting"
+      ],
+      "genres": [
+        "disco house",
+        "French house"
+      ],
+      "bpm": [
+        122,
+        128
+      ],
+      "lufs": -14,
+      "vocals": "the mix itself"
+    },
+    "sting": {
+      "description": "a 1 s French-house filter open on a disco chord with a crowd 'woo'",
+      "file": null
+    },
+    "sfx": {
+      "whoosh": "tape whoosh on the whip",
+      "pop": "bubbly pop for each caption group",
+      "click": "crossfader click",
+      "riser": "snare-roll riser into the drop"
+    },
+    "voice": {
+      "style": "no voice-over; on-screen text carries the teaching"
+    }
+  },
+  "samples": {
+    "hook": "I learned this blend in a week. You can too.",
+    "hookEmphasis": "a week",
+    "caption": "first transition I was proud of",
+    "captionActive": 3,
+    "lowerThird": {
+      "title": "First proud one",
+      "subtitle": "EQ blend · 16 bars"
+    },
+    "cta": "Save it in Mixnote",
+    "recipe": {
+      "label": "My first one",
+      "title": "Body Funk → Daft Punk",
+      "tracks": [
+        {
+          "title": "Body Funk",
+          "artist": "Purple Disco Machine",
+          "meta": ""
+        },
+        {
+          "title": "Around the World",
+          "artist": "Daft Punk",
+          "meta": ""
+        }
+      ],
+      "steps": [
+        "EQ blend · 16 bars"
+      ],
+      "cta": "Save it in Mixnote"
+    }
+  }
+}

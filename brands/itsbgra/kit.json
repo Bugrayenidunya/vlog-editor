@@ -1,0 +1,50 @@
+{
+  "schema": "vlog-editor/kit@1",
+  "brand": "itsbgra",
+  "version": 2,
+  "builtAt": "2026-11-01T17:46:27.164Z",
+  "files": {
+    "design": "DESIGN.md",
+    "tokens": "tokens.css",
+    "fonts": [
+      {
+        "family": "Plus Jakarta Sans",
+        "weights": [
+          800
+        ],
+        "latinExt": true,
+        "license": "https://fonts.google.com/specimen/Plus+Jakarta+Sans/license"
+      },
+      {
+        "family": "Inter",
+        "weights": [
+          400,
+          600,
+          700
+        ],
+        "latinExt": true,
+        "license": "https://fonts.google.com/specimen/Inter/license"
+      }
+    ],
+    "components": [
+      "components/brand-hook.html",
+      "components/brand-captions.html",
+      "components/brand-lower-third.html",
+      "components/brand-end-card.html",
+      "components/brand-recipe-card.html"
+    ],
+    "logos": {
+      "avatar": "brands/itsbgra/logo/avatar.png",
+      "wordmark": "brands/itsbgra/logo/wordmark.png"
+    },
+    "preview": {
+      "board": "brands/itsbgra/preview/board.png",
+      "check": {
+        "ok": true
+      },
+      "sizzle": "brands/itsbgra/preview/sizzle.mp4",
+      "project": "brands/itsbgra/.work/sizzle"
+    }
+  },
+  "issues": []
+}

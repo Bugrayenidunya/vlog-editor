@@ -1,0 +1,58 @@
+{
+  "schema": "vlog-editor/style-dna@1",
+  "generatedAt": "2026-11-01T17:40:00.000Z",
+  "basis": "50 posts: @itsbgra 11 (7 videos, 4 photo posts); references 39 (@offtherackjack 8, @wearecrossfader 8, @dj.r2e 7, @dj__mandy 8, @theonlydjdrip 8 — the last mostly 2021–22). Pictures looked at: both first-frame grids, palettes, hook strips of the top post of 3 accounts and your 'Day 1' overview.",
+  "summary": "Your best content already exists: transition recipe cards (track A → B, technique, bars, BPM, key) earned your top two posts (633 and 208 likes vs a median of 11 for your videos), and nobody in the niche shows recipes like that. Your videos lose because of how they are shot and mastered, not what they show: landscape footage letterboxed into black (luma 33 vs 97), audio at −31 LUFS vs −17, no face and no voice, while every winning reference opens on a person filling the 9:16 frame with a one-line hook on top. Keep the recipes and the journey framing, film vertical, talk to beginners, master loud, and own a warm lamp-lit look in a niche of blue LED rooms.",
+  "traits": [
+    { "id": "face-at-frame-0", "category": "hook", "label": "You (or you holding the gear) on screen at frame 0", "evidence": "Seen: about 30 of the 37 reference first frames show a person; 0 of your 11 do (hands only in 3).", "kind": "seen", "strength": "strong", "source": "references", "recommend": "fix" },
+    { "id": "recipe-card-format", "category": "format", "label": "Transition recipe cards: A → B, technique, bars, BPM, key", "evidence": "Measured: your 2 most-liked posts are Mixnote combo cards (633 / 13.5K views and 208 / 4.7K) vs median 11 likes / 365 views for your videos. Seen: no reference shows recipe data like this.", "kind": "measured", "strength": "medium", "source": "self", "recommend": "keep" },
+    { "id": "numbered-journey-series", "category": "format", "label": "Numbered journey series (\"Day N of learning to DJ\")", "evidence": "Measured: @wearecrossfader's Day 1 (95K likes, 1.3M views) and Day 2 (20.1K, 217K) are that account's top 2. You already posted Day 1 and Day 3, letterboxed (11 and 13 likes).", "kind": "measured", "strength": "medium", "source": "both", "recommend": "adopt" },
+    { "id": "song-arrow-song-title", "category": "hook", "label": "Name the blend in the hook: \"Song A → Song B\"", "evidence": "Seen: @offtherackjack \"Ayo × California Love\", \"Seven Nation Army × Losing It\"; @theonlydjdrip \"2 songs that needed to be mashed together\". You already write \"Nightcrawlers → Daft Punk\".", "kind": "seen", "strength": "medium", "source": "both", "recommend": "keep" },
+    { "id": "full-frame-vertical", "category": "look", "label": "Full-frame 9:16 footage, no black bars", "evidence": "Measured: your videos' luma 32.9 vs 97 for references; seen: your deck footage sits letterboxed in the middle ~40% of the frame (Day 1 overview), every reference fills the frame.", "kind": "measured", "strength": "strong", "source": "both", "recommend": "fix" },
+    { "id": "master-loud", "category": "sound", "label": "Master to about −14 LUFS", "evidence": "Measured: your videos −30.9 LUFS median (−26 to −42) vs references −16.8; your photo posts on official TikTok sounds sit at −7 to −9.", "kind": "measured", "strength": "strong", "source": "both", "recommend": "fix" },
+    { "id": "fast-in-long-blend", "category": "editing", "label": "Cut in by ~4 s, then let the blend play in long takes", "evidence": "Measured: references' top half by likes cut first at 3.7 s vs 5.0 s and hold longer shots, 23.7 s vs 16.5 s (n=37). Your videos are one static 23–50 s take.", "kind": "measured", "strength": "medium", "source": "references", "recommend": "adopt" },
+    { "id": "length-45-60", "category": "length", "label": "Keep videos around 45–60 s", "evidence": "Measured: references' top half run 55 s vs 67 s for the rest; median 59 s. Yours run 23–50 s.", "kind": "measured", "strength": "weak", "source": "references", "recommend": "adopt" },
+    { "id": "top-text-hook", "category": "captions", "label": "One- or two-line text hook at the top", "evidence": "Seen: most reference first frames and 9 of your 11 posts carry a 1–2 line label near the top (\"DAY 1 OF LEARNING TO DJ\", \"been practicing this run all week\").", "kind": "seen", "strength": "strong", "source": "both", "recommend": "keep" },
+    { "id": "spoken-word-captions", "category": "captions", "label": "Word-by-word captions whenever you talk", "evidence": "Seen: @wearecrossfader's top post captions every spoken word. Measured: educators speak ~1.9 words/s vs 0.28 in yours (music only).", "kind": "seen", "strength": "medium", "source": "references", "recommend": "adopt" },
+    { "id": "show-the-software", "category": "format", "label": "Show the waveforms, playlist or screen", "evidence": "Seen: @offtherackjack's most-liked post (19.1K) is a colour-coded rekordbox playlist; waveform strips in his tutorial template; @dj.r2e waveform close-ups.", "kind": "seen", "strength": "medium", "source": "references", "recommend": "adopt" },
+    { "id": "warm-lamp-palette", "category": "color", "label": "Warm amber \"lamp-lit session\" palette", "evidence": "Measured: your vivid accents are amber #AE7845 / #D49F6D (desk lamp) and navy #14365D; references' are blue/violet LED #2532DA, #373E82, #6387C8. Nobody in the set owns warm.", "kind": "measured", "strength": "medium", "source": "self", "recommend": "keep" },
+    { "id": "talk-to-beginners", "category": "voice", "label": "Open by naming the viewer: \"If you're a beginner DJ…\"", "evidence": "Measured from transcripts: 6 of @offtherackjack's top 8 open with \"If you're a beginner DJ…\" or \"I'm going to show you…\"; @wearecrossfader's top 2 open \"Day one of you learning to DJ\".", "kind": "measured", "strength": "strong", "source": "references", "recommend": "adopt" },
+    { "id": "learning-in-public", "category": "voice", "label": "Learning in public: honest wins, fails and notes", "evidence": "Seen: your captions already do it (\"I keep notes on how I did each\", \"How did you find this one out?\"); @dj__mandy's self-aware tone tops the set (245K likes).", "kind": "seen", "strength": "medium", "source": "both", "recommend": "keep" },
+    { "id": "reply-to-comments", "category": "hook", "label": "Answer comments as videos (reply sticker on screen)", "evidence": "Seen: @wearecrossfader Day 3 and Day 4, @theonlydjdrip song requests, @offtherackjack \"someone just asking me\".", "kind": "seen", "strength": "medium", "source": "references", "recommend": "adopt" },
+    { "id": "beginner-hashtags", "category": "voice", "label": "Tag for beginners: #beginnerdj #howtodj #learningtodj", "evidence": "Measured: references' top hashtags include #beginnerdj #howtodj #learningtodj; yours are #djmix #housemusic #djtransition, which reach DJs who already mix, not the beginners you want.", "kind": "measured", "strength": "medium", "source": "both", "recommend": "fix" },
+    { "id": "official-sound-on-photo-posts", "category": "sound", "label": "Use the official track sound on photo posts", "evidence": "Measured: all 4 of your photo posts use the official track (Pjanoo, FISHER \"It's That Time\", Groovejet, Modjo) at −7 to −9 LUFS; your 7 videos use quiet \"original sound\".", "kind": "measured", "strength": "weak", "source": "self", "recommend": "keep" },
+    { "id": "blue-led-backdrop", "category": "look", "label": "Blue/violet LED backdrop", "evidence": "Seen: @wearecrossfader's blue wall and @theonlydjdrip's purple neon; it is the niche default and part of their look.", "kind": "seen", "strength": "medium", "source": "references", "recommend": "avoid" }
+  ],
+  "self": {
+    "keep": ["Transition recipe cards (technique, bars, BPM, key) — your best format", "Naming blends \"A → B\" in the hook", "Top text hook", "Warm desk-lamp light", "House and disco classics taste (Purple Disco Machine, Daft Punk, Eric Prydz, Modjo)"],
+    "fix": ["Letterboxed landscape footage → full-frame vertical", "−31 LUFS audio → about −14", "No face, no voice → you at frame 0, talking to beginners", "DJ-insider hashtags → beginner hashtags", "One static take → a fast hook, then the blend"],
+    "protect": ["The recipe card itself: nobody else in the niche shows the data", "Learning-in-public framing (\"Day 1\", \"been practicing this run all week\")"]
+  },
+  "whitespace": [
+    "No reference shows the transition recipe as data (technique, bars, BPM, key, Camelot step); your Mixnote cards do, and they are your top posts.",
+    "Everyone teaches as an expert or performs as a personality; nobody is a real learner showing receipts — what they tried, what they saved, what worked.",
+    "The niche lives in blue/violet LED rooms; a warm amber lamp-lit look is open.",
+    "Every reference uses TikTok's default white text box; a branded label would be recognisable in the feed."
+  ],
+  "signatures": [
+    { "account": "@offtherackjack", "what": "Purple title box plus white \"DJ Mix Tutorial\" pill, face on top, controller below, waveform strip between", "note": "inspiration only, do not copy" },
+    { "account": "@wearecrossfader", "what": "\"DAY N OF LEARNING TO DJ\" white label on a blue LED wall, holding the controller up to camera", "note": "inspiration only, do not copy (the numbered series idea is generic grammar)" },
+    { "account": "@dj__mandy", "what": "Deadpan, self-aware persona and big-stage cutaways", "note": "inspiration only, do not copy" },
+    { "account": "@theonlydjdrip", "what": "Chicago juke / function identity, coloured mix-name labels", "note": "inspiration only, do not copy" }
+  ],
+  "palette": {
+    "observed": ["#030102", "#191613", "#5C4A3E", "#AE7845", "#D49F6D", "#14365D", "#110F12", "#9E8981", "#2532DA", "#373E82"],
+    "notes": "Yours: near-black, warm browns and lamp amber with a navy accent. References: neutral skin/wood tones with blue/violet LED accents. Mixnote cards add a dark UI with a violet-blue gradient."
+  },
+  "sound": {
+    "musicShare": 0.87,
+    "lufs": { "self": -30.9, "references": -16.8 },
+    "bpm": { "self": 128, "references": 131 },
+    "notes": "House tempo (≈122–131 BPM). References speak over music in teaching posts; showcase posts are music only. 35 of 37 reference videos use original sound."
+  },
+  "openQuestions": [
+    "Is Mixnote your app? If so, the brand can make \"save it in Mixnote\" its call to action and the recipe card its signature.",
+    "Will you talk on camera, or only voice-over and text?",
+    "Can you film vertically (phone above the decks plus a front camera), or is landscape footage all you have?"
+  ]
+}

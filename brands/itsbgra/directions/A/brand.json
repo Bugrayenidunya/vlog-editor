@@ -1,0 +1,235 @@
+{
+  "schema": "vlog-editor/brand@1",
+  "name": "itsbgra",
+  "positioning": "A DJ learning in public who turns every blend that works into a recipe beginners can copy — and save in Mixnote.",
+  "niche": "DJ journey and transitions",
+  "audience": "new and beginner DJs worldwide",
+  "handles": {
+    "tiktok": "@itsbgra"
+  },
+  "languages": [
+    "en"
+  ],
+  "personality": {
+    "energy": 0.6,
+    "polish": 0.65,
+    "warmth": 0.65,
+    "playfulness": 0.5
+  },
+  "layout": {
+    "safeTop": 168,
+    "textBottom": 1330,
+    "railRight": 150,
+    "padX": 72,
+    "captionBottom": 650
+  },
+  "voice": {
+    "tone": [
+      "honest",
+      "encouraging",
+      "practical",
+      "learning in public"
+    ],
+    "hookFormulas": [
+      "If you're a beginner DJ, steal this {bars}-bar blend",
+      "{Song A} → {Song B}: the blend that finally clicked",
+      "I practised this {technique} all week — here's the recipe",
+      "The {technique} mistake I kept making (and the fix)"
+    ],
+    "ctas": [
+      "Save it in Mixnote",
+      "The full recipe is in Mixnote",
+      "Which blend should I learn next?"
+    ],
+    "hashtags": [
+      "#djtransition",
+      "#djmix",
+      "#housemusic",
+      "#djlife",
+      "#mixnote"
+    ]
+  },
+  "rules": {
+    "do": [
+      "Frame 0 is you: your face, or you at the decks, filling the 9:16 frame",
+      "Shoot vertical: a phone above the decks plus one front angle; never letterbox landscape footage",
+      "Name the blend in the hook text: \"Song A → Song B\", and speak to beginners (\"If you're a beginner DJ…\")",
+      "Hook in the first 4 s, then let the blend play in long takes (8–24 s)",
+      "Show the recipe card once the blend lands: technique · bars, BPM · key",
+      "Master to about −14 LUFS; photo posts use the official track sound",
+      "Close on \"Save it in Mixnote\""
+    ],
+    "dont": [
+      "No blue/violet LED room as the look",
+      "No copied templates (a purple title box with a \"DJ Mix Tutorial\" pill)",
+      "No \"Day N\" numbering as the hook",
+      "No voice-over needed: on-screen text carries the teaching",
+      "Never quieter than the references: −20 LUFS or lower reads as broken"
+    ]
+  },
+  "evidence": {
+    "styleDna": "research/style-dna.md",
+    "summary": [
+      "Recipe cards are your top 2 posts: 633 and 208 likes vs a median of 11 for your videos",
+      "About 30 of 37 reference thumbnails show a person; 0 of your 11 do",
+      "Your videos: luma 33 and −31 LUFS vs references' 97 and −16.8 (letterboxed and quiet)",
+      "References' top half cut first at 3.7 s (vs 5.0 s) and then hold 24 s shots (vs 16.5 s)",
+      "6 of @offtherackjack's top 8 open by naming the beginner"
+    ]
+  },
+  "tagline": "Blends that finally clicked",
+  "direction": {
+    "id": "A",
+    "label": "Mixnote Native",
+    "summary": "Mixnote's warm black and gold arrows, clean bold sans, dark pill captions.",
+    "rationale": "Your two best posts are Mixnote cards (633 and 208 likes), so the brand speaks the app's language: warm near-black cards, gold step arrows, white bold titles. The adopted grammar is executed straight: you at frame 0, top hook, fast in then long blend, loud master."
+  },
+  "colors": {
+    "ground": "#141210",
+    "surface": "#24211E",
+    "ink": "#FFFFFF",
+    "muted": "#A8A29A",
+    "primary": "#F29A38",
+    "accent": "#E8B04A",
+    "highlight": "#F2B84B",
+    "captionText": "#FFFFFF",
+    "captionStroke": "#000000",
+    "captionBox": "#24211E"
+  },
+  "fonts": {
+    "display": {
+      "family": "Plus Jakarta Sans",
+      "weights": [
+        800
+      ],
+      "transform": "none",
+      "tracking": "-0.02em",
+      "lineHeight": 1.02,
+      "widthFactor": 0.56
+    },
+    "body": {
+      "family": "Inter",
+      "weights": [
+        400,
+        600,
+        700
+      ]
+    },
+    "caption": {
+      "family": "Plus Jakarta Sans",
+      "weight": 800,
+      "transform": "none"
+    }
+  },
+  "captions": {
+    "style": "pill",
+    "wordsPerGroup": [
+      3,
+      5
+    ],
+    "size": 84,
+    "minSize": 48,
+    "radius": 999
+  },
+  "logo": {
+    "style": "wordmark-dot",
+    "case": "lower",
+    "monogram": "bg"
+  },
+  "motion": {
+    "energy": "balanced",
+    "ease": {
+      "enter": "power3.out",
+      "exit": "power2.in",
+      "pop": "back.out(1.6)"
+    },
+    "durations": {
+      "fast": 0.18,
+      "base": 0.34,
+      "slow": 0.6
+    },
+    "transitions": [
+      "hard cut on the downbeat",
+      "card slide-up",
+      "crossfade on the blend"
+    ],
+    "pace": {
+      "shotSeconds": [
+        6,
+        24
+      ],
+      "firstCutBy": 4
+    }
+  },
+  "look": {
+    "grade": "clean warm-neutral",
+    "luma": 100,
+    "contrast": 60,
+    "saturation": 0.24,
+    "warmth": 6
+  },
+  "sound": {
+    "enabled": true,
+    "music": {
+      "moods": [
+        "groovy",
+        "feel-good",
+        "late-night"
+      ],
+      "genres": [
+        "house",
+        "nu-disco"
+      ],
+      "bpm": [
+        120,
+        128
+      ],
+      "lufs": -14,
+      "vocals": "the mix itself; no extra bed under a blend"
+    },
+    "sting": {
+      "description": "a 0.8 s vinyl-stop into one filtered house chord stab",
+      "file": null
+    },
+    "sfx": {
+      "whoosh": "filter sweep up into the drop",
+      "pop": "soft cue-button click for each card row",
+      "click": "jog-wheel tick",
+      "riser": "white-noise riser over the last 8 bars"
+    },
+    "voice": {
+      "style": "no voice-over; on-screen text carries the teaching"
+    }
+  },
+  "samples": {
+    "hook": "If you're a beginner DJ, steal this 16-bar blend",
+    "hookEmphasis": "16-bar blend",
+    "caption": "bass swap on the drop and nobody notices",
+    "captionActive": 1,
+    "lowerThird": {
+      "title": "Bass swap",
+      "subtitle": "16 bars · 122 → 124 BPM"
+    },
+    "cta": "Save it in Mixnote",
+    "recipe": {
+      "label": "Combo",
+      "title": "Up the wheel",
+      "tracks": [
+        {
+          "title": "At Night (Purple Disco Machine Remix)",
+          "artist": "Shakedown",
+          "meta": "122 BPM · 4A"
+        },
+        {
+          "title": "Lola's Theme (Radio Edit)",
+          "artist": "The Shapeshifters",
+          "meta": "124 BPM · 5A"
+        }
+      ],
+      "steps": [
+        "EQ blend, bass swap · 16 bars"
+      ],
+      "cta": "Save it in Mixnote"
+    }
+  }
+}

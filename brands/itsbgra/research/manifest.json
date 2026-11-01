@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T17:12:27.725Z",
+  "generatedAt": "2026-11-01T17:13:49.319Z",
   "brandDir": ".",
   "dryRun": false,
   "sources": [
@@ -47,33 +47,8 @@
           "title": "DJ Journey — Mix 02 Nightcrawlers — Push the Feeling On → Daft Punk —..."
         }
       ],
-      "failed": [
-        {
-          "id": "7700305703503695137",
-          "url": "https://www.tiktok.com/@itsbgra/video/7700305703503695137",
-          "code": "fetch_failed",
-          "hint": ""
-        },
-        {
-          "id": "7702617860006251809",
-          "url": "https://www.tiktok.com/@itsbgra/video/7702617860006251809",
-          "code": "fetch_failed",
-          "hint": ""
-        },
-        {
-          "id": "7700940448788942113",
-          "url": "https://www.tiktok.com/@itsbgra/video/7700940448788942113",
-          "code": "fetch_failed",
-          "hint": ""
-        },
-        {
-          "id": "7701879093821852960",
-          "url": "https://www.tiktok.com/@itsbgra/video/7701879093821852960",
-          "code": "fetch_failed",
-          "hint": ""
-        }
-      ],
-      "downloaded": 7
+      "downloaded": 11,
+      "photoPosts": 4
     },
     {
       "key": "tiktok-offtherackjack",
@@ -213,25 +188,14 @@
       ],
       "failed": [
         {
-          "id": "7678954156165516562",
-          "url": "https://www.tiktok.com/@dj.r2e/video/7678954156165516562",
-          "code": "fetch_failed",
-          "hint": ""
-        },
-        {
-          "id": "7688155821393317140",
-          "url": "https://www.tiktok.com/@dj.r2e/video/7688155821393317140",
-          "code": "fetch_failed",
-          "hint": ""
-        },
-        {
           "id": "7691183780869983509",
           "url": "https://www.tiktok.com/@dj.r2e/video/7691183780869983509",
           "code": "fetch_failed",
           "hint": ""
         }
       ],
-      "downloaded": 5
+      "downloaded": 7,
+      "photoPosts": 2
     },
     {
       "key": "tiktok-dj-mandy",
@@ -329,6 +293,67 @@
   ],
   "items": [
     {
+      "key": "tiktok-itsbgra/7700305703503695137",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7700305703503695137",
+      "type": "photo",
+      "file": "research/media/tiktok-itsbgra/7700305703503695137.jpeg",
+      "audio": "research/media/tiktok-itsbgra/7700305703503695137.m4a",
+      "url": "https://www.tiktok.com/@itsbgra/video/7700305703503695137",
+      "rank": 1,
+      "metrics": {
+        "views": 13500,
+        "likes": 633,
+        "comments": 7,
+        "shares": 21,
+        "saves": 441,
+        "duration": 60,
+        "timestamp": 1792867137,
+        "title": "each blend goes one step up the wheel, 4A -> 7A, 122 to 126. I keep n...",
+        "description": "each blend goes one step up the wheel, 4A -> 7A, 122 to 126. I keep notes on how I did each one in Mixnote so I don’t forget it next time.  What would you play after MSBWY? #djmixing #housemusic #djpractice #dj #djtransition ",
+        "track": "Pjanoo (Radio Edit)",
+        "artists": [
+          "Eric Prydz"
+        ],
+        "followers": null,
+        "engagementRate": 0.0816
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7702617860006251809",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7702617860006251809",
+      "type": "photo",
+      "file": "research/media/tiktok-itsbgra/7702617860006251809.jpeg",
+      "audio": "research/media/tiktok-itsbgra/7702617860006251809.m4a",
+      "url": "https://www.tiktok.com/@itsbgra/video/7702617860006251809",
+      "rank": 2,
+      "metrics": {
+        "views": 4707,
+        "likes": 208,
+        "comments": 2,
+        "shares": 4,
+        "saves": 129,
+        "duration": 60,
+        "timestamp": 1793405483,
+        "title": "I’ll start with a classic one on this combo and build up the energy o...",
+        "description": "I’ll start with a classic one on this combo and build up the energy over time. What do you think about it? #dj #djtransition #housemusic #djmix #djlifestyle ",
+        "track": "It's That Time (FISHER Remix)",
+        "artists": [
+          "Marlon Hoffstadt",
+          "FISHER"
+        ],
+        "followers": null,
+        "engagementRate": 0.0729
+      }
+    },
+    {
       "key": "tiktok-itsbgra/7652707675725253921",
       "sourceKey": "tiktok-itsbgra",
       "role": "self",
@@ -355,6 +380,37 @@
         ],
         "followers": null,
         "engagementRate": 0.0602
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7700940448788942113",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7700940448788942113",
+      "type": "photo",
+      "file": "research/media/tiktok-itsbgra/7700940448788942113.jpeg",
+      "audio": "research/media/tiktok-itsbgra/7700940448788942113.m4a",
+      "url": "https://www.tiktok.com/@itsbgra/video/7700940448788942113",
+      "rank": 4,
+      "metrics": {
+        "views": 544,
+        "likes": 20,
+        "comments": 1,
+        "shares": 1,
+        "saves": 15,
+        "duration": 60,
+        "timestamp": 1793014925,
+        "title": "three absolute classics and they actually flow into each other really...",
+        "description": "three absolute classics and they actually flow into each other really well. kinda hard to go wrong with these tbh what are you putting on after kylie? #djlife #housemusic #djathome #djset #djmix ",
+        "track": "Groovejet (If This Ain't Love)",
+        "artists": [
+          "Spiller",
+          "Sophie Ellis-Bextor"
+        ],
+        "followers": null,
+        "engagementRate": 0.068
       }
     },
     {
@@ -413,6 +469,36 @@
         ],
         "followers": null,
         "engagementRate": 0.0443
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7701879093821852960",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7701879093821852960",
+      "type": "photo",
+      "file": "research/media/tiktok-itsbgra/7701879093821852960.jpeg",
+      "audio": "research/media/tiktok-itsbgra/7701879093821852960.m4a",
+      "url": "https://www.tiktok.com/@itsbgra/video/7701879093821852960",
+      "rank": 7,
+      "metrics": {
+        "views": 472,
+        "likes": 12,
+        "comments": 2,
+        "shares": 2,
+        "saves": 10,
+        "duration": 60,
+        "timestamp": 1793233477,
+        "title": "→ Moloko – Sing It Back (Boris Dlugosch mix) · 2A · 123 → Modjo – Lad...",
+        "description": "→ Moloko – Sing It Back (Boris Dlugosch mix) · 2A · 123 → Modjo – Lady (Hear Me Tonight) · 3A · 126 → Ultra Naté – Free · 4A · 125 The rule: go up one number on the wheel and keep the letter. Each new track feels like a lift but never clashes. 1️⃣ Push Sing It Back to 126 with key lock on, bring Lady in on the outro, and swap the bass on bar 9 2️⃣ Stay at 126, blend Free in over 16 bars, and echo out Lady's last \"hear me tonight\" What would you play next in 5A? 👇 #dj #djmix #djlife #djtransition #housemusic ",
+        "track": "Lady - Hear Me Tonight",
+        "artists": [
+          "Modjo"
+        ],
+        "followers": null,
+        "engagementRate": 0.0551
       }
     },
     {
@@ -1025,6 +1111,36 @@
       }
     },
     {
+      "key": "tiktok-dj-r2e/7678954156165516562",
+      "sourceKey": "tiktok-dj-r2e",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "id": "7678954156165516562",
+      "type": "photo",
+      "file": "research/media/tiktok-dj-r2e/7678954156165516562.jpeg",
+      "audio": "research/media/tiktok-dj-r2e/7678954156165516562.mp3",
+      "url": "https://www.tiktok.com/@dj.r2e/video/7678954156165516562",
+      "rank": 2,
+      "metrics": {
+        "views": 20000,
+        "likes": 2312,
+        "comments": 68,
+        "shares": 99,
+        "saves": 271,
+        "duration": 43,
+        "timestamp": 1787895846,
+        "title": "@Kyle Starkey @WOLTERS got a tune for you✌️✌️ #targetaudience #housem...",
+        "description": "@Kyle Starkey @WOLTERS got a tune for you✌️✌️ #targetaudience #housemusic #euphoric #hardhousemusic #pianohousemusic ",
+        "track": "original sound",
+        "artists": [
+          "R2E"
+        ],
+        "followers": null,
+        "engagementRate": 0.1375
+      }
+    },
+    {
       "key": "tiktok-dj-r2e/7684103390426615047",
       "sourceKey": "tiktok-dj-r2e",
       "role": "discovered",
@@ -1109,6 +1225,36 @@
         ],
         "followers": null,
         "engagementRate": 0.0872
+      }
+    },
+    {
+      "key": "tiktok-dj-r2e/7688155821393317140",
+      "sourceKey": "tiktok-dj-r2e",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "id": "7688155821393317140",
+      "type": "photo",
+      "file": "research/media/tiktok-dj-r2e/7688155821393317140.jpeg",
+      "audio": "research/media/tiktok-dj-r2e/7688155821393317140.mp3",
+      "url": "https://www.tiktok.com/@dj.r2e/video/7688155821393317140",
+      "rank": 6,
+      "metrics": {
+        "views": 10800,
+        "likes": 782,
+        "comments": 12,
+        "shares": 60,
+        "saves": 12,
+        "duration": 50,
+        "timestamp": 1790038278,
+        "title": "@DJ HEARTSTRING got a new song for you 🫶🫶 #targetaudience #djheartstr...",
+        "description": "@DJ HEARTSTRING got a new song for you 🫶🫶 #targetaudience #djheartstring #musicproducer #kettama #floating ",
+        "track": "original sound",
+        "artists": [
+          "R2E"
+        ],
+        "followers": null,
+        "engagementRate": 0.0802
       }
     },
     {

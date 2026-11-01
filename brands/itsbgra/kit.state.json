@@ -1,7 +1,7 @@
 {
   "schema": "vlog-editor/kit-state@1",
   "slug": "itsbgra",
-  "stage": "analyze",
+  "stage": "done",
   "brief": {
     "name": "itsbgra",
     "nameSource": "handle",
@@ -26,13 +26,33 @@
       "warmth": 0.65,
       "playfulness": 0.5
     },
-    "mustHave": "",
+    "mustHave": "Mixnote is the creator's own app: feature it. CTA 'Save it in Mixnote'; recipe cards match the app's look.",
     "avoid": "",
     "sound": true,
-    "tone": "friend on the journey: honest wins and fails, warm, encouraging"
+    "tone": "friend on the journey: honest wins and fails, warm, encouraging",
+    "onCamera": "face on camera, does not talk; on-screen text carries the teaching"
   },
-  "traitChoices": {},
-  "chosenDirection": null,
+  "traitChoices": {
+    "face-at-frame-0": "adopt",
+    "recipe-card-format": "adopt",
+    "numbered-journey-series": "skip",
+    "song-arrow-song-title": "adopt",
+    "full-frame-vertical": "adopt",
+    "master-loud": "adopt",
+    "fast-in-long-blend": "adopt",
+    "length-45-60": "skip",
+    "top-text-hook": "adopt",
+    "spoken-word-captions": "skip",
+    "show-the-software": "skip",
+    "warm-lamp-palette": "skip",
+    "talk-to-beginners": "adopt",
+    "learning-in-public": "adopt",
+    "reply-to-comments": "skip",
+    "beginner-hashtags": "skip",
+    "official-sound-on-photo-posts": "adopt",
+    "blue-led-backdrop": "skip"
+  },
+  "chosenDirection": "A",
   "history": [
     {
       "at": "2026-11-01T17:10:00.000Z",
@@ -45,6 +65,26 @@
     {
       "at": "2026-11-01T17:20:00.000Z",
       "stage": "collect"
+    },
+    {
+      "at": "2026-11-01T17:45:00.000Z",
+      "stage": "dna"
+    },
+    {
+      "at": "2026-11-01T17:55:00.000Z",
+      "stage": "directions"
+    },
+    {
+      "at": "2026-11-01T18:00:00.000Z",
+      "stage": "refine"
+    },
+    {
+      "at": "2026-11-01T18:02:00.000Z",
+      "stage": "build"
+    },
+    {
+      "at": "2026-11-01T18:10:00.000Z",
+      "stage": "done"
     }
   ]
 }

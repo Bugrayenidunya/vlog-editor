@@ -1,7 +1,7 @@
 // Brand components as HyperFrames sub-compositions (1080×1920). Tokens are baked in at build time so each
 // file is self-contained; per-use text comes from composition variables (data-variable-values on the host).
 // Captions read a WORDS array between the @words markers, which the video workflow fills from a transcript.
-import { cssVariables, captionCss, logoCss, logoHtml } from "./brand.mjs";
+import { cssVariables, captionCss, logoCss, logoHtml, recipeCss, recipeHtml } from "./brand.mjs";
 import { escapeHtml, escapeHtml as esc } from "./util.mjs";
 
 const W = 1080;
@@ -237,7 +237,7 @@ ${logoCss()}
   </head>
   <body>
     <div id="still" data-composition-id="still" data-start="0" data-duration="1" data-width="${w}" data-height="${h}">
-      ${isAvatar ? `<span class="logo"><span class="logo-mark is-square" style="font-size:${size}px"><span>${escapeHtml(b.logo.monogram)}</span></span></span>` : logoHtml(b, style, size)}
+      ${isAvatar ? avatarMark(b, size) : logoHtml(b, style, size)}
     </div>
     <script>
       window.__timelines = window.__timelines || {};
@@ -246,4 +246,54 @@ ${logoCss()}
   </body>
 </html>
 `;
+}
+
+/** Recipe card: items joined by steps (DJ: tracks joined by transitions). Data between the @recipe markers. */
+export function recipeCardComponent(b, fontsCss) {
+  const sample = b.samples.recipe || {
+    label: "Recipe",
+    title: "Step by step",
+    tracks: [{ title: "First", artist: "", meta: "" }, { title: "Second", artist: "", meta: "" }],
+    steps: ["then"],
+    cta: b.samples.cta || "",
+  };
+  return frame("brand-recipe-card", {
+    b,
+    fontsCss,
+    variables: [{ id: "top", type: "number", label: "Top (px)", default: 560, min: 180, max: 1100 }],
+    css: `
+${logoCss("#root").replace(/^/gm, "    ")}
+${recipeCss("#root").replace(/^/gm, "    ")}`,
+    body: `    <div id="rc-host"></div>`,
+    script: `
+      // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta}], steps:[], cta})
+      var RECIPE = ${JSON.stringify(sample)};
+      // @recipe-end
+      var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+      var LOGO = ${JSON.stringify(logoHtml(b, b.logo.style, 34))};
+      var rows = [];
+      (RECIPE.tracks || []).forEach(function (t, i) {
+        if (i > 0) rows.push('<div class="rc-step" id="rc-s' + i + '"><i>↓</i>' + esc((RECIPE.steps || [])[i - 1] || "") + "</div>");
+        rows.push('<div class="rc-track" id="rc-t' + i + '"><div class="rc-num">' + (i + 1) + "</div><div><b>" + esc(t.title) + "</b><span>" + esc([t.artist, t.meta].filter(Boolean).join(" · ")) + "</span></div></div>");
+      });
+      var host = document.getElementById("rc-host");
+      host.innerHTML = '<div class="rc" id="rc" style="top:' + Number(V.top || 560) + 'px">' + (RECIPE.label ? '<div class="rc-label">' + esc(RECIPE.label) + "</div>" : "") + (RECIPE.title ? '<div class="rc-title">' + esc(RECIPE.title) + "</div>" : "") + rows.join("") + '<div class="rc-foot">' + LOGO + (RECIPE.cta ? "<b>" + esc(RECIPE.cta) + "</b>" : "") + "</div></div>";
+      var dur = (window.__hyperframes && window.__hyperframes.duration) || 4;
+      var tl = gsap.timeline({ paused: true });
+      tl.fromTo("#rc", { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: M.d.base, ease: M.ease.enter }, 0.05);
+      var n = (RECIPE.tracks || []).length;
+      for (var i = 0; i < n; i++) {
+        var at = 0.25 + i * 0.32;
+        tl.fromTo("#rc-t" + i, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: M.d.base, ease: M.ease.enter }, at);
+        if (i > 0) tl.fromTo("#rc-s" + i, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: M.d.fast, ease: M.ease.pop }, at - 0.14);
+      }
+      tl.to("#rc", { opacity: 0, y: -40, duration: M.d.base, ease: M.ease.exit }, Math.max(1.2, dur - M.d.base - 0.05));`,
+  });
+}
+
+/** Profile-picture mark: wordmark-dot brands get "monogram." on the ground; others a monogram on primary. */
+function avatarMark(b, size) {
+  if (b.logo.style === "wordmark-dot")
+    return `<span class="logo" style="font-size:${Math.round(size * 0.62)}px"><span>${escapeHtml(b.logo.monogram)}<span class="logo-dot"></span></span></span>`;
+  return `<span class="logo"><span class="logo-mark is-square" style="font-size:${size}px"><span>${escapeHtml(b.logo.monogram)}</span></span></span>`;
 }
