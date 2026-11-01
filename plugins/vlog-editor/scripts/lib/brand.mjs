@@ -300,6 +300,7 @@ ${s}.rc-label { font-family: var(--font-body); font-weight: 700; font-size: ${px
 ${s}.rc-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: ${px(60)}; line-height: 1.02; color: var(--color-ink); margin: ${px(6)} 0 ${px(20)}; }
 ${s}.rc-track { display: flex; align-items: center; gap: ${px(20)}; }
 ${s}.rc-num { flex: none; width: ${px(84)}; height: ${px(84)}; border-radius: ${px(18)}; background: var(--color-primary); color: var(--color-on-primary); display: grid; place-items: center; font-family: var(--font-body); font-weight: 800; font-size: ${px(36)}; }
+${s}.rc-cover { flex: none; width: ${px(84)}; height: ${px(84)}; border-radius: ${px(12)}; object-fit: cover; display: block; box-shadow: 0 ${px(6)} ${px(18)} rgba(0,0,0,.35); }
 ${s}.rc-track b { display: block; font-family: var(--font-body); font-weight: 700; font-size: ${px(36)}; line-height: 1.15; color: var(--color-ink); }
 ${s}.rc-track span { display: block; font-family: var(--font-body); font-weight: 500; font-size: ${px(28)}; line-height: 1.3; color: var(--color-muted); }
 ${s}.rc-step { display: flex; align-items: center; gap: ${px(14)}; margin: ${px(12)} 0 ${px(12)} ${px(20)}; font-family: var(--font-body); font-weight: 700; font-size: ${px(29)}; color: var(--color-accent); }
@@ -314,7 +315,8 @@ export function recipeHtml(b, r, { idPrefix = "rc", logoSize = 34 } = {}) {
   const rows = [];
   (r.tracks || []).forEach((t, i) => {
     if (i > 0) rows.push(`<div class="rc-step" id="${idPrefix}-s${i}"><i>↓</i>${escapeHtml(r.steps?.[i - 1] || "")}</div>`);
-    rows.push(`<div class="rc-track" id="${idPrefix}-t${i}"><div class="rc-num">${i + 1}</div><div><b>${escapeHtml(t.title)}</b><span>${escapeHtml([t.artist, t.meta].filter(Boolean).join(" · "))}</span></div></div>`);
+    const mark = t.cover ? `<img class="rc-cover" src="${escapeHtml(t.cover)}" alt="" />` : `<div class="rc-num">${i + 1}</div>`;
+    rows.push(`<div class="rc-track" id="${idPrefix}-t${i}">${mark}<div><b>${escapeHtml(t.title)}</b><span>${escapeHtml([t.artist, t.meta].filter(Boolean).join(" · "))}</span></div></div>`);
   });
   return `<div class="rc" id="${idPrefix}">${r.label ? `<div class="rc-label">${escapeHtml(r.label)}</div>` : ""}${r.title ? `<div class="rc-title">${escapeHtml(r.title)}</div>` : ""}${rows.join("")}<div class="rc-foot">${logoHtml(b, b.logo.style, logoSize)}${r.cta ? `<b>${escapeHtml(r.cta)}</b>` : ""}</div></div>`;
 }
@@ -341,7 +343,7 @@ export function layoutFor(b, format = "vertical") {
       k: 1.5,
       hook: { top: 150, left: 110, right: 640, lines: 3, max: 150, min: 90, scrim: "left" },
       recipe: { top: 110, left: 110, right: null, width: 980 },
-      lt: { top: 640, left: 110, maxWidth: 1250 },
+      lt: { top: 640, left: 110, maxWidth: 1490 },
       cap: { bottom: 110, left: 140, right: 400, size: Math.round(capSize * 1.15) },
       end: { top: 220, gap: 44, cta: 120 },
       pip: { width: 560, height: 315, right: 300, bottom: 70 },

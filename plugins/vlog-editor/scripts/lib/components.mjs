@@ -257,7 +257,7 @@ ${logoCss("#root").replace(/^/gm, "    ")}
 ${recipeCss("#root", L.k || 1).replace(/^/gm, "    ")}`,
     body: `    <div id="rc-host"></div>`,
     script: `
-      // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta}], steps:[], cta})
+      // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta,cover?}], steps:[], cta})
       var RECIPE = ${JSON.stringify(sample)};
       // @recipe-end
       var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
@@ -265,7 +265,9 @@ ${recipeCss("#root", L.k || 1).replace(/^/gm, "    ")}`,
       var rows = [];
       (RECIPE.tracks || []).forEach(function (t, i) {
         if (i > 0) rows.push('<div class="rc-step" id="rc-s' + i + '"><i>↓</i>' + esc((RECIPE.steps || [])[i - 1] || "") + "</div>");
-        rows.push('<div class="rc-track" id="rc-t' + i + '"><div class="rc-num">' + (i + 1) + "</div><div><b>" + esc(t.title) + "</b><span>" + esc([t.artist, t.meta].filter(Boolean).join(" · ")) + "</span></div></div>");
+        // A cover image (album art) when the track has one, else its number.
+        var mark = t.cover ? '<img class="rc-cover" src="' + esc(t.cover) + '" alt="" />' : '<div class="rc-num">' + (i + 1) + "</div>";
+        rows.push('<div class="rc-track" id="rc-t' + i + '">' + mark + "<div><b>" + esc(t.title) + "</b><span>" + esc([t.artist, t.meta].filter(Boolean).join(" · ")) + "</span></div></div>");
       });
       var host = document.getElementById("rc-host");
       host.innerHTML = '<div class="rc" id="rc" style="top:' + Number(V.top || ${r.top}) + 'px;${place}">' + (RECIPE.label ? '<div class="rc-label">' + esc(RECIPE.label) + "</div>" : "") + (RECIPE.title ? '<div class="rc-title">' + esc(RECIPE.title) + "</div>" : "") + rows.join("") + '<div class="rc-foot">' + LOGO + (RECIPE.cta ? "<b>" + esc(RECIPE.cta) + "</b>" : "") + "</div></div>";

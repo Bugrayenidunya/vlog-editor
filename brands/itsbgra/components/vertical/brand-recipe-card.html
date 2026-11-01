@@ -133,6 +133,7 @@
     #root .rc-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 60px; line-height: 1.02; color: var(--color-ink); margin: 6px 0 20px; }
     #root .rc-track { display: flex; align-items: center; gap: 20px; }
     #root .rc-num { flex: none; width: 84px; height: 84px; border-radius: 18px; background: var(--color-primary); color: var(--color-on-primary); display: grid; place-items: center; font-family: var(--font-body); font-weight: 800; font-size: 36px; }
+    #root .rc-cover { flex: none; width: 84px; height: 84px; border-radius: 12px; object-fit: cover; display: block; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
     #root .rc-track b { display: block; font-family: var(--font-body); font-weight: 700; font-size: 36px; line-height: 1.15; color: var(--color-ink); }
     #root .rc-track span { display: block; font-family: var(--font-body); font-weight: 500; font-size: 28px; line-height: 1.3; color: var(--color-muted); }
     #root .rc-step { display: flex; align-items: center; gap: 14px; margin: 12px 0 12px 20px; font-family: var(--font-body); font-weight: 700; font-size: 29px; color: var(--color-accent); }
@@ -149,7 +150,7 @@
       var V = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
       var M = {"ease":{"enter":"power3.out","exit":"power2.in","pop":"back.out(1.6)"},"d":{"fast":0.18,"base":0.34,"slow":0.6},"energy":"balanced"};
 
-      // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta}], steps:[], cta})
+      // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta,cover?}], steps:[], cta})
       var RECIPE = {"label":"Combo","title":"Up the wheel","tracks":[{"title":"At Night (Purple Disco Machine Remix)","artist":"Shakedown","meta":"122 BPM · 4A"},{"title":"Lola's Theme (Radio Edit)","artist":"The Shapeshifters","meta":"124 BPM · 5A"}],"steps":["EQ blend, bass swap · 16 bars"],"cta":"Save it in Mixnote"};
       // @recipe-end
       var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
@@ -157,7 +158,9 @@
       var rows = [];
       (RECIPE.tracks || []).forEach(function (t, i) {
         if (i > 0) rows.push('<div class="rc-step" id="rc-s' + i + '"><i>↓</i>' + esc((RECIPE.steps || [])[i - 1] || "") + "</div>");
-        rows.push('<div class="rc-track" id="rc-t' + i + '"><div class="rc-num">' + (i + 1) + "</div><div><b>" + esc(t.title) + "</b><span>" + esc([t.artist, t.meta].filter(Boolean).join(" · ")) + "</span></div></div>");
+        // A cover image (album art) when the track has one, else its number.
+        var mark = t.cover ? '<img class="rc-cover" src="' + esc(t.cover) + '" alt="" />' : '<div class="rc-num">' + (i + 1) + "</div>";
+        rows.push('<div class="rc-track" id="rc-t' + i + '">' + mark + "<div><b>" + esc(t.title) + "</b><span>" + esc([t.artist, t.meta].filter(Boolean).join(" · ")) + "</span></div></div>");
       });
       var host = document.getElementById("rc-host");
       host.innerHTML = '<div class="rc" id="rc" style="top:' + Number(V.top || 560) + 'px;left:72px;right:150px;">' + (RECIPE.label ? '<div class="rc-label">' + esc(RECIPE.label) + "</div>" : "") + (RECIPE.title ? '<div class="rc-title">' + esc(RECIPE.title) + "</div>" : "") + rows.join("") + '<div class="rc-foot">' + LOGO + (RECIPE.cta ? "<b>" + esc(RECIPE.cta) + "</b>" : "") + "</div></div>";

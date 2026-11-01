@@ -485,6 +485,13 @@ export async function draftOutput(projectDir, v, o, R, b) {
       const place = p.top != null ? `top:${p.top}px` : `bottom:${p.bottom}px`;
       els.push(`<video id="${oid}" class="clip pip" src="${c.work}" data-start="${start}" data-duration="${dur}" data-media-start="${fx((ov.in || 0) + Math.max(0, A - ov.start))}" data-track-index="3" muted playsinline style="z-index:3;inset:auto;${place};right:${p.right}px;width:${w}px;height:${h}px;object-fit:cover;${pos(ov, c)}"></video>`);
     } else if (ov.type === "recipe") {
+      // Track covers (album art) are project files: bring them into this output's assets.
+      for (const t of ov.recipe?.tracks || []) {
+        if (!t.cover) continue;
+        const from = path.join(projectDir, t.cover);
+        if (!exists(from)) throw new Error(`recipe ${ov.id}: cover not found: ${t.cover}`);
+        await linkOrCopy(from, path.join(dir, t.cover));
+      }
       const src = await overlayComponent(dir, "brand-recipe-card", oid, (h) => replaceMarker(h, "@recipe-start", "@recipe-end", `var RECIPE = ${JSON.stringify(ov.recipe || {})};`));
       host(oid, src, start, dur, 6, ov.top ? { top: ov.top } : null);
     } else if (ov.type === "lower-third") {
