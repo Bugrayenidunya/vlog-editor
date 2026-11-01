@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      /* Plus Jakarta Sans 800 latin-ext */
+      @font-face {
+        font-family: "Plus Jakarta Sans";
+        font-style: normal;
+        font-weight: 800;
+        font-display: block;
+        src: url("assets/fonts/plus-jakarta-sans-800-latin-ext.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      
+      /* Plus Jakarta Sans 800 latin */
+      @font-face {
+        font-family: "Plus Jakarta Sans";
+        font-style: normal;
+        font-weight: 800;
+        font-display: block;
+        src: url("assets/fonts/plus-jakarta-sans-800-latin.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      
+      /* Inter 400 latin-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        src: url("assets/fonts/inter-400-latin-ext.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      
+      /* Inter 400 latin */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        src: url("assets/fonts/inter-400-latin.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      
+      /* Inter 600 latin-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: block;
+        src: url("assets/fonts/inter-600-latin-ext.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      
+      /* Inter 600 latin */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 600;
+        font-display: block;
+        src: url("assets/fonts/inter-600-latin.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      
+      /* Inter 700 latin-ext */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: block;
+        src: url("assets/fonts/inter-700-latin-ext.woff2") format("woff2");
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+      
+      /* Inter 700 latin */
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 700;
+        font-display: block;
+        src: url("assets/fonts/inter-700-latin.woff2") format("woff2");
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      
+      :root {
+  --color-ground: #141210;
+  --color-surface: #24211E;
+  --color-ink: #FFFFFF;
+  --color-muted: #A8A29A;
+  --color-primary: #F29A38;
+  --color-accent: #E8B04A;
+  --color-highlight: #F2B84B;
+  --color-on-primary: #0B0B0B;
+  --color-on-accent: #0B0B0B;
+  --color-on-highlight: #0B0B0B;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-caption: "Plus Jakarta Sans", sans-serif;
+  --display-transform: none;
+  --display-tracking: -0.02em;
+  --display-leading: 1.02;
+  --display-weight: 800;
+  --cap-text: #FFFFFF;
+  --cap-stroke: #000000;
+  --cap-box: #24211E;
+  --cap-box-ink: #FFFFFF;
+  --cap-active: #F2B84B;
+  --cap-size: 84px;
+  --cap-weight: 800;
+  --cap-transform: none;
+  --cap-tracking: 0.01em;
+  --cap-radius: 999px;
+  --cap-stroke-width: 8px;
+  --safe-top: 168px;
+  --text-bottom: 1330px;
+  --rail-right: 150px;
+  --pad-x: 72px;
+  --cap-bottom: 650px;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--color-ground); }
+      #cover { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--color-ground); }
+      .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .shade { position: absolute; inset: 0; background:
+        radial-gradient(1056px 960px at 50% 50%, color-mix(in srgb, var(--color-ground) 78%, transparent), color-mix(in srgb, var(--color-ground) 38%, transparent) 75%),
+        linear-gradient(180deg, color-mix(in srgb, var(--color-ground) 30%, transparent), color-mix(in srgb, var(--color-ground) 55%, transparent)); }
+      .glow { position: absolute; inset: 0; background: radial-gradient(756px 756px at 50% 30%, color-mix(in srgb, var(--color-primary) 22%, transparent), transparent 70%); }
+      .box { position: absolute; left: 585px; right: 585px; top: 70px; bottom: 70px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 34px; }
+      .kicker { display: inline-block; font-family: var(--font-body); font-weight: 800; font-size: 30px; letter-spacing: .16em; text-transform: uppercase; color: var(--color-on-accent); background: var(--color-accent); padding: 10px 20px; border-radius: 999px; }
+      .title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: 70px; color: var(--color-ink); text-wrap: balance; text-shadow: 0 6px 30px rgba(0,0,0,.4); }
+      .title em { font-style: normal; color: var(--color-highlight); }
+      .pair { display: flex; align-items: center; gap: 26px; }
+      .art { width: 220px; height: 220px; border-radius: 18px; object-fit: cover; box-shadow: 0 18px 50px rgba(0,0,0,.55); }
+      .arrow { font-family: var(--font-display); font-weight: var(--display-weight); font-size: 79px; color: var(--color-accent); line-height: 1; }
+      .tracks { font-family: var(--font-body); font-weight: 700; font-size: 32px; color: var(--color-ink); opacity: .9; max-width: 100%; }
+.logo { display: inline-flex; align-items: center; gap: 0.32em; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--display-tracking); line-height: 1; color: var(--color-ink); white-space: nowrap; }
+.logo-dot { display: inline-block; width: 0.2em; height: 0.2em; border-radius: 50%; background: var(--color-accent); margin-left: 0.07em; vertical-align: baseline; }
+.logo-underline { display: inline-flex; flex-direction: column; align-items: stretch; gap: 0.08em; }
+.logo-underline .logo-bar { height: 0.12em; background: var(--color-accent); border-radius: 0.06em; }
+.logo-mark { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; background: var(--color-primary); color: var(--color-on-primary); font-size: 1em; letter-spacing: 0; }
+.logo-mark.is-circle { border-radius: 50%; }
+.logo-mark.is-square { border-radius: 22%; }
+.logo-mark span { font-size: 0.78em; transform: translateY(0.02em); }
+      .brand { font-size: 44px; }
+    </style>
+  </head>
+  <body>
+    <div id="cover" data-composition-id="cover" data-start="0" data-duration="1" data-width="1920" data-height="1080">
+      <img class="bg" src="assets/bg.jpg" alt="" />
+      <div class="shade"></div><div class="glow"></div>
+      <div class="box">
+        <span class="kicker">Transition recipe</span>
+        <h1 class="title">If you're a beginner DJ, steal this <em>Daft Punk blend</em></h1>
+        <div class="pair"><img class="art" src="assets/covers/push-the-feeling-on.jpg" alt="" /><span class="arrow">→</span><img class="art" src="assets/covers/around-the-world.jpg" alt="" /></div>
+        <div class="tracks">Push the Feeling On  →  Around the World</div>
+        <div class="brand"><span class="logo" style="font-size:44px"><span>itsbgra<span class="logo-dot"></span></span></span></div>
+      </div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["cover"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

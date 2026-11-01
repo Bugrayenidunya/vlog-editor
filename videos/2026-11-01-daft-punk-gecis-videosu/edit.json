@@ -3,8 +3,8 @@
   "video": "2026-11-01-daft-punk-gecis-videosu",
   "outputs": {
     "tiktok": {
-      "file": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_2026-11-01-19-48-38.mp4",
-      "renderedAt": "2026-11-01T19:49:04.408Z",
+      "file": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_2026-11-01-19-53-22.mp4",
+      "renderedAt": "2026-11-01T19:53:52.642Z",
       "format": "horizontal-feed",
       "seconds": 32,
       "lufs": -14.24,
@@ -14,8 +14,8 @@
       },
       "brand": {
         "slug": "itsbgra",
-        "version": 9,
-        "hash": "1195c2310f70"
+        "version": 10,
+        "hash": "781f69b2c98a"
       },
       "hook": {
         "text": "If you're a beginner DJ, steal this Daft Punk blend",
@@ -48,8 +48,12 @@
         }
       ],
       "faceAtFrame0": false,
-      "captions": "burn"
+      "captions": "burn",
+      "cover": {
+        "png": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_cover.png",
+        "jpg": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_cover.jpg"
+      }
     }
   },
-  "updatedAt": "2026-11-01T19:49:04.408Z"
+  "updatedAt": "2026-11-01T19:53:52.642Z"
 }

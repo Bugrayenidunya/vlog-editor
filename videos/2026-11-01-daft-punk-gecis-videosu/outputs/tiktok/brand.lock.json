@@ -1,13 +1,13 @@
 {
   "brand": "itsbgra",
   "name": "itsbgra",
-  "version": 9,
-  "hash": "1195c2310f70",
+  "version": 10,
+  "hash": "781f69b2c98a",
   "direction": "A",
   "format": "horizontal-feed",
-  "appliedAt": "2026-11-01T19:48:16.844Z",
+  "appliedAt": "2026-11-01T19:50:50.569Z",
   "previous": {
-    "hash": "f37488da21b7",
-    "appliedAt": "2026-11-01T19:47:33.697Z"
+    "hash": "1195c2310f70",
+    "appliedAt": "2026-11-01T19:48:16.844Z"
   }
 }

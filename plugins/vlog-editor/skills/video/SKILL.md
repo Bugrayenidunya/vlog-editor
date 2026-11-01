@@ -21,7 +21,8 @@ it prints JSON.
 | `plan` | the resolved edit: segment times, overlay times, each output's window, chapters |
 | `draft [--output name]` | builds `outputs/<name>/` HyperFrames projects + mastered audio, then check + key frames (`.vlog/frames/<name>/`) |
 | `check [--output name]` | `hyperframes check` + key frames again |
-| `render [--output name\|all] [--quality draft]` | MP4s in `renders/` at the brand's loudness, plus `.chapters.txt` and `.captions.srt` for 16:9; fingerprints in `edit.json` |
+| `render [--output name\|all] [--quality draft]` | MP4s in `renders/` at the brand's loudness + the **cover image** (`<slug>__<output>_cover.png/.jpg`, YouTube also 1280×720), `.chapters.txt` and `.captions.srt` for 16:9; fingerprints in `edit.json` |
+| `cover [--output name]` | regenerate only the cover image |
 | `undo` | restores the previous `video.json` (then `draft` again) |
 
 ## video.json (the only file to edit)
@@ -43,10 +44,13 @@ it prints JSON.
   ],
   "hook": { "text": "…", "emphasis": "…" },          // shared default hook
   "endCard": { "cta": "…" },
+  "cover": { "kicker": "Transition recipe", "frameAt": 12.5 },   // optional defaults for every output's cover
   "outputs": [
-    { "name": "youtube", "format": "horizontal", "range": null, "hook": true, "hookSeconds": 4, "endSeconds": 8, "captions": "srt" },
+    { "name": "youtube", "format": "horizontal", "range": null, "hook": true, "hookSeconds": 4, "endSeconds": 0, "captions": "srt" },
     { "name": "reel", "format": "vertical", "range": { "from": { "seg": "s2", "t": 30 }, "to": { "seg": "s2", "t": 75 } },
-      "maxSeconds": 60, "hook": { "text": "…", "emphasis": "…" }, "endSeconds": 2.5, "captions": "burn" }
+      "maxSeconds": 60, "hook": { "text": "…", "emphasis": "…" }, "endSeconds": 0, "captions": "burn",
+      "cover": { "title": "…", "emphasis": "…" } },
+    { "name": "tiktok", "format": "horizontal-feed", … }   // 16:9 for TikTok/Instagram feeds: 1.5× type, clear of the right-hand icons
   ]
 }
 ```
@@ -56,9 +60,18 @@ it prints JSON.
 - **Overlays**: `cutaway`/`broll` (another clip over the picture, the timeline's sound continues), `pip` (corner
   window), `lower-third`, `recipe`, `text` (on-screen words in the caption style). Anchor to segments so trims
   elsewhere never move them.
-- **Outputs**: `range` null → the whole edit (vertical: an automatic `maxSeconds` window around the first recipe
-  card). `hook` true / an object / false. `captions` `burn` (spoken words + text beats burned in, for reels) or
-  `srt` (a file for YouTube). `cta` overrides the end card's line.
+- **Outputs**: `format` vertical · horizontal (YouTube) · horizontal-feed (16:9 posted to TikTok/Instagram) ·
+  square. `range` null → the whole edit (vertical: an automatic `maxSeconds` window around the first recipe card).
+  `hook` true / an object / false. `captions` `burn` (spoken words + text beats burned in) or `srt` (a file for
+  YouTube). **No end card**: the creator never uses them (`endSeconds` stays 0 unless they ask).
+- **Cover image**: every render ships one, from the brand's single cover template (`coverHtml` in
+  `scripts/lib/components.mjs`): a clean frame from the original footage, a kicker, the title (the output's hook
+  unless `cover.title`), the recipe's album covers joined by an arrow, the track names, the logo. Feed covers keep
+  everything inside the centred 3:4 strip that TikTok/Instagram grids show. `cover.frameAt` picks the background
+  moment (output seconds; default just before the recipe card). Show the person the cover with the video.
+- **Album covers**: recipe tracks take `"cover": "assets/covers/<file>.jpg"` (project-relative). Find official
+  artwork through the iTunes Search API (`itunes.apple.com/search?term=…&entity=song`, swap `100x100bb` for
+  `600x600bb` in `artworkUrl100`) and check the picture before using it.
 
 ## Long YouTube vlog
 
@@ -84,5 +97,7 @@ wherever they fall inside the window.
 - Write copy yourself from what you see and hear: hooks, labels, recipe text, chapters. Use the brand's
   `voice.hookFormulas` as patterns, not fill-in templates.
 - Look at the frames after every draft. A passing check does not show how it looks.
+- Never label a technique you have not confirmed: what the DJ did at a moment comes from the person (or is asked),
+  not guessed from the audio.
 - Keep `DESIGN.md` rules (copied into every output). Never delete `source/`; never touch other videos.
 - `outputs/*/index.html` are generated: change `video.json` and draft again.

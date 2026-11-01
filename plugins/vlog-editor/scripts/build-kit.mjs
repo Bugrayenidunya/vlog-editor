@@ -126,8 +126,9 @@ const front = {
     captions: { file: "compositions/brand/brand-captions.html", style: b.captions.style, wordsPerGroup: list(b.captions.wordsPerGroup).join("–"), description: "Mount once on a host with data-track-kind=\"captions\"; fill WORDS between the @words markers from transcript.json." },
     "hook-title": { file: "compositions/brand/brand-hook.html", variables: "hook, emphasis", description: "On screen at frame 0 (the thumbnail); first 2–3 s." },
     "lower-third": { file: "compositions/brand/brand-lower-third.html", variables: "title, subtitle", description: "Place or topic chip at y 930, above the caption band." },
-    "end-card": { file: "compositions/brand/brand-end-card.html", variables: "cta, handle", description: "Last 2–3 s: logo, call to action, handle." },
+    "end-card": { file: "compositions/brand/brand-end-card.html", variables: "cta, handle", description: "Optional, off by default (the creator does not use end cards); the call to action lives in the recipe card and the caption." },
     "recipe-card": { file: "compositions/brand/brand-recipe-card.html", variables: "top", description: "Items joined by steps (tracks joined by transitions: technique · bars, BPM · key). Fill RECIPE between the @recipe markers." },
+    cover: { template: "coverHtml (scripts/lib/components.mjs)", description: "One cover template for every video: footage frame, kicker, hook title with emphasis, the recipe's album covers joined by an arrow, track names, logo; feed covers keep everything in the centred 3:4 grid crop." },
     logo: { style: b.logo.style, text: b.logo.text, monogram: b.logo.monogram, files: "assets/brand/avatar.png, assets/brand/wordmark.png" },
   },
   formats: Object.fromEntries(
@@ -169,7 +170,7 @@ Style **${b.captions.style}**, ${list(b.captions.wordsPerGroup).join("–")} wor
 One edit renders as several formats; every brand component has a layout per format (\`components/<format>/\`).
 
 - **Vertical 1080×1920** (TikTok, Reels, Shorts): the platform draws over the frame. Nothing in the top ${b.layout.safeTop} px, words inside ${b.layout.safeTop}–${b.layout.textBottom} px, nothing under the right-hand action rail (${b.layout.railRight} px). Frame 0 is the thumbnail: a face or the hook, never the logo. Keep cuts to 60 s or less, built around one payoff.
-- **Horizontal 1920×1080** (YouTube): no app UI, so words stay inside the 80% title-safe box. The hook sits on the left third over a side scrim; the recipe card is a right-hand panel, so the footage stays visible. Long videos get chapters, from segment labels, and a captions file (SRT) uploaded instead of burned-in captions. The end card runs 5–20 s to leave room for YouTube's end-screen elements.
+- **Horizontal 1920×1080** (YouTube): no app UI, so words stay inside the 80% title-safe box. The hook sits on the left third over a side scrim; the recipe card is a right-hand panel, so the footage stays visible. Long videos get chapters, from segment labels, and a captions file (SRT) uploaded instead of burned-in captions.
 - **Square 1080×1080** (Instagram feed): centred layouts, the same type ramp at about 85%.
 
 Footage that does not match the frame is cropped when that loses little (landscape decks into vertical, using the clip's focus point). Otherwise it is placed whole over a blurred, darkened copy of itself (a vertical selfie in 16:9).

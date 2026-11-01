@@ -340,3 +340,101 @@ function avatarMark(b, size) {
     return `<span class="logo" style="font-size:${Math.round(size * 0.62)}px"><span>${escapeHtml(b.logo.monogram)}<span class="logo-dot"></span></span></span>`;
   return `<span class="logo"><span class="logo-mark is-square" style="font-size:${size}px"><span>${escapeHtml(b.logo.monogram)}</span></span></span>`;
 }
+
+/**
+ * Cover image (thumbnail) — one template for every video, laid out per format. A still composition:
+ * background frame from the footage, a small kicker, the title (hook) with its emphasis, the recipe's two album
+ * covers joined by an arrow, the track names, and the logo. Grid-safe: TikTok and Instagram crop profile-grid
+ * covers to a centred 3:4, so the 16:9 feed cover keeps everything in the middle 3:4 strip.
+ */
+export function coverHtml(b, fontsCss, format, { title, emphasis = "", kicker = "", covers = [], tracksLine = "", bg = null }) {
+  const L = layoutFor(b, format);
+  const W = L.W;
+  const H = L.H;
+  const box = {
+    vertical: { left: 80, right: 80, top: 300, bottom: 300, align: "center", tmax: 156, tmin: 92, lines: 3, art: 300, k: 1.25 },
+    square: { left: 80, right: 80, top: 70, bottom: 70, align: "center", tmax: 124, tmin: 74, lines: 3, art: 230, k: 1 },
+    horizontal: { left: 110, right: 760, top: 110, bottom: 110, align: "left", tmax: 140, tmin: 84, lines: 3, art: 300, k: 1.15 },
+    "horizontal-feed": { left: Math.round((W - (H * 3) / 4) / 2) + 30, right: Math.round((W - (H * 3) / 4) / 2) + 30, top: 70, bottom: 70, align: "center", tmax: 112, tmin: 70, lines: 3, art: 220, k: 1 },
+  }[format] || { left: 80, right: 80, top: 80, bottom: 80, align: "center", tmax: 120, tmin: 72, lines: 3, art: 240, k: 1 };
+  const k = box.k;
+  const wf = b.fonts.display.widthFactor ?? 0.5;
+  const maxW = W - box.left - box.right;
+  // Largest title size that fits the lines (deterministic, from the face's width factor).
+  let size = box.tmin;
+  const words = String(title || "").split(/\s+/).filter(Boolean);
+  for (let s2 = box.tmax; s2 >= box.tmin; s2 -= 2) {
+    const per = maxW / (s2 * wf);
+    let n = 1;
+    let cur = 0;
+    let bad = false;
+    for (const w of words) {
+      const len = w.length + (cur ? 1 : 0);
+      if (w.length > per) bad = true;
+      if (cur + len > per && cur > 0) {
+        n++;
+        cur = w.length;
+      } else cur += len;
+    }
+    if (!bad && n <= box.lines) {
+      size = s2;
+      break;
+    }
+  }
+  const t = escapeHtml(title || "");
+  const at = emphasis ? String(title).toLocaleLowerCase().indexOf(String(emphasis).toLocaleLowerCase()) : -1;
+  const titleHtml = at < 0 ? t : `${escapeHtml(title.slice(0, at))}<em>${escapeHtml(title.slice(at, at + emphasis.length))}</em>${escapeHtml(title.slice(at + emphasis.length))}`;
+  const arts = covers.filter((c) => c && c.src).slice(0, 2);
+  const px = (n) => `${Math.round(n * k)}px`;
+  const centre = box.align === "center";
+  return `<!doctype html>
+<html lang="${esc((b.languages || ["en"])[0])}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=${W}, height=${H}" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+${fontsCss}
+      :root {
+${cssVariables(b)}
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: ${W}px; height: ${H}px; overflow: hidden; background: var(--color-ground); }
+      #cover { position: relative; width: ${W}px; height: ${H}px; overflow: hidden; background: var(--color-ground); }
+      .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .shade { position: absolute; inset: 0; background:
+        radial-gradient(${Math.round(Math.max(W, H) * 0.55)}px ${Math.round(Math.max(W, H) * 0.5)}px at ${centre ? "50% 50%" : "28% 50%"}, color-mix(in srgb, var(--color-ground) 78%, transparent), color-mix(in srgb, var(--color-ground) 38%, transparent) 75%),
+        linear-gradient(180deg, color-mix(in srgb, var(--color-ground) 30%, transparent), color-mix(in srgb, var(--color-ground) 55%, transparent)); }
+      .glow { position: absolute; inset: 0; background: radial-gradient(${Math.round(Math.min(W, H) * 0.7)}px ${Math.round(Math.min(W, H) * 0.7)}px at ${centre ? "50% 30%" : "20% 25%"}, color-mix(in srgb, var(--color-primary) 22%, transparent), transparent 70%); }
+      .box { position: absolute; left: ${box.left}px; right: ${box.right}px; top: ${box.top}px; bottom: ${box.bottom}px; display: flex; flex-direction: column; justify-content: center; align-items: ${centre ? "center" : "flex-start"}; text-align: ${centre ? "center" : "left"}; gap: ${px(34)}; }
+      .kicker { display: inline-block; font-family: var(--font-body); font-weight: 800; font-size: ${px(30)}; letter-spacing: .16em; text-transform: uppercase; color: var(--color-on-accent); background: var(--color-accent); padding: ${px(10)} ${px(20)}; border-radius: 999px; }
+      .title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: ${size}px; color: var(--color-ink); text-wrap: balance; text-shadow: 0 6px 30px rgba(0,0,0,.4); }
+      .title em { font-style: normal; color: var(--color-highlight); }
+      .pair { display: flex; align-items: center; gap: ${px(26)}; }
+      .art { width: ${box.art}px; height: ${box.art}px; border-radius: ${Math.round(box.art * 0.08)}px; object-fit: cover; box-shadow: 0 ${px(18)} ${px(50)} rgba(0,0,0,.55); }
+      .arrow { font-family: var(--font-display); font-weight: var(--display-weight); font-size: ${Math.round(box.art * 0.36)}px; color: var(--color-accent); line-height: 1; }
+      .tracks { font-family: var(--font-body); font-weight: 700; font-size: ${px(32)}; color: var(--color-ink); opacity: .9; max-width: 100%; }
+${logoCss()}
+      .brand { font-size: ${px(44)}; }
+    </style>
+  </head>
+  <body>
+    <div id="cover" data-composition-id="cover" data-start="0" data-duration="1" data-width="${W}" data-height="${H}">
+      ${bg ? `<img class="bg" src="${escapeHtml(bg)}" alt="" />` : ""}
+      <div class="shade"></div><div class="glow"></div>
+      <div class="box">
+        ${kicker ? `<span class="kicker">${escapeHtml(kicker)}</span>` : ""}
+        <h1 class="title">${titleHtml}</h1>
+        ${arts.length === 2 ? `<div class="pair"><img class="art" src="${escapeHtml(arts[0].src)}" alt="" /><span class="arrow">→</span><img class="art" src="${escapeHtml(arts[1].src)}" alt="" /></div>` : arts.length === 1 ? `<div class="pair"><img class="art" src="${escapeHtml(arts[0].src)}" alt="" /></div>` : ""}
+        ${tracksLine ? `<div class="tracks">${escapeHtml(tracksLine)}</div>` : ""}
+        <div class="brand">${logoHtml(b, b.logo.style, Math.round(44 * k))}</div>
+      </div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["cover"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>
+`;
+}

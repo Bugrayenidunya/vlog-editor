@@ -74,7 +74,7 @@ components:
   end-card:
     file: "compositions/brand/brand-end-card.html"
     variables: "cta, handle"
-    description: "Last 2–3 s: logo, call to action, handle."
+    description: "Optional, off by default (the creator does not use end cards); the call to action lives in the recipe card and the caption."
   recipe-card:
     file: "compositions/brand/brand-recipe-card.html"
     variables: "top"
@@ -181,7 +181,7 @@ Style **pill**, 3–5 words per group, one group at a time, bottom edge 650 px f
 One edit renders as several formats; every brand component has a layout per format (`components/<format>/`).
 
 - **Vertical 1080×1920** (TikTok, Reels, Shorts): the platform draws over the frame. Nothing in the top 168 px, words inside 168–1330 px, nothing under the right-hand action rail (150 px). Frame 0 is the thumbnail: a face or the hook, never the logo. Keep cuts to 60 s or less, built around one payoff.
-- **Horizontal 1920×1080** (YouTube): no app UI, so words stay inside the 80% title-safe box. The hook sits on the left third over a side scrim; the recipe card is a right-hand panel, so the footage stays visible. Long videos get chapters, from segment labels, and a captions file (SRT) uploaded instead of burned-in captions. The end card runs 5–20 s to leave room for YouTube's end-screen elements.
+- **Horizontal 1920×1080** (YouTube): no app UI, so words stay inside the 80% title-safe box. The hook sits on the left third over a side scrim; the recipe card is a right-hand panel, so the footage stays visible. Long videos get chapters, from segment labels, and a captions file (SRT) uploaded instead of burned-in captions.
 - **Square 1080×1080** (Instagram feed): centred layouts, the same type ramp at about 85%.
 
 Footage that does not match the frame is cropped when that loses little (landscape decks into vertical, using the clip's focus point). Otherwise it is placed whole over a blurred, darkened copy of itself (a vertical selfie in 16:9).

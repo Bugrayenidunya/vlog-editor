@@ -112,7 +112,7 @@
       "range": null,
       "hook": true,
       "hookSeconds": 3.5,
-      "endSeconds": 2.5,
+      "endSeconds": 0,
       "captions": "burn",
       "cta": "Save it in Mixnote"
     }
@@ -135,10 +135,17 @@
       "at": "2026-11-01T19:49:04.408Z",
       "seconds": 32,
       "lufs": -14.24
+    },
+    {
+      "output": "tiktok",
+      "file": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_2026-11-01-19-53-22.mp4",
+      "at": "2026-11-01T19:53:52.642Z",
+      "seconds": 32,
+      "lufs": -14.24
     }
   ],
   "migratedFrom": "vlog-editor/video@1",
-  "updatedAt": "2026-11-01T19:49:04.409Z",
+  "updatedAt": "2026-11-01T19:53:52.643Z",
   "plan": {
     "total": 32,
     "segments": 1,
@@ -154,7 +161,7 @@
     }
   },
   "lastCheck": {
-    "at": "2026-11-01T19:48:32.671Z",
+    "at": "2026-11-01T19:51:06.306Z",
     "outputs": {
       "tiktok": {
         "ok": true,
@@ -167,7 +174,7 @@
           ".vlog/frames/tiktok/frame-03-at-19.2s.png",
           ".vlog/frames/tiktok/frame-04-at-21.12s.png",
           ".vlog/frames/tiktok/frame-05-at-25.7s.png",
-          ".vlog/frames/tiktok/frame-06-at-30.7s.png"
+          ".vlog/frames/tiktok/frame-06-at-31.95s.png"
         ],
         "times": [
           0.3,
@@ -176,7 +183,7 @@
           19.2,
           21.12,
           25.7,
-          30.7
+          31.95
         ]
       }
     }

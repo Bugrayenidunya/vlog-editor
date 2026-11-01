@@ -9,6 +9,7 @@
 //   node video.mjs draft   --project videos/<v> [--output youtube|reel|all]
 //   node video.mjs check   --project videos/<v> [--output …]
 //   node video.mjs render  --project videos/<v> [--output …|all] [--quality draft|looks|delivery]
+//   node video.mjs cover   --project videos/<v> [--output …]          (cover image only; render makes it too)
 //   node video.mjs undo    --project videos/<v>
 //
 // Layout of videos/<v>/:
@@ -24,6 +25,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { parseArgs, log, die, exists, ensureDir, readJson, writeJson, run, runHf, warmHf, parseJsonLoose, slugify, round, escapeHtml } from "./lib/util.mjs";
 import { withDefaults, FORMATS, layoutFor } from "./lib/brand.mjs";
+import { coverHtml } from "./lib/components.mjs";
 import { applyBrand } from "./apply-brand.mjs";
 
 const SCHEMA = "vlog-editor/video@2";
@@ -89,8 +91,8 @@ async function migrateV1(projectDir, v1) {
 
 function defaultOutputs({ maxSeconds } = {}) {
   return [
-    { name: "youtube", format: "horizontal", enabled: true, range: null, hook: true, hookSeconds: 4, endSeconds: 8, captions: "srt" },
-    { name: "reel", format: "vertical", enabled: true, range: null, maxSeconds: maxSeconds || 60, hook: true, hookSeconds: 3.2, endSeconds: 2.5, captions: "burn" },
+    { name: "youtube", format: "horizontal", enabled: true, range: null, hook: true, hookSeconds: 4, endSeconds: 0, captions: "srt" },
+    { name: "reel", format: "vertical", enabled: true, range: null, maxSeconds: maxSeconds || 60, hook: true, hookSeconds: 3.2, endSeconds: 0, captions: "burn" },
   ];
 }
 
@@ -419,7 +421,8 @@ function spokenWords(projectDir, R, A, B) {
   return words;
 }
 
-const endSecondsOf = (o, T) => Math.min(o.endSeconds ?? (o.format === "horizontal" ? 8 : 2.5), T / 3);
+// No end card unless an output asks for one with "endSeconds" > 0 (the creator never uses them).
+const endSecondsOf = (o, T) => (o.endCard === false || !(o.endSeconds > 0) ? 0 : Math.min(o.endSeconds, T / 3));
 
 export async function draftOutput(projectDir, v, o, R, b) {
   const F = FORMATS[o.format];
@@ -514,9 +517,11 @@ export async function draftOutput(projectDir, v, o, R, b) {
     const src = await overlayComponent(dir, "brand-hook", "hook");
     host("hook", src, 0, Math.min(o.hookSeconds ?? 3.2, T - endSec), 8, { hook: hook.text, emphasis: hook.emphasis || "" });
   }
-  const handle = b.handles?.tiktok || b.handles?.instagram || b.handles?.youtube || "";
-  const endSrc = await overlayComponent(dir, "brand-end-card", "endcard");
-  host("endcard", endSrc, T - endSec, endSec, 9, { cta: o.cta || v.endCard?.cta || "", handle });
+  if (endSec > 0) {
+    const handle = b.handles?.tiktok || b.handles?.instagram || b.handles?.youtube || "";
+    const endSrc = await overlayComponent(dir, "brand-end-card", "endcard");
+    host("endcard", endSrc, T - endSec, endSec, 9, { cta: o.cta || v.endCard?.cta || "", handle });
+  }
 
   const html = `<!doctype html>
 <html lang="${escapeHtml((b.languages || ["en"])[0])}">
@@ -659,6 +664,78 @@ function srtFrom(words) {
   return cues.map((c, i) => `${i + 1}\n${srtTime(c.start)} --> ${srtTime(c.end)}\n${c.text}\n`).join("\n");
 }
 
+// ======================= cover image =======================
+/** The video's cover (thumbnail) for one output, from the brand's single cover template. */
+export async function makeCover(projectDir, v, o, R, b) {
+  const F = FORMATS[o.format];
+  const { W, H } = F;
+  const workspace = path.resolve(projectDir, "..", "..");
+  const dir = path.join(outputDir(projectDir, o), "cover");
+  await fsp.rm(dir, { recursive: true, force: true });
+  await ensureDir(path.join(dir, "assets", "fonts"));
+  const fontsDir = path.join(workspace, "brands", v.brand, "fonts");
+  for (const f of await fsp.readdir(fontsDir)) if (f.endsWith(".woff2")) await linkOrCopy(path.join(fontsDir, f), path.join(dir, "assets", "fonts", f));
+  const fontsCss = (await fsp.readFile(path.join(fontsDir, "fonts.css"), "utf8")).replace(/url\("([^"]+)"\)/g, (m, f) => `url("assets/fonts/${f}")`);
+  const { A, B } = windowFor(o, R);
+  const T = B - A;
+  const recipe = R.overlays.find((x) => x.type === "recipe" && x.end > A && x.start < B);
+  const conf = { ...(v.cover || {}), ...(o.cover || {}) };
+  // Background: a clean frame from the original footage (sharpest source), at the chosen moment.
+  const at = A + clamp(conf.frameAt ?? (recipe ? Math.max(0, recipe.start - A - 1.5) : T * 0.45), 0, T - 0.05);
+  const seg = R.segs.find((s) => at >= s.start && at < s.end) || R.segs.find((s) => s.end > A);
+  let bg = null;
+  if (seg) {
+    const c = seg.clipInfo;
+    const src = exists(path.join(projectDir, c.file)) ? path.join(projectDir, c.file) : path.join(projectDir, c.work);
+    const fxp = seg.focusX ?? c.focusX ?? 0.5;
+    const fyp = seg.focusY ?? c.focusY ?? 0.5;
+    const out = path.join(dir, "assets", "bg.jpg");
+    const r = await run("ffmpeg", ["-v", "error", "-y", "-ss", String(fx(seg.in + (at - seg.start))), "-i", src, "-frames:v", "1", "-vf", `scale=${W}:${H}:force_original_aspect_ratio=increase,crop=${W}:${H}:(iw-${W})*${fxp}:(ih-${H})*${fyp}`, "-q:v", "2", out], { timeoutMs: 120000 });
+    if (r.code === 0 && exists(out)) bg = "assets/bg.jpg";
+  }
+  const covers = [];
+  for (const t of recipe?.recipe?.tracks || []) {
+    if (!t.cover || !exists(path.join(projectDir, t.cover))) continue;
+    const rel = `assets/covers/${path.basename(t.cover)}`;
+    await linkOrCopy(path.join(projectDir, t.cover), path.join(dir, rel));
+    covers.push({ src: rel, title: t.title });
+  }
+  const hook = typeof o.hook === "object" && o.hook ? o.hook : v.hook;
+  const html = coverHtml(b, fontsCss.replace(/^/gm, "      "), o.format, {
+    title: conf.title ?? hook?.text ?? v.title,
+    emphasis: conf.emphasis ?? (conf.title ? "" : hook?.emphasis || ""),
+    kicker: conf.kicker ?? (recipe ? "Transition recipe" : b.tagline || ""),
+    covers,
+    tracksLine: conf.tracksLine ?? (recipe ? (recipe.recipe?.tracks || []).map((t) => t.title).join("  →  ") : ""),
+    bg,
+  });
+  await fsp.writeFile(path.join(dir, "index.html"), html);
+  const shots = path.join(dir, ".shots");
+  const s = await runHf(["snapshot", dir, "--at", "0.5", "--no-end", "-o", shots, "--json"], { cwd: dir, timeoutMs: 180000, workspace: dir });
+  const png = (await fsp.readdir(shots).catch(() => [])).find((f) => f.endsWith(".png"));
+  if (!png) throw new Error(`cover snapshot failed: ${(s.stderr || s.stdout).trim().split("\n").slice(-2).join(" ")}`);
+  const base = path.join(projectDir, "renders", `${v.slug}__${o.name}_cover`);
+  await ensureDir(path.dirname(base));
+  await fsp.copyFile(path.join(shots, png), `${base}.png`);
+  await run("ffmpeg", ["-v", "error", "-y", "-i", `${base}.png`, "-q:v", "2", `${base}.jpg`]);
+  const files = { png: path.relative(projectDir, `${base}.png`), jpg: path.relative(projectDir, `${base}.jpg`) };
+  if (o.format === "horizontal") {
+    await run("ffmpeg", ["-v", "error", "-y", "-i", `${base}.png`, "-vf", "scale=1280:720", "-q:v", "2", `${base}-1280x720.jpg`]);
+    files.youtube = path.relative(projectDir, `${base}-1280x720.jpg`);
+  }
+  return files;
+}
+
+export async function covers(projectDir, { output = "all" } = {}) {
+  const v = await loadVideo(projectDir);
+  const R = resolve(v);
+  const brand = await readJson(path.join(projectDir, "..", "..", "brands", v.brand, "brand.json"), null);
+  const b = withDefaults(brand || {});
+  const out = {};
+  for (const o of pickOutputs(v, output)) out[o.name] = await makeCover(projectDir, v, o, R, b);
+  return out;
+}
+
 export async function render(projectDir, { output = "all", quality } = {}) {
   const v = await loadVideo(projectDir);
   const R = resolve(v);
@@ -707,6 +784,13 @@ export async function render(projectDir, { output = "all", quality } = {}) {
         await fsp.writeFile(f, srtFrom(words));
         extras.captions = path.relative(projectDir, f);
       }
+    }
+    // Every render ships with its cover image, from the brand's one cover template.
+    try {
+      const brand = await readJson(path.join(projectDir, "..", "..", "brands", v.brand, "brand.json"), null);
+      extras.cover = await makeCover(projectDir, v, o, R, withDefaults(brand || {}));
+    } catch (e) {
+      extras.coverError = e.message;
     }
     const firstSeg = R.segs.find((s) => s.end > A);
     const entry = {
@@ -782,8 +866,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     } else if (cmd === "render") {
       await warmHf(need());
       out = { renders: await render(need(), { output: args.output || "all", quality: args.quality }) };
+    } else if (cmd === "cover") {
+      await warmHf(need());
+      out = { covers: await covers(need(), { output: args.output || "all" }) };
     } else if (cmd === "undo") out = await undo(need());
-    else die("commands: init · add · ingest · plan · draft · check · render · undo");
+    else die("commands: init · add · ingest · plan · draft · check · render · cover · undo");
   } catch (e) {
     process.stdout.write(JSON.stringify({ ok: false, error: e.message }) + "\n");
     process.exit(1);
