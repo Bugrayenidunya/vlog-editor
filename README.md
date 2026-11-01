@@ -28,20 +28,22 @@ It comes with two interfaces that share one engine:
 8. **Kit**: `DESIGN.md` (HyperFrames' design spec), tokens, local fonts (Turkish-safe), logo and profile
    picture, caption/hook/lower-third/end-card components, and a rendered sizzle reel.
 
-## Videos, edited by conversation
+## Videos: one edit, every format
 
-1. **New video** (studio sidebar): pick the brand and upload clips. **Main** is the footage whose sound is the mix,
-   **face** opens the video so frame 0 is you, and **b-roll** is optional.
-2. **Build draft**: the clips become a vertical video in your brand's style:
-   - the face clip at frame 0 while the mix already plays
-   - the footage cropped to 9:16 (drag the crop box)
-   - the hook, the recipe card at the blend, a lower third, on-screen text and the end card
-   - audio mastered to the brand's loudness (−14 LUFS)
-3. **Edit with Claude**: type what to change ("show the card when the blend starts", "crop toward the mixer").
-   Each video keeps one Claude Code session that remembers earlier edits, checks every change and refreshes the
-   frames. **Live editor** opens HyperFrames' own timeline editor; **Undo** restores the previous version.
-4. **Render MP4**: 1080×1920, H.264, loudness-checked, plus an `edit.json` style fingerprint for the coming
-   performance loop.
+Make videos by talking to Claude (`/vlog-editor:video`). One edit renders as:
+
+- **YouTube (16:9)**: the whole edit, long vlogs included.
+  - many clips in order, with chapters
+  - b-roll cutaways and a picture-in-picture face cam
+  - lower thirds, recipe cards and an 8 s end card
+  - a `chapters.txt` and a `captions.srt` to upload alongside
+- **Reels / TikTok / Shorts (9:16)**: any number of windows into the same edit, each with its own hook and burned-in
+  captions. Landscape footage is cropped around a focus point; frame 0 is the thumbnail.
+- **Square (1:1)** when needed.
+
+Clips are transcribed, so takes can be chosen by what's said. Every output's audio is mastered to the brand's
+loudness (−14 LUFS). Overlays are anchored to the clip they belong to, so trimming one part never shifts the
+rest. Each render records the edit's style in `edit.json` for the performance loop.
 
 ## Install as a Claude Code plugin
 
@@ -83,6 +85,6 @@ Downloaded reference videos and their frames are for private analysis and stay o
 
 - [x] HyperFrames setup and plugin scaffold
 - [x] Brand kit: engine, skill, studio
-- [x] Videos: brand-styled drafts from clips, Claude chat editing, live HyperFrames editor, render
+- [x] Videos: one edit → long 16:9 YouTube vlog + 9:16 reels (+ square), chapters, SRT, mastered audio
 - [ ] Performance loop: track published posts' analytics, learn which styles and edits win, update the kit
-- [ ] Video: b-roll placement, beat-synced cuts, spoken captions, per-platform export presets
+- [ ] Video: music beds with ducking, transitions, beat-synced cuts

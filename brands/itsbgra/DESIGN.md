@@ -2,7 +2,7 @@
 version: "alpha"
 name: "itsbgra — Brand (vertical video)"
 description: "Blends that finally clicked A DJ learning in public who turns every blend that works into a recipe beginners can copy — and save in Mixnote."
-unit: "the frame — 1080×1920 (TikTok, Instagram Reels, YouTube Shorts)"
+unit: "the frame — vertical 1080×1920 (TikTok, Reels, Shorts) · horizontal 1920×1080 (YouTube) · square 1080×1080"
 principle: "Your two best posts are Mixnote cards (633 and 208 likes), so the brand speaks the app's language: warm near-black cards, gold step arrows, white bold titles. The adopted grammar is executed straight: you at frame 0, top hook, fast in then long blend, loud master."
 colors:
   ground: "#141210"
@@ -84,6 +84,31 @@ components:
     text: "itsbgra"
     monogram: "bg"
     files: "assets/brand/avatar.png, assets/brand/wordmark.png"
+formats:
+  vertical:
+    canvas: "1080×1920"
+    platforms: "TikTok, Instagram Reels, YouTube Shorts"
+    hook: "top 250px, left 72px, right 150px, ≤ 3 lines, 76–150px"
+    recipe-card: "top 560px, 72px from the sides"
+    lower-third: "top 930px, left 72px"
+    captions: "bottom 650px, 84px base"
+    components: "components/vertical/ → compositions/brand/"
+  horizontal:
+    canvas: "1920×1080"
+    platforms: "YouTube"
+    hook: "top 300px, left 120px, right 760px, ≤ 3 lines, 60–118px"
+    recipe-card: "right panel: top 96px, right 96px, 660px wide"
+    lower-third: "top 720px, left 120px"
+    captions: "bottom 96px, 67px base"
+    components: "components/horizontal/ → compositions/brand/"
+  square:
+    canvas: "1080×1080"
+    platforms: "Instagram feed"
+    hook: "top 110px, left 72px, right 72px, ≤ 3 lines, 60–120px"
+    recipe-card: "top 400px, 120px from the sides"
+    lower-third: "top 780px, left 72px"
+    captions: "bottom 110px, 71px base"
+    components: "components/square/ → compositions/brand/"
 motion:
   energy: "balanced"
   ease:
@@ -142,6 +167,16 @@ The ground is `#141210` with `#FFFFFF` ink. `#F29A38` (primary) carries brand su
 ## Captions
 
 Style **pill**, 3–5 words per group, one group at a time, bottom edge 650 px from the frame bottom, clear of the right-hand action rail. Speech is always captioned: many viewers watch muted.
+
+## Formats
+
+One edit renders as several formats; every brand component has a layout per format (`components/<format>/`).
+
+- **Vertical 1080×1920** (TikTok, Reels, Shorts): the platform draws over the frame. Nothing in the top 168 px, words inside 168–1330 px, nothing under the right-hand action rail (150 px). Frame 0 is the thumbnail: a face or the hook, never the logo. Keep cuts to 60 s or less, built around one payoff.
+- **Horizontal 1920×1080** (YouTube): no app UI, so words stay inside the 80% title-safe box. The hook sits on the left third over a side scrim; the recipe card is a right-hand panel, so the footage stays visible. Long videos get chapters, from segment labels, and a captions file (SRT) uploaded instead of burned-in captions. The end card runs 5–20 s to leave room for YouTube's end-screen elements.
+- **Square 1080×1080** (Instagram feed): centred layouts, the same type ramp at about 85%.
+
+Footage that does not match the frame is cropped when that loses little (landscape decks into vertical, using the clip's focus point). Otherwise it is placed whole over a blurred, darkened copy of itself (a vertical selfie in 16:9).
 
 ## Motion and editing
 

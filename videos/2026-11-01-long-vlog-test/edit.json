@@ -1,0 +1,157 @@
+{
+  "schema": "vlog-editor/edit@2",
+  "video": "2026-11-01-long-vlog-test",
+  "outputs": {
+    "youtube": {
+      "file": "renders/2026-11-01-long-vlog-test__youtube_2026-11-01-19-19-27.mp4",
+      "renderedAt": "2026-11-01T19:20:53.719Z",
+      "format": "horizontal",
+      "seconds": 101.4,
+      "lufs": -16.28,
+      "window": {
+        "from": 0,
+        "to": 101.378
+      },
+      "brand": {
+        "slug": "itsbgra",
+        "version": 6,
+        "hash": "65e8db7dbaf1"
+      },
+      "hook": {
+        "text": "My DJ journey: three blends that finally clicked",
+        "emphasis": "three blends"
+      },
+      "segments": [
+        {
+          "id": "s1",
+          "clip": "talk",
+          "role": "a-roll",
+          "seconds": 11.378
+        },
+        {
+          "id": "s2",
+          "clip": "decks",
+          "role": "decks",
+          "seconds": 30
+        },
+        {
+          "id": "s3",
+          "clip": "atnight",
+          "role": "decks",
+          "seconds": 30
+        },
+        {
+          "id": "s4",
+          "clip": "nightcrawlers",
+          "role": "decks",
+          "seconds": 30
+        }
+      ],
+      "cutsPerMinute": 1.776,
+      "overlays": [
+        {
+          "type": "cutaway",
+          "at": 23.378,
+          "dur": 3
+        },
+        {
+          "type": "text",
+          "at": 31.378,
+          "dur": 2.5
+        },
+        {
+          "type": "lower-third",
+          "at": 43.378,
+          "dur": 3.5
+        },
+        {
+          "type": "pip",
+          "at": 53.378,
+          "dur": 6
+        },
+        {
+          "type": "recipe",
+          "at": 81.378,
+          "dur": 5
+        }
+      ],
+      "faceAtFrame0": false,
+      "captions": "renders/2026-11-01-long-vlog-test__youtube_2026-11-01-19-19-27.captions.srt",
+      "chapters": "renders/2026-11-01-long-vlog-test__youtube_2026-11-01-19-19-27.chapters.txt"
+    },
+    "reel": {
+      "file": "renders/2026-11-01-long-vlog-test__reel_2026-11-01-19-20-53.mp4",
+      "renderedAt": "2026-11-01T19:21:23.364Z",
+      "format": "vertical",
+      "seconds": 30,
+      "lufs": -15.53,
+      "window": {
+        "from": 71.378,
+        "to": 101.378
+      },
+      "brand": {
+        "slug": "itsbgra",
+        "version": 6,
+        "hash": "65e8db7dbaf1"
+      },
+      "hook": {
+        "text": "If you're a beginner DJ, steal this 16-bar blend",
+        "emphasis": "16-bar blend"
+      },
+      "segments": [
+        {
+          "id": "s4",
+          "clip": "nightcrawlers",
+          "role": "decks",
+          "seconds": 30
+        }
+      ],
+      "cutsPerMinute": 0,
+      "overlays": [
+        {
+          "type": "recipe",
+          "at": 10,
+          "dur": 5
+        }
+      ],
+      "faceAtFrame0": false,
+      "captions": "burn"
+    },
+    "reel-intro": {
+      "file": "renders/2026-11-01-long-vlog-test__reel-intro_2026-11-01-19-22-34.mp4",
+      "renderedAt": "2026-11-01T19:22:56.928Z",
+      "format": "vertical",
+      "seconds": 21.4,
+      "lufs": -14.58,
+      "window": {
+        "from": 0,
+        "to": 21.378
+      },
+      "brand": {
+        "slug": "itsbgra",
+        "version": 6,
+        "hash": "65e8db7dbaf1"
+      },
+      "hook": null,
+      "segments": [
+        {
+          "id": "s1",
+          "clip": "talk",
+          "role": "a-roll",
+          "seconds": 11.378
+        },
+        {
+          "id": "s2",
+          "clip": "decks",
+          "role": "decks",
+          "seconds": 10
+        }
+      ],
+      "cutsPerMinute": 2.807,
+      "overlays": [],
+      "faceAtFrame0": false,
+      "captions": "burn"
+    }
+  },
+  "updatedAt": "2026-11-01T19:22:56.929Z"
+}

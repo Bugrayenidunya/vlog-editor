@@ -1,30 +1,33 @@
-// Brand components as HyperFrames sub-compositions (1080×1920). Tokens are baked in at build time so each
-// file is self-contained; per-use text comes from composition variables (data-variable-values on the host).
-// Captions read a WORDS array between the @words markers, which the video workflow fills from a transcript.
-import { cssVariables, captionCss, logoCss, logoHtml, recipeCss, recipeHtml } from "./brand.mjs";
+// Brand components as HyperFrames sub-compositions, laid out per format (vertical 1080×1920, horizontal
+// 1920×1080, square 1080×1080) from layoutFor(). Tokens are baked in at build time so each file is
+// self-contained; per-use text comes from composition variables (data-variable-values on the host).
+// Captions read WORDS between the @words markers; the recipe card reads RECIPE between the @recipe markers.
+// Each component's composition id is its file name (brand-hook, …); the video engine copies a component per
+// overlay and renames that id, so one video can mount several of the same kind.
+import { cssVariables, captionCss, logoCss, logoHtml, recipeCss, layoutFor } from "./brand.mjs";
 import { escapeHtml, escapeHtml as esc } from "./util.mjs";
 
-const W = 1080;
-const H = 1920;
+export const COMPONENT_IDS = ["brand-hook", "brand-captions", "brand-lower-third", "brand-end-card", "brand-recipe-card"];
 
 const vars = (list) => escapeAttr(JSON.stringify(list));
 function escapeAttr(s) {
   return String(s).replace(/&/g, "&amp;").replace(/'/g, "&#39;");
 }
 
-function frame(id, { variables = [], css, body, script, fontsCss, b }) {
+function frame(id, { variables = [], css, body, script, fontsCss, b, L, rootVars = "" }) {
   return `<template>
   <style>
 ${fontsCss}
     #root {
 ${cssVariables(b).replace(/^/gm, "  ")}
+${rootVars}
       position: absolute;
       inset: 0;
       overflow: visible;
     }
 ${css}
   </style>
-  <div id="root" data-composition-id="${id}" data-width="${W}" data-height="${H}"${variables.length ? ` data-composition-variables='${vars(variables)}'` : ""}>
+  <div id="root" data-composition-id="${id}" data-width="${L.W}" data-height="${L.H}"${variables.length ? ` data-composition-variables='${vars(variables)}'` : ""}>
 ${body}
   </div>
   <script>
@@ -45,19 +48,26 @@ function motionOf(b) {
 }
 
 /** Hook title: on screen at frame 0 (the thumbnail), settles, emphasis pops, leaves before the scene ends. */
-export function hookComponent(b, fontsCss) {
+export function hookComponent(b, fontsCss, format = "vertical") {
+  const L = layoutFor(b, format);
+  const h = L.hook;
   const wf = b.fonts.display.widthFactor ?? 0.5;
-  const maxW = W - b.layout.padX - b.layout.railRight;
+  const maxW = L.W - h.left - h.right;
+  const scrim =
+    h.scrim === "left"
+      ? `left: 0; top: 0; bottom: 0; width: ${Math.round(L.W * 0.68)}px; background: linear-gradient(90deg, color-mix(in srgb, var(--color-ground) 82%, transparent) 0%, color-mix(in srgb, var(--color-ground) 60%, transparent) 55%, transparent 100%);`
+      : `left: 0; right: 0; top: 0; height: ${Math.round(Math.min(L.H * 0.56, 1050))}px; background: linear-gradient(180deg, color-mix(in srgb, var(--color-ground) 82%, transparent) 0%, color-mix(in srgb, var(--color-ground) 62%, transparent) 50%, transparent 100%);`;
   return frame("brand-hook", {
     b,
+    L,
     fontsCss,
     variables: [
-      { id: "hook", type: "string", label: "Hook line", default: b.samples.hook, maxLength: 70 },
+      { id: "hook", type: "string", label: "Hook line", default: b.samples.hook, maxLength: 90 },
       { id: "emphasis", type: "string", label: "Emphasised words", default: b.samples.hookEmphasis || "" },
     ],
     css: `
-    #root .hook-scrim { position: absolute; left: 0; right: 0; top: 0; height: 1050px; background: linear-gradient(180deg, color-mix(in srgb, var(--color-ground) 82%, transparent) 0%, color-mix(in srgb, var(--color-ground) 62%, transparent) 50%, transparent 100%); }
-    #root .hook-wrap { position: absolute; top: 250px; left: var(--pad-x); right: var(--rail-right); transform-origin: 0% 0%; }
+    #root .hook-scrim { position: absolute; ${scrim} }
+    #root .hook-wrap { position: absolute; top: ${h.top}px; left: ${h.left}px; right: ${h.right}px; transform-origin: 0% 0%; }
     #root .hook { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); color: var(--color-ink); text-wrap: balance; text-shadow: 0 6px 30px rgba(0,0,0,.35); }
     #root .hook em { font-style: normal; color: var(--color-highlight); display: inline-block; }`,
     body: `    <div class="hook-scrim" id="hook-scrim"></div>
@@ -66,42 +76,48 @@ export function hookComponent(b, fontsCss) {
       var text = String(V.hook || ${JSON.stringify(b.samples.hook)});
       var emph = String(V.emphasis || "");
       var el = document.getElementById("hook-text");
-      // Size: largest that fits 3 lines, from the face's width factor (deterministic, no font metrics needed).
-      var size = 76, words = text.split(/\\s+/);
-      for (var s = 150; s >= 76; s -= 2) {
+      // Size: largest that fits ${h.lines} lines, from the face's width factor (deterministic, no font metrics needed).
+      var size = ${h.min}, words = text.split(/\\s+/);
+      for (var s = ${h.max}; s >= ${h.min}; s -= 2) {
         var per = ${maxW} / (s * ${wf}), n = 1, cur = 0, bad = false;
         for (var i = 0; i < words.length; i++) { var L = words[i].length + (cur ? 1 : 0); if (words[i].length > per) bad = true; if (cur + L > per && cur > 0) { n++; cur = words[i].length; } else cur += L; }
-        if (!bad && n <= 3) { size = s; break; }
+        if (!bad && n <= ${h.lines}) { size = s; break; }
       }
       el.style.fontSize = size + "px";
       var esc = function (t) { return t.replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); };
-      var lo = text.toLocaleLowerCase("tr"), at = emph ? lo.indexOf(emph.toLocaleLowerCase("tr")) : -1;
+      var lo = text.toLocaleLowerCase(), at = emph ? lo.indexOf(emph.toLocaleLowerCase()) : -1;
       el.innerHTML = at < 0 ? esc(text) : esc(text.slice(0, at)) + '<em id="hook-em">' + esc(text.slice(at, at + emph.length)) + "</em>" + esc(text.slice(at + emph.length));
       var dur = (window.__hyperframes && window.__hyperframes.duration) || 2.8;
       var tl = gsap.timeline({ paused: true });
       tl.fromTo("#hook-wrap", { scale: 1.06 }, { scale: 1, duration: M.d.slow, ease: M.ease.enter }, 0);
-      if (document.getElementById("hook-em")) tl.fromTo("#hook-em", { scale: 1, transformOrigin: "0% 60%" }, { scale: 1.04, transformOrigin: "0% 60%", duration: M.d.fast, ease: M.ease.pop, yoyo: true, repeat: 1 }, 0.2);
+      // A small lift on the emphasised words: it never changes their width (a scale would eat the next space),
+      // and frame 0 — the thumbnail — shows them at rest.
+      if (document.getElementById("hook-em")) tl.to("#hook-em", { y: -8, duration: M.d.fast, ease: "power2.out" }, 0.25).to("#hook-em", { y: 0, duration: M.d.base, ease: M.ease.pop });
       tl.to("#hook-wrap", { opacity: 0, y: -40, duration: M.d.base, ease: M.ease.exit }, Math.max(0.6, dur - M.d.base - 0.05));
       tl.to("#hook-scrim", { opacity: 0, duration: M.d.base, ease: M.ease.exit }, Math.max(0.6, dur - M.d.base - 0.05));`,
   });
 }
 
 /** Captions: groups of words, one visible at a time, the spoken word marked in the brand's caption style. */
-export function captionsComponent(b, fontsCss, words) {
+export function captionsComponent(b, fontsCss, format = "vertical", words) {
+  const L = layoutFor(b, format);
+  const c = L.cap;
   const max = Math.max(...[].concat(b.captions.wordsPerGroup || [3]));
   const sample = words || defaultWords(b.samples.caption);
   return frame("brand-captions", {
     b,
+    L,
     fontsCss,
+    rootVars: `      --pad-x: ${c.left}px;\n      --rail-right: ${c.right}px;\n      --cap-bottom: ${c.bottom}px;\n      --cap-size: ${c.size}px;`,
     css: `
 ${captionCss("#root").replace(/^/gm, "    ")}
     #root .cap-group { opacity: 0; visibility: hidden; }`,
     body: `    <div id="cap-layer"></div>`,
     script: `
-      // @words-start — the video workflow replaces this array from transcript.json ([{text,start,end}], seconds, scene-local)
+      // @words-start — the video workflow replaces this array ([{text,start,end}], seconds, scene-local)
       var WORDS = ${JSON.stringify(sample)};
       // @words-end
-      var STYLE = ${JSON.stringify(b.captions.style)}, MAXW = ${max}, BASE = ${b.captions.size}, MIN = ${b.captions.minSize};
+      var STYLE = ${JSON.stringify(b.captions.style)}, MAXW = ${max}, BASE = ${c.size}, MIN = ${Math.round((b.captions.minSize ?? 48) * (c.size / (b.captions.size || 84)))};
       var ACTIVE = getComputedStyle(document.getElementById("cap-layer")).getPropertyValue("--cap-active").trim() || ${JSON.stringify(b.colors.highlight)};
       var TEXT = ${JSON.stringify(b.colors.captionText)}, ONBOX = ${JSON.stringify(b.derived.onCaptionBox)};
       var BASE_INK = STYLE === "pill" ? ONBOX : TEXT, ACTIVE_INK = STYLE === "highlight" ? ONBOX : ACTIVE;
@@ -119,9 +135,9 @@ ${captionCss("#root").replace(/^/gm, "    ")}
         el.className = "cap-group"; el.id = "cap-g" + gi; el.setAttribute("data-cap-style", STYLE);
         var line = g.map(function (w) { return w.text; }).join(" ");
         var cs = getComputedStyle(layer), fam = cs.getPropertyValue(STYLE === "kinetic" ? "--font-display" : "--font-caption"), wt = cs.getPropertyValue(STYLE === "kinetic" ? "--display-weight" : "--cap-weight");
-        var tr = cs.getPropertyValue("--cap-transform").trim(), shown = tr === "uppercase" ? line.toLocaleUpperCase("tr") : line;
+        var tr = cs.getPropertyValue("--cap-transform").trim(), shown = tr === "uppercase" ? line.toLocaleUpperCase() : line;
         var scale = STYLE === "kinetic" ? 1.6 : STYLE === "pill" ? 0.72 : STYLE === "clean" ? 0.78 : 1;
-        var size = BASE * scale, maxW = ${W} - ${b.layout.padX} - ${b.layout.railRight} - 40;
+        var size = BASE * scale, maxW = ${L.W - c.left - c.right - 40};
         while (size > MIN * scale) { cv.font = wt + " " + size + "px " + fam; if (cv.measureText(shown).width <= maxW * 1.9) break; size -= 2; }
         el.style.setProperty("--cap-size", (size / scale) + "px");
         g.forEach(function (w, wi) {
@@ -155,17 +171,20 @@ export function defaultWords(text, start = 0.15, per = 0.32) {
     .map((t, i) => ({ text: t, start: +(start + i * per).toFixed(2), end: +(start + i * per + per - 0.04).toFixed(2) }));
 }
 
-/** Lower third: place or topic chip above the caption band. */
-export function lowerThirdComponent(b, fontsCss) {
+/** Lower third: place or topic chip. */
+export function lowerThirdComponent(b, fontsCss, format = "vertical") {
+  const L = layoutFor(b, format);
+  const lt = L.lt;
   return frame("brand-lower-third", {
     b,
+    L,
     fontsCss,
     variables: [
-      { id: "title", type: "string", label: "Title", default: b.samples.lowerThird?.title || "", maxLength: 28 },
-      { id: "subtitle", type: "string", label: "Subtitle", default: b.samples.lowerThird?.subtitle || "", maxLength: 40 },
+      { id: "title", type: "string", label: "Title", default: b.samples.lowerThird?.title || "", maxLength: 40 },
+      { id: "subtitle", type: "string", label: "Subtitle", default: b.samples.lowerThird?.subtitle || "", maxLength: 60 },
     ],
     css: `
-    #root .lt { position: absolute; left: var(--pad-x); top: 930px; max-width: calc(${W}px - var(--pad-x) - var(--rail-right)); display: flex; align-items: stretch; gap: 22px; padding: 22px 34px 24px 24px; background: color-mix(in srgb, var(--color-surface) 90%, transparent); border-radius: 26px; }
+    #root .lt { position: absolute; left: ${lt.left}px; top: ${lt.top}px; max-width: ${lt.maxWidth}px; display: flex; align-items: stretch; gap: 22px; padding: 22px 34px 24px 24px; background: color-mix(in srgb, var(--color-surface) 90%, transparent); border-radius: 26px; }
     #root .lt-bar { width: 10px; border-radius: 6px; background: var(--color-accent); }
     #root .lt-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 62px; line-height: 1; color: var(--color-ink); }
     #root .lt-sub { font-family: var(--font-body); font-weight: 700; font-size: 30px; line-height: 1.2; color: var(--color-muted); margin-top: 8px; }`,
@@ -182,25 +201,28 @@ export function lowerThirdComponent(b, fontsCss) {
   });
 }
 
-/** End card: logo, call to action, handle — the last beat before the loop. */
-export function endCardComponent(b, fontsCss) {
+/** End card: logo, call to action, handle — the last beat. On YouTube it also leaves room for end-screen elements. */
+export function endCardComponent(b, fontsCss, format = "vertical") {
+  const L = layoutFor(b, format);
+  const e = L.end;
   const handle = b.handles?.tiktok || b.handles?.instagram || b.handles?.youtube || "";
   return frame("brand-end-card", {
     b,
+    L,
     fontsCss,
     variables: [
-      { id: "cta", type: "string", label: "Call to action", default: b.samples.cta || "", maxLength: 40 },
+      { id: "cta", type: "string", label: "Call to action", default: b.samples.cta || "", maxLength: 60 },
       { id: "handle", type: "string", label: "Handle", default: handle },
     ],
     css: `
 ${logoCss("#root").replace(/^/gm, "    ")}
     #root .ec-bg { position: absolute; inset: 0; background: var(--color-ground); }
-    #root .ec-glow { position: absolute; inset: 0; background: radial-gradient(760px 760px at 50% 42%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 70%); }
-    #root .ec { position: absolute; left: var(--pad-x); right: var(--pad-x); top: 560px; display: flex; flex-direction: column; align-items: center; gap: 56px; text-align: center; }
-    #root .ec-cta { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: 92px; color: var(--color-ink); }
+    #root .ec-glow { position: absolute; inset: 0; background: radial-gradient(${Math.round(Math.min(L.W, L.H) * 0.7)}px ${Math.round(Math.min(L.W, L.H) * 0.7)}px at 50% 42%, color-mix(in srgb, var(--color-primary) 30%, transparent), transparent 70%); }
+    #root .ec { position: absolute; left: 96px; right: 96px; top: ${e.top}px; display: flex; flex-direction: column; align-items: center; gap: ${e.gap}px; text-align: center; }
+    #root .ec-cta { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); font-size: ${e.cta}px; color: var(--color-ink); }
     #root .ec-handle { font-family: var(--font-body); font-weight: 700; font-size: 40px; color: var(--color-muted); }`,
     body: `    <div class="ec-bg"></div><div class="ec-glow" id="ec-glow"></div>
-    <div class="ec"><div id="ec-logo">${logoHtml(b, b.logo.style, 120)}</div><div class="ec-cta" id="ec-cta"></div><div class="ec-handle" id="ec-handle"></div></div>`,
+    <div class="ec"><div id="ec-logo">${logoHtml(b, b.logo.style, format === "vertical" ? 120 : 104)}</div><div class="ec-cta" id="ec-cta"></div><div class="ec-handle" id="ec-handle"></div></div>`,
     script: `
       document.getElementById("ec-cta").textContent = String(V.cta || "");
       document.getElementById("ec-handle").textContent = String(V.handle || "");
@@ -210,6 +232,64 @@ ${logoCss("#root").replace(/^/gm, "    ")}
       tl.fromTo("#ec-cta", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: M.d.base, ease: M.ease.enter }, 0.2);
       tl.fromTo("#ec-handle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: M.d.base, ease: M.ease.enter }, 0.32);`,
   });
+}
+
+/** Recipe card: items joined by steps (DJ: tracks joined by transitions). Data between the @recipe markers. */
+export function recipeCardComponent(b, fontsCss, format = "vertical") {
+  const L = layoutFor(b, format);
+  const r = L.recipe;
+  const sample = b.samples.recipe || {
+    label: "Recipe",
+    title: "Step by step",
+    tracks: [{ title: "First", artist: "", meta: "" }, { title: "Second", artist: "", meta: "" }],
+    steps: ["then"],
+    cta: b.samples.cta || "",
+  };
+  const place = `left:${r.left == null ? "auto" : r.left + "px"};right:${r.right}px;${r.width ? `width:${r.width}px;` : ""}`;
+  return frame("brand-recipe-card", {
+    b,
+    L,
+    fontsCss,
+    variables: [{ id: "top", type: "number", label: "Top (px)", default: r.top, min: 40, max: L.H - 300 }],
+    css: `
+${logoCss("#root").replace(/^/gm, "    ")}
+${recipeCss("#root").replace(/^/gm, "    ")}`,
+    body: `    <div id="rc-host"></div>`,
+    script: `
+      // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta}], steps:[], cta})
+      var RECIPE = ${JSON.stringify(sample)};
+      // @recipe-end
+      var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+      var LOGO = ${JSON.stringify(logoHtml(b, b.logo.style, 34))};
+      var rows = [];
+      (RECIPE.tracks || []).forEach(function (t, i) {
+        if (i > 0) rows.push('<div class="rc-step" id="rc-s' + i + '"><i>↓</i>' + esc((RECIPE.steps || [])[i - 1] || "") + "</div>");
+        rows.push('<div class="rc-track" id="rc-t' + i + '"><div class="rc-num">' + (i + 1) + "</div><div><b>" + esc(t.title) + "</b><span>" + esc([t.artist, t.meta].filter(Boolean).join(" · ")) + "</span></div></div>");
+      });
+      var host = document.getElementById("rc-host");
+      host.innerHTML = '<div class="rc" id="rc" style="top:' + Number(V.top || ${r.top}) + 'px;${place}">' + (RECIPE.label ? '<div class="rc-label">' + esc(RECIPE.label) + "</div>" : "") + (RECIPE.title ? '<div class="rc-title">' + esc(RECIPE.title) + "</div>" : "") + rows.join("") + '<div class="rc-foot">' + LOGO + (RECIPE.cta ? "<b>" + esc(RECIPE.cta) + "</b>" : "") + "</div></div>";
+      var dur = (window.__hyperframes && window.__hyperframes.duration) || 4;
+      var tl = gsap.timeline({ paused: true });
+      tl.fromTo("#rc", { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: M.d.base, ease: M.ease.enter }, 0.05);
+      var n = (RECIPE.tracks || []).length;
+      for (var i = 0; i < n; i++) {
+        var at = 0.25 + i * 0.32;
+        tl.fromTo("#rc-t" + i, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: M.d.base, ease: M.ease.enter }, at);
+        if (i > 0) tl.fromTo("#rc-s" + i, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: M.d.fast, ease: M.ease.pop }, at - 0.14);
+      }
+      tl.to("#rc", { opacity: 0, y: -40, duration: M.d.base, ease: M.ease.exit }, Math.max(1.2, dur - M.d.base - 0.05));`,
+  });
+}
+
+/** Every component for one format, keyed by file name. */
+export function componentsFor(b, fontsCss, format = "vertical") {
+  return {
+    "brand-hook.html": hookComponent(b, fontsCss, format),
+    "brand-captions.html": captionsComponent(b, fontsCss, format),
+    "brand-lower-third.html": lowerThirdComponent(b, fontsCss, format),
+    "brand-end-card.html": endCardComponent(b, fontsCss, format),
+    "brand-recipe-card.html": recipeCardComponent(b, fontsCss, format),
+  };
 }
 
 /** Still compositions for logo exports: avatar (1:1 profile picture) and wordmark. */
@@ -249,49 +329,6 @@ ${logoCss()}
   </body>
 </html>
 `;
-}
-
-/** Recipe card: items joined by steps (DJ: tracks joined by transitions). Data between the @recipe markers. */
-export function recipeCardComponent(b, fontsCss) {
-  const sample = b.samples.recipe || {
-    label: "Recipe",
-    title: "Step by step",
-    tracks: [{ title: "First", artist: "", meta: "" }, { title: "Second", artist: "", meta: "" }],
-    steps: ["then"],
-    cta: b.samples.cta || "",
-  };
-  return frame("brand-recipe-card", {
-    b,
-    fontsCss,
-    variables: [{ id: "top", type: "number", label: "Top (px)", default: 560, min: 180, max: 1100 }],
-    css: `
-${logoCss("#root").replace(/^/gm, "    ")}
-${recipeCss("#root").replace(/^/gm, "    ")}`,
-    body: `    <div id="rc-host"></div>`,
-    script: `
-      // @recipe-start — the video workflow replaces this object ({label, title, tracks:[{title,artist,meta}], steps:[], cta})
-      var RECIPE = ${JSON.stringify(sample)};
-      // @recipe-end
-      var esc = function (t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
-      var LOGO = ${JSON.stringify(logoHtml(b, b.logo.style, 34))};
-      var rows = [];
-      (RECIPE.tracks || []).forEach(function (t, i) {
-        if (i > 0) rows.push('<div class="rc-step" id="rc-s' + i + '"><i>↓</i>' + esc((RECIPE.steps || [])[i - 1] || "") + "</div>");
-        rows.push('<div class="rc-track" id="rc-t' + i + '"><div class="rc-num">' + (i + 1) + "</div><div><b>" + esc(t.title) + "</b><span>" + esc([t.artist, t.meta].filter(Boolean).join(" · ")) + "</span></div></div>");
-      });
-      var host = document.getElementById("rc-host");
-      host.innerHTML = '<div class="rc" id="rc" style="top:' + Number(V.top || 560) + 'px">' + (RECIPE.label ? '<div class="rc-label">' + esc(RECIPE.label) + "</div>" : "") + (RECIPE.title ? '<div class="rc-title">' + esc(RECIPE.title) + "</div>" : "") + rows.join("") + '<div class="rc-foot">' + LOGO + (RECIPE.cta ? "<b>" + esc(RECIPE.cta) + "</b>" : "") + "</div></div>";
-      var dur = (window.__hyperframes && window.__hyperframes.duration) || 4;
-      var tl = gsap.timeline({ paused: true });
-      tl.fromTo("#rc", { opacity: 0, y: 60, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: M.d.base, ease: M.ease.enter }, 0.05);
-      var n = (RECIPE.tracks || []).length;
-      for (var i = 0; i < n; i++) {
-        var at = 0.25 + i * 0.32;
-        tl.fromTo("#rc-t" + i, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: M.d.base, ease: M.ease.enter }, at);
-        if (i > 0) tl.fromTo("#rc-s" + i, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: M.d.fast, ease: M.ease.pop }, at - 0.14);
-      }
-      tl.to("#rc", { opacity: 0, y: -40, duration: M.d.base, ease: M.ease.exit }, Math.max(1.2, dur - M.d.base - 0.05));`,
-  });
 }
 
 /** Profile-picture mark: wordmark-dot brands get "monogram." on the ground; others a monogram on primary. */

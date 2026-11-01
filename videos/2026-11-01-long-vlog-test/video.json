@@ -1,0 +1,482 @@
+{
+  "schema": "vlog-editor/video@2",
+  "slug": "2026-11-01-long-vlog-test",
+  "title": "Long vlog test: three blends",
+  "brand": "itsbgra",
+  "createdAt": "2026-11-01T19:15:25.642Z",
+  "clips": [
+    {
+      "id": "talk",
+      "file": "source/talk.mov",
+      "role": "a-roll",
+      "focusX": 0.5,
+      "focusY": 0.5,
+      "info": {
+        "width": 1946,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 11.378,
+        "hasAudio": true
+      },
+      "work": "assets/media/talk.mp4",
+      "srcHash": "3190881-1793560525686",
+      "transcript": {
+        "words": 37,
+        "file": ".vlog/transcripts/talk.json",
+        "text": ".vlog/transcripts/talk.txt"
+      },
+      "sheets": [
+        ".vlog/sheets/talk-p01.jpg"
+      ],
+      "sheetEvery": 2,
+      "sheetNote": "page N covers 48 s starting at (N-1)×48 s; 6 frames per row, one every 2 s",
+      "thumb": ".vlog/sheets/talk.thumb.jpg"
+    },
+    {
+      "id": "decks",
+      "file": "source/decks.mov",
+      "role": "decks",
+      "focusX": 0.5,
+      "focusY": 0.5,
+      "info": {
+        "width": 1946,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 40.008,
+        "hasAudio": true
+      },
+      "work": "assets/media/decks.mp4",
+      "srcHash": "11673164-1793560525744",
+      "transcript": null,
+      "sheets": [
+        ".vlog/sheets/decks-p01.jpg"
+      ],
+      "sheetEvery": 2,
+      "sheetNote": "page N covers 48 s starting at (N-1)×48 s; 6 frames per row, one every 2 s",
+      "thumb": ".vlog/sheets/decks.thumb.jpg"
+    },
+    {
+      "id": "atnight",
+      "file": "source/atnight.mov",
+      "role": "decks",
+      "focusX": 0.5,
+      "focusY": 0.5,
+      "info": {
+        "width": 1946,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 30,
+        "hasAudio": true
+      },
+      "work": "assets/media/atnight.mp4",
+      "srcHash": "8639475-1793560525796",
+      "transcript": null,
+      "sheets": [
+        ".vlog/sheets/atnight-p01.jpg"
+      ],
+      "sheetEvery": 2,
+      "sheetNote": "page N covers 48 s starting at (N-1)×48 s; 6 frames per row, one every 2 s",
+      "thumb": ".vlog/sheets/atnight.thumb.jpg"
+    },
+    {
+      "id": "nightcrawlers",
+      "file": "source/nightcrawlers.mov",
+      "role": "decks",
+      "focusX": 0.5,
+      "focusY": 0.5,
+      "info": {
+        "width": 1946,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 30,
+        "hasAudio": true
+      },
+      "work": "assets/media/nightcrawlers.mp4",
+      "srcHash": "5586100-1793560525845",
+      "transcript": null,
+      "sheets": [
+        ".vlog/sheets/nightcrawlers-p01.jpg"
+      ],
+      "sheetEvery": 2,
+      "sheetNote": "page N covers 48 s starting at (N-1)×48 s; 6 frames per row, one every 2 s",
+      "thumb": ".vlog/sheets/nightcrawlers.thumb.jpg"
+    },
+    {
+      "id": "angle2",
+      "file": "source/angle2.mov",
+      "role": "b-roll",
+      "focusX": 0.5,
+      "focusY": 0.5,
+      "info": {
+        "width": 1946,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 6,
+        "hasAudio": false
+      },
+      "work": "assets/media/angle2.mp4",
+      "srcHash": "716424-1793560525898",
+      "transcript": null,
+      "sheets": [
+        ".vlog/sheets/angle2-p01.jpg"
+      ],
+      "sheetEvery": 2,
+      "sheetNote": "page N covers 48 s starting at (N-1)×48 s; 6 frames per row, one every 2 s",
+      "thumb": ".vlog/sheets/angle2.thumb.jpg"
+    },
+    {
+      "id": "selfie-portrait",
+      "file": "source/selfie_portrait.mov",
+      "role": "b-roll",
+      "focusX": 0.5,
+      "focusY": 0.5,
+      "info": {
+        "width": 1080,
+        "height": 1920,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 8,
+        "hasAudio": false
+      },
+      "work": "assets/media/selfie-portrait.mp4",
+      "srcHash": "291182-1793560525943",
+      "transcript": null,
+      "sheets": [
+        ".vlog/sheets/selfie-portrait-p01.jpg"
+      ],
+      "sheetEvery": 2,
+      "sheetNote": "page N covers 48 s starting at (N-1)×48 s; 6 frames per row, one every 2 s",
+      "thumb": ".vlog/sheets/selfie-portrait.thumb.jpg"
+    }
+  ],
+  "timeline": [
+    {
+      "id": "s1",
+      "clip": "talk",
+      "in": 0,
+      "out": null,
+      "audio": "clip",
+      "label": "Day 12 intro",
+      "chapter": "Intro"
+    },
+    {
+      "id": "s2",
+      "clip": "decks",
+      "in": 0,
+      "out": 30,
+      "audio": "clip",
+      "label": "Up the wheel",
+      "chapter": "Up the wheel"
+    },
+    {
+      "id": "s3",
+      "clip": "atnight",
+      "in": 0,
+      "out": null,
+      "audio": "clip",
+      "label": "At Night → Lola's Theme",
+      "chapter": "At Night → Lola's Theme"
+    },
+    {
+      "id": "s4",
+      "clip": "nightcrawlers",
+      "in": 0,
+      "out": null,
+      "audio": "clip",
+      "label": "Nightcrawlers → Daft Punk",
+      "chapter": "Nightcrawlers → Daft Punk"
+    }
+  ],
+  "overlays": [
+    {
+      "id": "cut-angle",
+      "type": "cutaway",
+      "clip": "angle2",
+      "in": 0,
+      "at": {
+        "seg": "s2",
+        "t": 12
+      },
+      "dur": 3
+    },
+    {
+      "id": "text-swap",
+      "type": "text",
+      "at": {
+        "seg": "s2",
+        "t": 20
+      },
+      "dur": 2.5,
+      "text": "bass swap on the drop"
+    },
+    {
+      "id": "lt-atnight",
+      "type": "lower-third",
+      "at": {
+        "seg": "s3",
+        "t": 2
+      },
+      "dur": 3.5,
+      "title": "At Night → Lola's Theme",
+      "subtitle": "EQ blend, bass swap · 16 bars"
+    },
+    {
+      "id": "pip-selfie",
+      "type": "pip",
+      "clip": "selfie-portrait",
+      "in": 0,
+      "at": {
+        "seg": "s3",
+        "t": 12
+      },
+      "dur": 6
+    },
+    {
+      "id": "recipe-nc",
+      "type": "recipe",
+      "at": {
+        "seg": "s4",
+        "t": 10
+      },
+      "dur": 5,
+      "recipe": {
+        "label": "Combo",
+        "title": "Two house classics",
+        "tracks": [
+          {
+            "title": "Push the Feeling On",
+            "artist": "Nightcrawlers",
+            "meta": ""
+          },
+          {
+            "title": "Around the World",
+            "artist": "Daft Punk",
+            "meta": ""
+          }
+        ],
+        "steps": [
+          "EQ blend · 16 bars"
+        ],
+        "cta": "Save it in Mixnote"
+      }
+    }
+  ],
+  "hook": {
+    "text": "Three blends that finally clicked",
+    "emphasis": "finally clicked"
+  },
+  "endCard": {
+    "cta": "Save it in Mixnote",
+    "seconds": 2.5
+  },
+  "audio": {
+    "lufs": -14
+  },
+  "outputs": [
+    {
+      "name": "youtube",
+      "format": "horizontal",
+      "enabled": true,
+      "range": null,
+      "hook": {
+        "text": "My DJ journey: three blends that finally clicked",
+        "emphasis": "three blends"
+      },
+      "hookSeconds": 4,
+      "endSeconds": 8,
+      "captions": "srt",
+      "cta": "Save the recipes in Mixnote"
+    },
+    {
+      "name": "reel",
+      "format": "vertical",
+      "enabled": true,
+      "range": null,
+      "maxSeconds": 30,
+      "hook": {
+        "text": "If you're a beginner DJ, steal this 16-bar blend",
+        "emphasis": "16-bar blend"
+      },
+      "hookSeconds": 3.2,
+      "endSeconds": 2.5,
+      "captions": "burn"
+    },
+    {
+      "name": "reel-intro",
+      "format": "vertical",
+      "enabled": true,
+      "range": {
+        "from": {
+          "seg": "s1",
+          "t": 0
+        },
+        "to": {
+          "seg": "s2",
+          "t": 10
+        }
+      },
+      "hook": false,
+      "endSeconds": 2.5,
+      "captions": "burn"
+    }
+  ],
+  "chat": [],
+  "claude": {
+    "session": null
+  },
+  "renders": [
+    {
+      "output": "youtube",
+      "file": "renders/2026-11-01-long-vlog-test__youtube_2026-11-01-19-19-27.mp4",
+      "at": "2026-11-01T19:20:53.719Z",
+      "seconds": 101.4,
+      "lufs": -16.28
+    },
+    {
+      "output": "reel",
+      "file": "renders/2026-11-01-long-vlog-test__reel_2026-11-01-19-20-53.mp4",
+      "at": "2026-11-01T19:21:23.364Z",
+      "seconds": 30,
+      "lufs": -15.53
+    },
+    {
+      "output": "reel-intro",
+      "file": "renders/2026-11-01-long-vlog-test__reel-intro_2026-11-01-19-21-23.mp4",
+      "at": "2026-11-01T19:21:46.506Z",
+      "seconds": 21.4,
+      "lufs": -16.29
+    },
+    {
+      "output": "reel-intro",
+      "file": "renders/2026-11-01-long-vlog-test__reel-intro_2026-11-01-19-22-34.mp4",
+      "at": "2026-11-01T19:22:56.928Z",
+      "seconds": 21.4,
+      "lufs": -14.58
+    }
+  ],
+  "updatedAt": "2026-11-01T19:22:56.930Z",
+  "plan": {
+    "total": 101.378,
+    "segments": 4,
+    "overlays": 5,
+    "chapters": [
+      {
+        "title": "Intro",
+        "start": 0
+      },
+      {
+        "title": "Up the wheel",
+        "start": 11.378
+      },
+      {
+        "title": "At Night → Lola's Theme",
+        "start": 41.378
+      },
+      {
+        "title": "Nightcrawlers → Daft Punk",
+        "start": 71.378
+      }
+    ],
+    "outputs": {
+      "youtube": {
+        "format": "horizontal",
+        "from": 0,
+        "to": 101.378,
+        "seconds": 101.378
+      },
+      "reel": {
+        "format": "vertical",
+        "from": 71.378,
+        "to": 101.378,
+        "seconds": 30
+      },
+      "reel-intro": {
+        "format": "vertical",
+        "from": 0,
+        "to": 21.378,
+        "seconds": 21.378
+      }
+    }
+  },
+  "lastCheck": {
+    "at": "2026-11-01T19:19:26.922Z",
+    "outputs": {
+      "youtube": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          ".vlog/frames/youtube/frame-00-at-0.3s.png",
+          ".vlog/frames/youtube/frame-01-at-12.378s.png",
+          ".vlog/frames/youtube/frame-02-at-24.578s.png",
+          ".vlog/frames/youtube/frame-03-at-32.578s.png",
+          ".vlog/frames/youtube/frame-04-at-33.455s.png",
+          ".vlog/frames/youtube/frame-05-at-42.378s.png",
+          ".vlog/frames/youtube/frame-06-at-44.578s.png",
+          ".vlog/frames/youtube/frame-07-at-54.578s.png",
+          ".vlog/frames/youtube/frame-08-at-66.909s.png",
+          ".vlog/frames/youtube/frame-09-at-72.378s.png",
+          ".vlog/frames/youtube/frame-10-at-82.578s.png",
+          ".vlog/frames/youtube/frame-11-at-94.578s.png"
+        ],
+        "times": [
+          0.3,
+          12.378,
+          24.578,
+          32.578,
+          33.455,
+          42.378,
+          44.578,
+          54.578,
+          66.909,
+          72.378,
+          82.578,
+          94.578
+        ]
+      },
+      "reel": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          ".vlog/frames/reel/frame-00-at-0.3s.png",
+          ".vlog/frames/reel/frame-01-at-9.9s.png",
+          ".vlog/frames/reel/frame-02-at-11.2s.png",
+          ".vlog/frames/reel/frame-03-at-19.8s.png",
+          ".vlog/frames/reel/frame-04-at-28.7s.png"
+        ],
+        "times": [
+          0.3,
+          9.9,
+          11.2,
+          19.8,
+          28.7
+        ]
+      },
+      "reel-intro": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "frames": [
+          ".vlog/frames/reel-intro/frame-00-at-0.3s.png",
+          ".vlog/frames/reel-intro/frame-01-at-7.055s.png",
+          ".vlog/frames/reel-intro/frame-02-at-12.378s.png",
+          ".vlog/frames/reel-intro/frame-03-at-14.109s.png",
+          ".vlog/frames/reel-intro/frame-04-at-20.078s.png"
+        ],
+        "times": [
+          0.3,
+          7.055,
+          12.378,
+          14.109,
+          20.078
+        ]
+      }
+    }
+  }
+}

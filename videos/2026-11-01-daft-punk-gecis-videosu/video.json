@@ -4,7 +4,29 @@
   "title": "daft punk gecis videosu",
   "brand": "itsbgra",
   "createdAt": "2026-11-01T18:07:31.710Z",
-  "clips": [],
+  "clips": [
+    {
+      "id": "dji-mimo-20261020-210532-20261020210533-1792523366570-video-2",
+      "file": "source/dji_mimo_20261020_210532_20261020210533_1792523366570_video 2.MP4",
+      "role": "main",
+      "in": 0,
+      "out": null,
+      "focusX": 0.49,
+      "info": {
+        "width": 1920,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 59.754,
+        "hasAudio": true
+      },
+      "work": "assets/media/dji-mimo-20261020-210532-20261020210533-1792523366570-video-2.mp4",
+      "srcHash": "513968251-1793556595363",
+      "sheet": ".vlog/sheets/dji-mimo-20261020-210532-20261020210533-1792523366570-video-2.jpg",
+      "sheetEvery": 2,
+      "thumb": ".vlog/sheets/dji-mimo-20261020-210532-20261020210533-1792523366570-video-2.thumb.jpg"
+    }
+  ],
   "hook": {
     "text": "If you're a beginner DJ, steal this 16-bar blend",
     "emphasis": "16-bar blend"
@@ -39,7 +61,11 @@
     "seconds": 2.5
   },
   "audio": {
-    "lufs": -14
+    "lufs": -14,
+    "master": "assets/audio/master.m4a",
+    "masterFrom": "513968251-1793556595363",
+    "sourceLufs": -29.23,
+    "masterLufs": -14.25
   },
   "locked": false,
   "claude": {
@@ -47,5 +73,32 @@
   },
   "chat": [],
   "renders": [],
-  "updatedAt": "2026-11-01T18:07:31.710Z"
+  "updatedAt": "2026-11-01T18:10:56.868Z",
+  "plan": {
+    "T": 59.754,
+    "faceSeconds": 0,
+    "hookEnd": 3.2,
+    "recipeAt": 23.902,
+    "endAt": 57.254,
+    "lowerThirdAt": null
+  },
+  "indexHash": "ec39ebf8aa037244",
+  "lastCheck": {
+    "at": "2026-11-01T18:10:56.868Z",
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "frames": [
+      ".vlog/frames/frame-00-at-0.3s.png",
+      ".vlog/frames/frame-01-at-25.102s.png",
+      ".vlog/frames/frame-02-at-41.828s.png",
+      ".vlog/frames/frame-03-at-58.454s.png"
+    ],
+    "times": [
+      0.3,
+      25.102,
+      41.828,
+      58.454
+    ]
+  }
 }

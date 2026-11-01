@@ -1,5 +1,5 @@
 {
-  "schema": "vlog-editor/video@1",
+  "schema": "vlog-editor/video@2",
   "slug": "2026-11-01-engine-test",
   "title": "Up the wheel test",
   "brand": "itsbgra",
@@ -8,7 +8,7 @@
     {
       "id": "decks",
       "file": "source/decks.mov",
-      "role": "main",
+      "role": "decks",
       "in": 0,
       "out": null,
       "focusX": 0.5,
@@ -48,54 +48,105 @@
       "thumb": ".vlog/sheets/angle2.thumb.jpg"
     }
   ],
+  "timeline": [
+    {
+      "id": "s1",
+      "clip": "decks",
+      "in": 0,
+      "out": 40.008,
+      "audio": "clip",
+      "focusX": 0.5,
+      "label": "Up the wheel test"
+    }
+  ],
+  "overlays": [
+    {
+      "id": "face",
+      "type": "cutaway",
+      "clip": "angle2",
+      "in": 0,
+      "at": {
+        "seg": "s1",
+        "t": 0
+      },
+      "dur": 2.5,
+      "focusX": 0.5
+    },
+    {
+      "id": "recipe",
+      "type": "recipe",
+      "at": {
+        "seg": "s1",
+        "t": 10
+      },
+      "dur": 4.5,
+      "recipe": {
+        "label": "Combo",
+        "title": "Up the wheel",
+        "tracks": [
+          {
+            "title": "At Night (Purple Disco Machine Remix)",
+            "artist": "Shakedown",
+            "meta": "122 BPM · 4A"
+          },
+          {
+            "title": "Lola's Theme (Radio Edit)",
+            "artist": "The Shapeshifters",
+            "meta": "124 BPM · 5A"
+          }
+        ],
+        "steps": [
+          "EQ blend, bass swap · 16 bars"
+        ],
+        "cta": "Save it in Mixnote"
+      }
+    },
+    {
+      "id": "lt",
+      "type": "lower-third",
+      "at": {
+        "seg": "s1",
+        "t": 5
+      },
+      "dur": 3,
+      "title": "EQ blend, bass swap",
+      "subtitle": "16 bars"
+    }
+  ],
   "hook": {
     "text": "If you are a beginner DJ, steal this blend",
     "emphasis": "steal this blend"
   },
-  "recipe": {
-    "label": "Combo",
-    "title": "Up the wheel",
-    "tracks": [
-      {
-        "title": "At Night (Purple Disco Machine Remix)",
-        "artist": "Shakedown",
-        "meta": "122 BPM · 4A"
-      },
-      {
-        "title": "Lola's Theme (Radio Edit)",
-        "artist": "The Shapeshifters",
-        "meta": "124 BPM · 5A"
-      }
-    ],
-    "steps": [
-      "EQ blend, bass swap · 16 bars"
-    ],
-    "cta": "Save it in Mixnote"
-  },
-  "blendAt": 10,
-  "faceSeconds": 2.5,
-  "maxSeconds": 60,
-  "lowerThird": {
-    "title": "EQ blend, bass swap",
-    "subtitle": "16 bars",
-    "at": 5
-  },
-  "captions": [],
   "endCard": {
     "cta": "Save it in Mixnote",
     "seconds": 2.5
   },
   "audio": {
-    "lufs": -14,
-    "master": "assets/audio/master.m4a",
-    "masterFrom": "11673164-1793555775095",
-    "sourceLufs": -38.99,
-    "masterLufs": -14.26
+    "lufs": -14
   },
-  "locked": false,
-  "claude": {
-    "session": "6b754d0f-f45d-4ecf-8caa-45c113cf676a"
-  },
+  "outputs": [
+    {
+      "name": "youtube",
+      "format": "horizontal",
+      "enabled": true,
+      "range": null,
+      "hook": true,
+      "hookSeconds": 4,
+      "endSeconds": 8,
+      "captions": "srt"
+    },
+    {
+      "name": "reel",
+      "format": "vertical",
+      "enabled": true,
+      "range": null,
+      "maxSeconds": 60,
+      "hook": true,
+      "hookSeconds": 3.2,
+      "endSeconds": 2.5,
+      "captions": "burn"
+    }
+  ],
   "chat": [
     {
       "role": "user",
@@ -122,6 +173,9 @@
       "ok": true
     }
   ],
+  "claude": {
+    "session": "6b754d0f-f45d-4ecf-8caa-45c113cf676a"
+  },
   "renders": [
     {
       "file": "renders/2026-11-01-engine-test_2026-11-01-17-58-11.mp4",
@@ -130,34 +184,6 @@
       "lufs": -15.13
     }
   ],
-  "updatedAt": "2026-11-01T18:07:59.611Z",
-  "plan": {
-    "T": 40.008,
-    "faceSeconds": 2.5,
-    "hookEnd": 3.2,
-    "recipeAt": 10,
-    "endAt": 37.508,
-    "lowerThirdAt": 5
-  },
-  "indexHash": "8cba199c86234ccd",
-  "lastCheck": {
-    "at": "2026-11-01T18:07:59.611Z",
-    "ok": true,
-    "errors": [],
-    "warnings": [],
-    "frames": [
-      ".vlog/frames/frame-00-at-0.3s.png",
-      ".vlog/frames/frame-01-at-6s.png",
-      ".vlog/frames/frame-02-at-11.2s.png",
-      ".vlog/frames/frame-03-at-28.006s.png",
-      ".vlog/frames/frame-04-at-38.708s.png"
-    ],
-    "times": [
-      0.3,
-      6,
-      11.2,
-      28.006,
-      38.708
-    ]
-  }
+  "migratedFrom": "vlog-editor/video@1",
+  "updatedAt": "2026-11-01T19:14:33.064Z"
 }

@@ -1,8 +1,8 @@
 {
   "schema": "vlog-editor/kit@1",
   "brand": "itsbgra",
-  "version": 4,
-  "builtAt": "2026-11-01T18:06:28.936Z",
+  "version": 6,
+  "builtAt": "2026-11-01T19:17:55.373Z",
   "files": {
     "design": "DESIGN.md",
     "tokens": "tokens.css",
@@ -27,23 +27,30 @@
       }
     ],
     "components": [
-      "components/brand-hook.html",
-      "components/brand-captions.html",
-      "components/brand-lower-third.html",
-      "components/brand-end-card.html",
-      "components/brand-recipe-card.html"
+      "components/vertical/brand-hook.html",
+      "components/vertical/brand-captions.html",
+      "components/vertical/brand-lower-third.html",
+      "components/vertical/brand-end-card.html",
+      "components/vertical/brand-recipe-card.html",
+      "components/horizontal/brand-hook.html",
+      "components/horizontal/brand-captions.html",
+      "components/horizontal/brand-lower-third.html",
+      "components/horizontal/brand-end-card.html",
+      "components/horizontal/brand-recipe-card.html",
+      "components/square/brand-hook.html",
+      "components/square/brand-captions.html",
+      "components/square/brand-lower-third.html",
+      "components/square/brand-end-card.html",
+      "components/square/brand-recipe-card.html"
     ],
-    "logos": {
-      "avatar": "brands/itsbgra/logo/avatar.png",
-      "wordmark": "brands/itsbgra/logo/wordmark.png"
-    },
+    "formats": [
+      "vertical",
+      "horizontal",
+      "square"
+    ],
+    "logos": {},
     "preview": {
-      "board": "brands/itsbgra/preview/board.png",
-      "check": {
-        "ok": true
-      },
-      "sizzle": "brands/itsbgra/preview/sizzle.mp4",
-      "project": "brands/itsbgra/.work/sizzle"
+      "board": "brands/itsbgra/preview/board.png"
     }
   },
   "issues": []

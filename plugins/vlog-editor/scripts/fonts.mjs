@@ -92,7 +92,7 @@ export function parseFamilySpec(spec) {
   return { family: family.trim(), weights: w ? w.split(",").map((x) => Number(x.trim())).filter(Boolean) : [400] };
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const args = parseArgs();
   const specs = [].concat(args.family || []);
   if (!args.out || !specs.length) die('usage: fonts.mjs --out <dir> --family "Anton:400" [--family "Inter:400,700"] [--subsets latin,latin-ext] [--url-prefix ""]');

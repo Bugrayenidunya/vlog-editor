@@ -29,7 +29,7 @@ async function copyFiles(srcDir, dstDir, filter = () => true, { overwrite = true
   return out;
 }
 
-export async function applyBrand(brandDir, projectDir, { force = false } = {}) {
+export async function applyBrand(brandDir, projectDir, { force = false, format = "vertical" } = {}) {
   brandDir = path.resolve(brandDir);
   projectDir = path.resolve(projectDir);
   const brandFile = path.join(brandDir, "brand.json");
@@ -42,7 +42,9 @@ export async function applyBrand(brandDir, projectDir, { force = false } = {}) {
   copied.fonts = await copyFiles(path.join(brandDir, "fonts"), path.join(projectDir, "assets", "fonts"), (f) => f.endsWith(".woff2"));
   copied.logos = await copyFiles(path.join(brandDir, "logo"), path.join(projectDir, "assets", "brand"), (f) => /\.(png|svg|jpg)$/i.test(f));
   copied.sound = await copyFiles(path.join(brandDir, "sound"), path.join(projectDir, "assets", "brand", "sound"), (f) => /\.(wav|mp3|m4a|aac|ogg)$/i.test(f));
-  copied.components = await copyFiles(path.join(brandDir, "components"), path.join(projectDir, "compositions", "brand"), (f) => f.endsWith(".html"), { overwrite: force });
+  // Kits since v0.3 keep one component set per format in components/<format>/; older kits have one flat set.
+  const perFormat = path.join(brandDir, "components", format);
+  copied.components = await copyFiles(exists(perFormat) ? perFormat : path.join(brandDir, "components"), path.join(projectDir, "compositions", "brand"), (f) => f.endsWith(".html"), { overwrite: force });
   const raw = await fsp.readFile(brandFile);
   const brand = JSON.parse(raw);
   const lock = {
@@ -51,6 +53,7 @@ export async function applyBrand(brandDir, projectDir, { force = false } = {}) {
     version: brand.version || null,
     hash: crypto.createHash("sha256").update(raw).digest("hex").slice(0, 12),
     direction: brand.direction?.id || null,
+    format,
     appliedAt: new Date().toISOString(),
   };
   const prev = await readJson(path.join(projectDir, "brand.lock.json"), null);
@@ -59,9 +62,9 @@ export async function applyBrand(brandDir, projectDir, { force = false } = {}) {
   return { project: projectDir, copied, lock };
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const args = parseArgs();
-  if (!args.brand || !args.project) die("usage: apply-brand.mjs --brand brands/<slug> --project videos/<slug> [--force]");
-  const r = await applyBrand(args.brand, args.project, { force: Boolean(args.force) });
+  if (!args.brand || !args.project) die("usage: apply-brand.mjs --brand brands/<slug> --project <hyperframes project> [--format vertical|horizontal|square] [--force]");
+  const r = await applyBrand(args.brand, args.project, { force: Boolean(args.force), format: args.format || "vertical" });
   process.stdout.write(JSON.stringify({ ok: true, ...r, project: path.relative(process.cwd(), r.project) }, null, 2) + "\n");
 }

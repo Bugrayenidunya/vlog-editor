@@ -1,8 +1,8 @@
 {
   "name": "vlog-editor",
   "displayName": "Vlog Editor",
-  "version": "0.2.0",
-  "description": "Brand kits from evidence and brand-styled short-form videos (TikTok, Instagram Reels, YouTube Shorts) edited by conversation with Claude, rendered with HeyGen HyperFrames. Includes a localhost studio.",
+  "version": "0.3.0",
+  "description": "Brand kits from evidence, and brand-styled videos in every format from one edit \u2014 long 16:9 YouTube vlogs and 9:16 reels cut from them \u2014 edited by conversation with Claude, rendered with HeyGen HyperFrames.",
   "author": {
     "name": "Enes Bugra Yenidunya",
     "url": "https://github.com/Bugrayenidunya"

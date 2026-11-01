@@ -42,17 +42,20 @@ tokens, local fonts, logos, components, sizzle render) → `apply-brand` into a 
 - Components are HyperFrames sub-compositions with tokens baked in. Captions take a `WORDS` array between
   the `@words-start` and `@words-end` markers.
 
-## Video pipeline
+## Video pipeline (one edit, every format)
 
-`video.mjs init` (hyperframes init + apply-brand + video.json) → `add` clips (main = footage whose sound is the mix,
-face = opens the video, broll) → `ingest` (H.264 working copies, contact sheets, master audio normalised to the
-brand LUFS) → `draft` (index.html from video.json: face J-cut at frame 0, vertical crop by `focusX`, hook,
-recipe card at `blendAt`, lower third, text beats, end card) → `check` (+ key frames) → `render` (MP4 +
-`edit.json` style fingerprint). Every draft or Claude edit is preceded by a version in `.vlog/versions/` (`undo`).
+`videos/<slug>/video.json` (schema `vlog-editor/video@2`) holds the clip library, a **timeline** of segments
+(clip + in/out, chapters), **overlays** anchored to segments (`{seg, t}`: cutaway, broll, pip, lower-third,
+recipe, text) and **outputs** (`youtube` 16:9 = the whole edit; reels 9:16 = a window via `range`; square 1:1).
+`video.mjs draft` turns each output into its own HyperFrames project in `outputs/<name>/` (components from
+`brands/<b>/components/<format>/`, media hard-linked, audio assembled per output and normalised to the brand LUFS);
+`render` writes MP4s, YouTube `chapters.txt` + `captions.srt`, and `edit.json` fingerprints, re-mastering the
+delivered audio if the render mix drifts. v1 videos migrate automatically (old root project → `.vlog/legacy-v1/`).
 
-- Edits to `index.html` beyond the fields set `video.json` `locked: true`; `draft` then needs `--force`.
-- In the studio, each video has one persistent Claude Code session (`video.json` `claude.session`, resumed per
-  message) whose tools are limited to file edits, `/hyperframes` skills, `npx hyperframes` and `video.mjs`.
+- Brand components lay themselves out per format from `layoutFor()` in `scripts/lib/brand.mjs`.
+- Portrait footage is never cropped into 16:9/1:1 (contain over a blurred fill); landscape footage is cropped into
+  9:16 at the clip's `focusX`.
+- The studio's video page predates video@2 and is not maintained; work happens in chat via `/vlog-editor:video`.
 
 ## HyperFrames is the renderer
 
@@ -80,7 +83,7 @@ recipe card at `blendAt`, lower third, text beats, end card) → `check` (+ key 
 
 - [x] HyperFrames, plugin and marketplace scaffold
 - [x] Brand kit engine, skill and studio
-- [x] Videos: draft from clips in the brand's style, edit by conversation (studio chat or `/vlog-editor:video`), render
+- [x] Videos: one edit → long 16:9 YouTube vlog + 9:16 reels (+ square), brand overlays, chapters/SRT, mastered audio
 - [ ] Performance loop: track published posts and their analytics over time, join them to each video's
       `brand.lock.json` and edit fingerprint, learn which styles win, and propose kit updates
-- [ ] Video: b-roll placement, beat-synced cuts, spoken captions from transcripts, per-platform export presets
+- [ ] Video: music beds with ducking, transitions, beat-synced cuts, silence/filler auto-trim suggestions

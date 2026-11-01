@@ -162,7 +162,7 @@ export async function compareBoards(dirs, labels, outPng) {
   return outPng;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const args = parseArgs();
   const files = [].concat(args.compare || [], args._ || [], args["brand-file"] || []).filter((x) => typeof x === "string");
   if (!files.length) die("usage: board.mjs --brand-file <brand.json> | --compare <a.json> <b.json> … --out compare.png [--bg image]");

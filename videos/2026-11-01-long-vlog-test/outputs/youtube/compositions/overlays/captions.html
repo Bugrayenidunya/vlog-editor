@@ -1,0 +1,212 @@
+<template>
+  <style>
+    /* Plus Jakarta Sans 800 latin-ext */
+    @font-face {
+      font-family: "Plus Jakarta Sans";
+      font-style: normal;
+      font-weight: 800;
+      font-display: block;
+      src: url("assets/fonts/plus-jakarta-sans-800-latin-ext.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    
+    /* Plus Jakarta Sans 800 latin */
+    @font-face {
+      font-family: "Plus Jakarta Sans";
+      font-style: normal;
+      font-weight: 800;
+      font-display: block;
+      src: url("assets/fonts/plus-jakarta-sans-800-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    
+    /* Inter 400 latin-ext */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/inter-400-latin-ext.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    
+    /* Inter 400 latin */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/inter-400-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    
+    /* Inter 600 latin-ext */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 600;
+      font-display: block;
+      src: url("assets/fonts/inter-600-latin-ext.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    
+    /* Inter 600 latin */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 600;
+      font-display: block;
+      src: url("assets/fonts/inter-600-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    
+    /* Inter 700 latin-ext */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-display: block;
+      src: url("assets/fonts/inter-700-latin-ext.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    
+    /* Inter 700 latin */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 700;
+      font-display: block;
+      src: url("assets/fonts/inter-700-latin.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    
+    #root {
+    --color-ground: #141210;
+    --color-surface: #24211E;
+    --color-ink: #FFFFFF;
+    --color-muted: #A8A29A;
+    --color-primary: #F29A38;
+    --color-accent: #E8B04A;
+    --color-highlight: #F2B84B;
+    --color-on-primary: #0B0B0B;
+    --color-on-accent: #0B0B0B;
+    --color-on-highlight: #0B0B0B;
+    --font-display: "Plus Jakarta Sans", sans-serif;
+    --font-body: "Inter", sans-serif;
+    --font-caption: "Plus Jakarta Sans", sans-serif;
+    --display-transform: none;
+    --display-tracking: -0.02em;
+    --display-leading: 1.02;
+    --display-weight: 800;
+    --cap-text: #FFFFFF;
+    --cap-stroke: #000000;
+    --cap-box: #24211E;
+    --cap-box-ink: #FFFFFF;
+    --cap-active: #F2B84B;
+    --cap-size: 84px;
+    --cap-weight: 800;
+    --cap-transform: none;
+    --cap-tracking: 0.01em;
+    --cap-radius: 999px;
+    --cap-stroke-width: 8px;
+    --safe-top: 168px;
+    --text-bottom: 1330px;
+    --rail-right: 150px;
+    --pad-x: 72px;
+    --cap-bottom: 650px;
+      --pad-x: 260px;
+      --rail-right: 260px;
+      --cap-bottom: 96px;
+      --cap-size: 67px;
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+    }
+
+    #root .cap-group { position: absolute; left: var(--pad-x); right: var(--rail-right); bottom: var(--cap-bottom); display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 0.12em 0.22em; text-align: center; overflow: visible; }
+    #root .cap-word { position: relative; display: inline-block; font-family: var(--font-caption); font-weight: var(--cap-weight); font-size: var(--cap-size); line-height: 1.04; text-transform: var(--cap-transform); letter-spacing: var(--cap-tracking); color: var(--cap-text); padding: 0.06em 0.16em 0.1em; }
+    #root .cap-bg { position: absolute; inset: 0; border-radius: var(--cap-radius); opacity: 0; z-index: 0; }
+    #root .cap-txt { position: relative; z-index: 1; }
+    /* highlight: heavy caps, active word sits on a solid box */
+    #root [data-cap-style="highlight"] .cap-word { text-shadow: 0 6px 22px rgba(0,0,0,.45); }
+    #root [data-cap-style="highlight"] .cap-bg { background: var(--cap-box); }
+    #root [data-cap-style="highlight"] .is-active .cap-bg { opacity: 1; }
+    #root [data-cap-style="highlight"] .is-active .cap-txt { color: var(--cap-box-ink); text-shadow: none; }
+    /* pill: the whole group on a soft pill, active word coloured */
+    #root [data-cap-style="pill"] { width: fit-content; margin-inline: auto; background: color-mix(in srgb, var(--cap-box) 92%, transparent); border-radius: 999px; padding: 18px 34px 20px; }
+    #root [data-cap-style="pill"] .cap-word { color: var(--cap-box-ink); font-size: calc(var(--cap-size) * 0.72); padding: 0 0.05em; }
+    #root [data-cap-style="pill"] .is-active .cap-txt { color: var(--cap-active); }
+    /* outline: classic stroked caps, active word coloured and scaled */
+    #root [data-cap-style="outline"] .cap-txt { -webkit-text-stroke: var(--cap-stroke-width) var(--cap-stroke); paint-order: stroke fill; }
+    #root [data-cap-style="outline"] .is-active .cap-txt { color: var(--cap-active); }
+    #root [data-cap-style="outline"] .is-active { transform: scale(1.12); }
+    /* clean: calm sentence case with a soft shadow, active word underlined */
+    #root [data-cap-style="clean"] .cap-word { text-shadow: 0 2px 14px rgba(0,0,0,.55); font-size: calc(var(--cap-size) * 0.78); }
+    #root [data-cap-style="clean"] .cap-bg { top: auto; bottom: 0.04em; height: 0.14em; border-radius: 99px; background: var(--cap-active); }
+    #root [data-cap-style="clean"] .is-active .cap-bg { opacity: 1; }
+    /* kinetic: one or two huge words, display face */
+    #root [data-cap-style="kinetic"] { bottom: calc(var(--cap-bottom) + 40px); }
+    #root [data-cap-style="kinetic"] .cap-word { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); font-size: calc(var(--cap-size) * 1.6); line-height: var(--display-leading); text-shadow: 0 8px 30px rgba(0,0,0,.5); }
+    #root [data-cap-style="kinetic"] .is-active .cap-txt { color: var(--cap-active); }
+    #root .cap-group { opacity: 0; visibility: hidden; }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1920" data-height="1080">
+    <div id="cap-layer"></div>
+  </div>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var V = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
+      var M = {"ease":{"enter":"power3.out","exit":"power2.in","pop":"back.out(1.6)"},"d":{"fast":0.18,"base":0.34,"slow":0.6},"energy":"balanced"};
+
+      // @words-start — the video workflow replaces this array ([{text,start,end}], seconds, scene-local)
+      var WORDS = [{"text":"bass","start":31.378,"end":31.858},{"text":"swap","start":31.878,"end":32.358},{"text":"on","start":32.378,"end":32.858},{"text":"the","start":32.878,"end":33.358},{"text":"drop","start":33.378,"end":33.858}];
+      // @words-end
+      var STYLE = "pill", MAXW = 5, BASE = 67, MIN = 38;
+      var ACTIVE = getComputedStyle(document.getElementById("cap-layer")).getPropertyValue("--cap-active").trim() || "#F2B84B";
+      var TEXT = "#FFFFFF", ONBOX = "#FFFFFF";
+      var BASE_INK = STYLE === "pill" ? ONBOX : TEXT, ACTIVE_INK = STYLE === "highlight" ? ONBOX : ACTIVE;
+      var groups = [], cur = [];
+      for (var i = 0; i < WORDS.length; i++) {
+        var w = WORDS[i], nx = WORDS[i + 1];
+        cur.push(w);
+        if (cur.length >= (STYLE === "kinetic" ? 1 : MAXW) || /[.!?,;:]$/.test(w.text) || !nx || nx.start - w.end >= 0.15) { groups.push(cur); cur = []; }
+      }
+      var layer = document.getElementById("cap-layer");
+      var cv = document.createElement("canvas").getContext("2d");
+      var tl = gsap.timeline({ paused: true });
+      groups.forEach(function (g, gi) {
+        var el = document.createElement("div");
+        el.className = "cap-group"; el.id = "cap-g" + gi; el.setAttribute("data-cap-style", STYLE);
+        var line = g.map(function (w) { return w.text; }).join(" ");
+        var cs = getComputedStyle(layer), fam = cs.getPropertyValue(STYLE === "kinetic" ? "--font-display" : "--font-caption"), wt = cs.getPropertyValue(STYLE === "kinetic" ? "--display-weight" : "--cap-weight");
+        var tr = cs.getPropertyValue("--cap-transform").trim(), shown = tr === "uppercase" ? line.toLocaleUpperCase() : line;
+        var scale = STYLE === "kinetic" ? 1.6 : STYLE === "pill" ? 0.72 : STYLE === "clean" ? 0.78 : 1;
+        var size = BASE * scale, maxW = 1360;
+        while (size > MIN * scale) { cv.font = wt + " " + size + "px " + fam; if (cv.measureText(shown).width <= maxW * 1.9) break; size -= 2; }
+        el.style.setProperty("--cap-size", (size / scale) + "px");
+        g.forEach(function (w, wi) {
+          var s = document.createElement("span"); s.className = "cap-word"; s.id = "cap-w" + gi + "-" + wi;
+          s.innerHTML = '<span class="cap-bg"></span><span class="cap-txt"></span>';
+          s.lastChild.textContent = w.text;
+          el.appendChild(s); el.appendChild(document.createTextNode(" "));
+        });
+        layer.appendChild(el);
+        var gs = Math.max(0.1, g[0].start - 0.04), next = groups[gi + 1];
+        var ge = Math.max(gs + 0.25, next ? Math.min(g[g.length - 1].end + 0.1, next[0].start - 0.03) : g[g.length - 1].end + 0.25);
+        tl.set(el, { visibility: "visible" }, gs);
+        tl.fromTo(el, { opacity: 0, y: 18, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: M.d.fast, ease: M.ease.pop }, gs);
+        g.forEach(function (w, wi) {
+          var word = document.getElementById("cap-w" + gi + "-" + wi), bg = word.firstChild, txt = word.lastChild;
+          var on = Math.max(gs, w.start), off = Math.min(ge, Math.max(w.end, on + 0.12));
+          if (STYLE === "highlight" || STYLE === "clean") { tl.fromTo(bg, { opacity: 0 }, { opacity: 1, duration: 0.06 }, on); tl.to(bg, { opacity: 0, duration: 0.06 }, off); }
+          if (STYLE !== "clean") { tl.fromTo(txt, { color: BASE_INK }, { color: ACTIVE_INK, duration: 0.06 }, on); tl.to(txt, { color: BASE_INK, duration: 0.06 }, off); }
+          if (STYLE === "outline" || STYLE === "kinetic") { tl.fromTo(word, { scale: 1 }, { scale: 1.12, duration: M.d.fast, ease: M.ease.pop }, on); tl.to(word, { scale: 1, duration: M.d.fast }, off); }
+        });
+        tl.to(el, { opacity: 0, duration: 0.12, ease: M.ease.exit }, ge - 0.12);
+        tl.set(el, { opacity: 0, visibility: "hidden" }, ge);
+      });
+      window.__timelines["captions"] = tl;
+    })();
+  </script>
+</template>

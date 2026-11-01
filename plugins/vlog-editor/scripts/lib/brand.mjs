@@ -317,3 +317,51 @@ export function recipeHtml(b, r, { idPrefix = "rc", logoSize = 34 } = {}) {
   });
   return `<div class="rc" id="${idPrefix}">${r.label ? `<div class="rc-label">${escapeHtml(r.label)}</div>` : ""}${r.title ? `<div class="rc-title">${escapeHtml(r.title)}</div>` : ""}${rows.join("")}<div class="rc-foot">${logoHtml(b, b.logo.style, logoSize)}${r.cta ? `<b>${escapeHtml(r.cta)}</b>` : ""}</div></div>`;
 }
+
+// ---------------- formats ----------------
+// One edit can be rendered in several formats; every brand component lays itself out from this table.
+export const FORMATS = {
+  vertical: { W: 1080, H: 1920, resolution: "portrait", label: "9:16", platforms: "TikTok, Instagram Reels, YouTube Shorts" },
+  horizontal: { W: 1920, H: 1080, resolution: "landscape", label: "16:9", platforms: "YouTube" },
+  square: { W: 1080, H: 1080, resolution: "square", label: "1:1", platforms: "Instagram feed" },
+};
+
+/** Pixel layout for each component in a format. Vertical keeps the platform-UI safe zones from brand.layout. */
+export function layoutFor(b, format = "vertical") {
+  const f = FORMATS[format] || FORMATS.vertical;
+  const capSize = b.captions?.size ?? 84;
+  if (format === "horizontal")
+    return {
+      ...f,
+      name: "horizontal",
+      // YouTube: no app UI over the frame; keep words inside the 80% title-safe box (96 px / 54 px margins at 90%).
+      hook: { top: 300, left: 120, right: 760, lines: 3, max: 118, min: 60, scrim: "left" },
+      recipe: { top: 96, left: null, right: 96, width: 660 },
+      lt: { top: 720, left: 120, maxWidth: 1100 },
+      cap: { bottom: 96, left: 260, right: 260, size: Math.round(capSize * 0.8) },
+      end: { top: 290, gap: 44, cta: 84 },
+      pip: { width: 480, height: 270, right: 64, bottom: 64 },
+    };
+  if (format === "square")
+    return {
+      ...f,
+      name: "square",
+      hook: { top: 110, left: 72, right: 72, lines: 3, max: 120, min: 60, scrim: "top" },
+      recipe: { top: 400, left: 120, right: 120, width: null },
+      lt: { top: 780, left: 72, maxWidth: 936 },
+      cap: { bottom: 110, left: 72, right: 72, size: Math.round(capSize * 0.85) },
+      end: { top: 250, gap: 40, cta: 80 },
+      pip: { width: 300, height: 300, right: 48, bottom: 48 },
+    };
+  const L = b.layout || DEFAULTS.layout;
+  return {
+    ...f,
+    name: "vertical",
+    hook: { top: 250, left: L.padX, right: L.railRight, lines: 3, max: 150, min: 76, scrim: "top" },
+    recipe: { top: 560, left: L.padX, right: L.railRight, width: null },
+    lt: { top: 930, left: L.padX, maxWidth: 1080 - L.padX - L.railRight },
+    cap: { bottom: L.captionBottom, left: L.padX, right: L.railRight, size: capSize },
+    end: { top: 560, gap: 56, cta: 92 },
+    pip: { width: 320, height: 568, right: L.railRight, top: L.safeTop + 40 },
+  };
+}
