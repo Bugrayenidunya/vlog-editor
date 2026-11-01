@@ -1,0 +1,163 @@
+{
+  "schema": "vlog-editor/video@1",
+  "slug": "2026-11-01-engine-test",
+  "title": "Up the wheel test",
+  "brand": "itsbgra",
+  "createdAt": "2026-11-01T17:56:15.046Z",
+  "clips": [
+    {
+      "id": "decks",
+      "file": "source/decks.mov",
+      "role": "main",
+      "in": 0,
+      "out": null,
+      "focusX": 0.5,
+      "info": {
+        "width": 1946,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 40.008,
+        "hasAudio": true
+      },
+      "work": "assets/media/decks.mp4",
+      "srcHash": "11673164-1793555775095",
+      "sheet": ".vlog/sheets/decks.jpg",
+      "sheetEvery": 2,
+      "thumb": ".vlog/sheets/decks.thumb.jpg"
+    },
+    {
+      "id": "angle2",
+      "file": "source/angle2.mov",
+      "role": "face",
+      "in": 0,
+      "out": null,
+      "focusX": 0.5,
+      "info": {
+        "width": 1946,
+        "height": 1080,
+        "codec": "h264",
+        "fps": 30,
+        "duration": 6,
+        "hasAudio": false
+      },
+      "work": "assets/media/angle2.mp4",
+      "srcHash": "716424-1793555775139",
+      "sheet": ".vlog/sheets/angle2.jpg",
+      "sheetEvery": 2,
+      "thumb": ".vlog/sheets/angle2.thumb.jpg"
+    }
+  ],
+  "hook": {
+    "text": "If you are a beginner DJ, steal this blend",
+    "emphasis": "steal this blend"
+  },
+  "recipe": {
+    "label": "Combo",
+    "title": "Up the wheel",
+    "tracks": [
+      {
+        "title": "At Night (Purple Disco Machine Remix)",
+        "artist": "Shakedown",
+        "meta": "122 BPM · 4A"
+      },
+      {
+        "title": "Lola's Theme (Radio Edit)",
+        "artist": "The Shapeshifters",
+        "meta": "124 BPM · 5A"
+      }
+    ],
+    "steps": [
+      "EQ blend, bass swap · 16 bars"
+    ],
+    "cta": "Save it in Mixnote"
+  },
+  "blendAt": 10,
+  "faceSeconds": 2.5,
+  "maxSeconds": 60,
+  "lowerThird": {
+    "title": "EQ blend, bass swap",
+    "subtitle": "16 bars",
+    "at": 5
+  },
+  "captions": [],
+  "endCard": {
+    "cta": "Save it in Mixnote",
+    "seconds": 2.5
+  },
+  "audio": {
+    "lufs": -14,
+    "master": "assets/audio/master.m4a",
+    "masterFrom": "11673164-1793555775095",
+    "sourceLufs": -38.99,
+    "masterLufs": -14.26
+  },
+  "locked": false,
+  "claude": {
+    "session": "6b754d0f-f45d-4ecf-8caa-45c113cf676a"
+  },
+  "chat": [
+    {
+      "role": "user",
+      "text": "Show the recipe card at 10 seconds, and change the hook to: If you are a beginner DJ, steal this blend — emphasise \"steal this blend\".",
+      "at": "2026-11-01T18:03:43.231Z"
+    },
+    {
+      "role": "assistant",
+      "text": "The hook now reads \"If you are a beginner DJ, steal this blend\", with \"steal this blend\" in the yellow accent, and the recipe card now shows at 10s instead of 16s. Check passes with no errors. Look at the opening at 0–1.5s and the card at about 10–11s; the yellow line starts slightly out of place and lines up by 1.5s.",
+      "at": "2026-11-01T18:04:21.300Z",
+      "turns": 9,
+      "ok": true
+    },
+    {
+      "role": "user",
+      "text": "Nice. Now add a lower third naming the technique from the card, with the bar count as subtitle, around 5 seconds. What did you change last time?",
+      "at": "2026-11-01T18:04:44.079Z"
+    },
+    {
+      "role": "assistant",
+      "text": "A lower third saying \"EQ blend, bass swap\" now appears at 5s, with \"16 bars\" as the subtitle. Both come from the recipe card's step, and the check passes. Last time I changed the hook to \"If you are a beginner DJ, steal this blend\", with \"steal this blend\" in yellow, and moved the recipe card from 16s to 10s. I haven't checked whether the lower third has cleared by 10s when the card appears in the same area, so watch 5–11s in the preview.",
+      "at": "2026-11-01T18:05:19.373Z",
+      "turns": 7,
+      "ok": true
+    }
+  ],
+  "renders": [
+    {
+      "file": "renders/2026-11-01-engine-test_2026-11-01-17-58-11.mp4",
+      "at": "2026-11-01T17:58:52.791Z",
+      "seconds": 40.033,
+      "lufs": -15.13
+    }
+  ],
+  "updatedAt": "2026-11-01T18:07:59.611Z",
+  "plan": {
+    "T": 40.008,
+    "faceSeconds": 2.5,
+    "hookEnd": 3.2,
+    "recipeAt": 10,
+    "endAt": 37.508,
+    "lowerThirdAt": 5
+  },
+  "indexHash": "8cba199c86234ccd",
+  "lastCheck": {
+    "at": "2026-11-01T18:07:59.611Z",
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "frames": [
+      ".vlog/frames/frame-00-at-0.3s.png",
+      ".vlog/frames/frame-01-at-6s.png",
+      ".vlog/frames/frame-02-at-11.2s.png",
+      ".vlog/frames/frame-03-at-28.006s.png",
+      ".vlog/frames/frame-04-at-38.708s.png"
+    ],
+    "times": [
+      0.3,
+      6,
+      11.2,
+      28.006,
+      38.708
+    ]
+  }
+}

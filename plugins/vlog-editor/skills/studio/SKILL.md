@@ -1,11 +1,12 @@
 ---
 name: studio
-description: Start the vlog-editor studio, a localhost web UI for building brand kits interactively (brief, sources, research, style DNA, rendered directions, refine, sound, final kit). Use when the person asks to open the studio, the web UI, the dashboard, or wants to click through the brand kit instead of chatting.
+description: Start the vlog-editor studio, a localhost web UI for building brand kits interactively and for making and editing brand-styled videos (upload clips, build a draft, edit by chatting with Claude, live HyperFrames editor, render). Use when the person asks to open the studio, the web UI, the dashboard, or wants to click through brand kits or videos instead of chatting.
 ---
 
 # Studio
 
-A local web app over the same engine and files as the `brand-kit` skill. Judgment steps (style DNA, directions,
+A local web app over the same engine and files as the `brand-kit` and `video` skills. Videos get a chat box backed
+by one persistent Claude Code session per video. Judgment steps (style DNA, directions,
 refinements, names, discovery, sound) run Claude Code headless (`claude -p`) with the person's own login.
 
 Start it from the workspace root (the folder that holds or will hold `brands/`), in the background, so it keeps

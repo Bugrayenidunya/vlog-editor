@@ -56,10 +56,12 @@ export function hookComponent(b, fontsCss) {
       { id: "emphasis", type: "string", label: "Emphasised words", default: b.samples.hookEmphasis || "" },
     ],
     css: `
+    #root .hook-scrim { position: absolute; left: 0; right: 0; top: 0; height: 1050px; background: linear-gradient(180deg, color-mix(in srgb, var(--color-ground) 82%, transparent) 0%, color-mix(in srgb, var(--color-ground) 62%, transparent) 50%, transparent 100%); }
     #root .hook-wrap { position: absolute; top: 250px; left: var(--pad-x); right: var(--rail-right); transform-origin: 0% 0%; }
     #root .hook { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); line-height: var(--display-leading); color: var(--color-ink); text-wrap: balance; text-shadow: 0 6px 30px rgba(0,0,0,.35); }
     #root .hook em { font-style: normal; color: var(--color-highlight); display: inline-block; }`,
-    body: `    <div class="hook-wrap" id="hook-wrap"><h1 class="hook" id="hook-text"></h1></div>`,
+    body: `    <div class="hook-scrim" id="hook-scrim"></div>
+    <div class="hook-wrap" id="hook-wrap"><h1 class="hook" id="hook-text"></h1></div>`,
     script: `
       var text = String(V.hook || ${JSON.stringify(b.samples.hook)});
       var emph = String(V.emphasis || "");
@@ -78,8 +80,9 @@ export function hookComponent(b, fontsCss) {
       var dur = (window.__hyperframes && window.__hyperframes.duration) || 2.8;
       var tl = gsap.timeline({ paused: true });
       tl.fromTo("#hook-wrap", { scale: 1.06 }, { scale: 1, duration: M.d.slow, ease: M.ease.enter }, 0);
-      if (document.getElementById("hook-em")) tl.fromTo("#hook-em", { scale: 1 }, { scale: 1.08, duration: M.d.fast, ease: M.ease.pop, yoyo: true, repeat: 1 }, 0.2);
-      tl.to("#hook-wrap", { opacity: 0, y: -40, duration: M.d.base, ease: M.ease.exit }, Math.max(0.6, dur - M.d.base - 0.05));`,
+      if (document.getElementById("hook-em")) tl.fromTo("#hook-em", { scale: 1, transformOrigin: "0% 60%" }, { scale: 1.04, transformOrigin: "0% 60%", duration: M.d.fast, ease: M.ease.pop, yoyo: true, repeat: 1 }, 0.2);
+      tl.to("#hook-wrap", { opacity: 0, y: -40, duration: M.d.base, ease: M.ease.exit }, Math.max(0.6, dur - M.d.base - 0.05));
+      tl.to("#hook-scrim", { opacity: 0, duration: M.d.base, ease: M.ease.exit }, Math.max(0.6, dur - M.d.base - 0.05));`,
   });
 }
 

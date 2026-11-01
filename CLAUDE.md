@@ -6,7 +6,8 @@ Videos are HTML compositions rendered to MP4 by **HeyGen HyperFrames**.
 There is **one engine with two interfaces**, all shipped as a reusable Claude Code plugin in `plugins/vlog-editor/`:
 
 - **Engine** (`scripts/*.mjs`): zero-dependency Node scripts with JSON on stdout and progress on stderr.
-- **Skills** (`skills/*/SKILL.md`): the conversational interface in Claude Code (`/vlog-editor:brand-kit`, …).
+- **Skills** (`skills/*/SKILL.md`): the conversational interface in Claude Code (`/vlog-editor:brand-kit`,
+  `/vlog-editor:video`, `/vlog-editor:studio`).
 - **Studio** (`studio/`): a localhost web UI (`npm run studio`). Its judgment steps run Claude Code headless
   (`claude -p`) with the same reference docs the skills use.
 
@@ -18,12 +19,13 @@ Both interfaces read and write the same workspace folders: `brands/` and `videos
 .claude-plugin/marketplace.json          marketplace that publishes plugins/vlog-editor
 .claude/settings.json                    enables hyperframes@hyperframes for anyone who opens this repo
 plugins/vlog-editor/
-  scripts/      collect · analyze · fonts · board · build-kit · apply-brand   (+ lib/: util, brand, components)
-  skills/       brand-kit (references/: brand-schema, sources, style-dna, directions, sound) · studio
-  studio/       server.mjs (API, SSE jobs) · lib/ (steps, claude) · public/ (Preact + htm, no build)
+  scripts/      collect · analyze · fonts · board · build-kit · apply-brand · video   (+ lib/: util, brand, components)
+  skills/       brand-kit (references/: brand-schema, sources, style-dna, directions, sound) · video · studio
+  studio/       server.mjs (API, SSE jobs) · lib/ (steps, video-steps, claude) · public/ (Preact + htm, no build)
 brands/<slug>/  kit.state.json · brand.json · DESIGN.md · tokens.css · fonts/ · logo/ · components/ · preview/
                 research/ (sources, manifest, dossier, style-dna) · directions/<A|B|C|R1…>/brand.json
-videos/<YYYY-MM-DD-slug>/                one HyperFrames project per video (index.html = root composition)
+videos/<YYYY-MM-DD-slug>/  video.json (source of truth) · index.html (generated or hand-edited) · compositions/brand/
+                           source/ (clips) · assets/ (working copies, master audio) · renders/ · edit.json · .vlog/
 ```
 
 ## Brand kit pipeline
@@ -39,6 +41,18 @@ tokens, local fonts, logos, components, sizzle render) → `apply-brand` into a 
   treats its frontmatter as binding, which is how every video picks up the brand.
 - Components are HyperFrames sub-compositions with tokens baked in. Captions take a `WORDS` array between
   the `@words-start` and `@words-end` markers.
+
+## Video pipeline
+
+`video.mjs init` (hyperframes init + apply-brand + video.json) → `add` clips (main = footage whose sound is the mix,
+face = opens the video, broll) → `ingest` (H.264 working copies, contact sheets, master audio normalised to the
+brand LUFS) → `draft` (index.html from video.json: face J-cut at frame 0, vertical crop by `focusX`, hook,
+recipe card at `blendAt`, lower third, text beats, end card) → `check` (+ key frames) → `render` (MP4 +
+`edit.json` style fingerprint). Every draft or Claude edit is preceded by a version in `.vlog/versions/` (`undo`).
+
+- Edits to `index.html` beyond the fields set `video.json` `locked: true`; `draft` then needs `--force`.
+- In the studio, each video has one persistent Claude Code session (`video.json` `claude.session`, resumed per
+  message) whose tools are limited to file edits, `/hyperframes` skills, `npx hyperframes` and `video.mjs`.
 
 ## HyperFrames is the renderer
 
@@ -66,6 +80,7 @@ tokens, local fonts, logos, components, sizzle render) → `apply-brand` into a 
 
 - [x] HyperFrames, plugin and marketplace scaffold
 - [x] Brand kit engine, skill and studio
+- [x] Videos: draft from clips in the brand's style, edit by conversation (studio chat or `/vlog-editor:video`), render
 - [ ] Performance loop: track published posts and their analytics over time, join them to each video's
       `brand.lock.json` and edit fingerprint, learn which styles win, and propose kit updates
-- [ ] Video workflows: footage → transcript → cut → captions → render → per-platform export
+- [ ] Video: b-roll placement, beat-synced cuts, spoken captions from transcripts, per-platform export presets

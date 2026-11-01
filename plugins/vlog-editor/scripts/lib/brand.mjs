@@ -295,15 +295,15 @@ export function recipeCss(scope = "") {
   const s = scope ? scope + " " : "";
   return `
 ${s}.rc { position: absolute; left: var(--pad-x); right: var(--rail-right); background: var(--color-surface); border-radius: 34px; padding: 30px 32px 24px; box-shadow: 0 24px 60px rgba(0,0,0,.35); }
-${s}.rc-label { font-family: var(--font-body); font-weight: 700; font-size: 21px; letter-spacing: .16em; text-transform: uppercase; color: var(--color-muted); }
-${s}.rc-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 56px; line-height: 1.02; color: var(--color-ink); margin: 6px 0 20px; }
+${s}.rc-label { font-family: var(--font-body); font-weight: 700; font-size: 28px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-muted); }
+${s}.rc-title { font-family: var(--font-display); font-weight: var(--display-weight); text-transform: var(--display-transform); letter-spacing: var(--display-tracking); font-size: 60px; line-height: 1.02; color: var(--color-ink); margin: 6px 0 20px; }
 ${s}.rc-track { display: flex; align-items: center; gap: 20px; }
-${s}.rc-num { flex: none; width: 80px; height: 80px; border-radius: 18px; background: var(--color-primary); color: var(--color-on-primary); display: grid; place-items: center; font-family: var(--font-body); font-weight: 800; font-size: 36px; }
-${s}.rc-track b { display: block; font-family: var(--font-body); font-weight: 700; font-size: 33px; line-height: 1.15; color: var(--color-ink); }
-${s}.rc-track span { display: block; font-family: var(--font-body); font-weight: 500; font-size: 25px; line-height: 1.3; color: var(--color-muted); }
-${s}.rc-step { display: flex; align-items: center; gap: 14px; margin: 12px 0 12px 20px; font-family: var(--font-body); font-weight: 700; font-size: 26px; color: var(--color-accent); }
+${s}.rc-num { flex: none; width: 84px; height: 84px; border-radius: 18px; background: var(--color-primary); color: var(--color-on-primary); display: grid; place-items: center; font-family: var(--font-body); font-weight: 800; font-size: 36px; }
+${s}.rc-track b { display: block; font-family: var(--font-body); font-weight: 700; font-size: 36px; line-height: 1.15; color: var(--color-ink); }
+${s}.rc-track span { display: block; font-family: var(--font-body); font-weight: 500; font-size: 28px; line-height: 1.3; color: var(--color-muted); }
+${s}.rc-step { display: flex; align-items: center; gap: 14px; margin: 12px 0 12px 20px; font-family: var(--font-body); font-weight: 700; font-size: 29px; color: var(--color-accent); }
 ${s}.rc-step i { font-style: normal; font-size: 34px; line-height: 1; }
-${s}.rc-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 2px solid color-mix(in srgb, var(--color-ink) 10%, transparent); font-family: var(--font-body); font-weight: 700; font-size: 24px; color: var(--color-muted); }
+${s}.rc-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 2px solid color-mix(in srgb, var(--color-ink) 10%, transparent); font-family: var(--font-body); font-weight: 700; font-size: 28px; color: var(--color-muted); }
 ${s}.rc-foot b { color: var(--color-highlight); }
 `.trim();
 }

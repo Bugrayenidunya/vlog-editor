@@ -1,14 +1,24 @@
 {
   "name": "vlog-editor",
   "displayName": "Vlog Editor",
-  "version": "0.1.0",
-  "description": "Brand kits, editing skills and automated workflows for vertical short-form video (TikTok, Instagram Reels, YouTube Shorts), rendered with HeyGen HyperFrames.",
+  "version": "0.2.0",
+  "description": "Brand kits from evidence and brand-styled short-form videos (TikTok, Instagram Reels, YouTube Shorts) edited by conversation with Claude, rendered with HeyGen HyperFrames. Includes a localhost studio.",
   "author": {
     "name": "Enes Bugra Yenidunya",
     "url": "https://github.com/Bugrayenidunya"
   },
   "homepage": "https://github.com/Bugrayenidunya/vlog-editor",
   "repository": "https://github.com/Bugrayenidunya/vlog-editor",
-  "keywords": ["video", "vlog", "tiktok", "instagram-reels", "youtube-shorts", "hyperframes", "brand-kit"],
-  "dependencies": ["hyperframes@hyperframes"]
+  "keywords": [
+    "video",
+    "vlog",
+    "tiktok",
+    "instagram-reels",
+    "youtube-shorts",
+    "hyperframes",
+    "brand-kit"
+  ],
+  "dependencies": [
+    "hyperframes@hyperframes"
+  ]
 }

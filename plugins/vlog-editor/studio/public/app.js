@@ -43,45 +43,74 @@ function doneMap(d) {
 }
 
 // ---------------- app ----------------
+function parseHash() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h.startsWith("v/")) return { kind: "video", slug: h.slice(2) };
+  if (h.startsWith("b/")) return { kind: "brand", slug: h.slice(2) };
+  return h ? { kind: "brand", slug: h } : { kind: null, slug: null };
+}
+
 function App() {
   const [health, setHealth] = useState(null);
   const [brands, setBrands] = useState([]);
-  const [slug, setSlug] = useState(decodeURIComponent(location.hash.slice(1)) || null);
+  const [videos, setVideos] = useState([]);
+  const [route, setRoute] = useState(parseHash());
   const [d, setD] = useState(null);
+  const [vd, setVd] = useState(null);
   const [tab, setTab] = useState(null);
   const [job, setJob] = useState(null);
   const [toast, setToast] = useState(null);
   const waiters = useRef({});
   const es = useRef(null);
+  const routeRef = useRef(route);
+  routeRef.current = route;
+  const slug = route.kind === "brand" ? route.slug : null;
+  const vslug = route.kind === "video" ? route.slug : null;
 
   const fail = (e) => {
     setToast(e.message || String(e));
-    setTimeout(() => setToast(null), 5000);
+    setTimeout(() => setToast(null), 6000);
   };
-  const loadBrands = () => api("GET", "/api/brands").then((r) => setBrands(r.brands)).catch(fail);
+  const loadLists = () => {
+    api("GET", "/api/brands").then((r) => setBrands(r.brands)).catch(fail);
+    api("GET", "/api/videos").then((r) => setVideos(r.videos)).catch(fail);
+  };
   const refresh = useCallback(async () => {
-    if (!slug) return setD(null);
+    const r = routeRef.current;
     try {
-      const det = await api("GET", `/api/brands/${slug}`);
-      setD(det);
-      return det;
+      if (r.kind === "brand") {
+        const det = await api("GET", `/api/brands/${r.slug}`);
+        setD(det);
+        return det;
+      }
+      if (r.kind === "video") {
+        const det = await api("GET", `/api/videos/${r.slug}`);
+        setVd(det);
+        return det;
+      }
     } catch (e) {
       fail(e);
     }
-  }, [slug]);
+  }, []);
 
   useEffect(() => {
     api("GET", "/api/health").then(setHealth).catch(fail);
-    loadBrands();
+    loadLists();
+    const onHash = () => setRoute(parseHash());
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
   }, []);
   useEffect(() => {
-    location.hash = slug ? encodeURIComponent(slug) : "";
+    const want = route.kind ? `${route.kind === "video" ? "v" : "b"}/${route.slug}` : "";
+    if (decodeURIComponent(location.hash.slice(1)) !== want) location.hash = want ? encodeURIComponent(want).replace("%2F", "/") : "";
     setTab(null);
+    setD(null);
+    setVd(null);
     refresh().then((det) => {
-      if (det) setTab(STAGE_TAB[det.state?.stage] || "brief");
+      if (det && route.kind === "brand") setTab(STAGE_TAB[det.state?.stage] || "brief");
       if (det?.running) attach(det.running);
     });
-  }, [slug]);
+  }, [route.kind, route.slug]);
 
   function attach(j) {
     es.current?.close();
@@ -97,7 +126,7 @@ function App() {
       src.close();
       setJob((cur) => (cur && cur.id === j.id ? { ...cur, ...fin } : cur));
       refresh();
-      loadBrands();
+      loadLists();
       const w = waiters.current[j.id];
       if (w) {
         delete waiters.current[j.id];
@@ -106,28 +135,27 @@ function App() {
     });
   }
 
-  /** Start a step; resolves with its result when it finishes. */
-  const run = useCallback(
-    async (step, opts = {}) => {
-      const j = await api("POST", `/api/brands/${slug}/run/${step}`, opts);
-      attach(j);
-      return new Promise((resolve, reject) => (waiters.current[j.id] = { resolve, reject }));
-    },
-    [slug],
-  );
+  /** Start a job at base (/api/brands/x or /api/videos/x); resolves with its result when it finishes. */
+  const runAt = async (base, step, opts = {}) => {
+    const j = await api("POST", `${base}/run/${step}`, opts);
+    attach(j);
+    return new Promise((resolve, reject) => (waiters.current[j.id] = { resolve, reject }));
+  };
+  const run = (step, opts) => runAt(`/api/brands/${slug}`, step, opts);
+  const runVideo = (step, opts) => runAt(`/api/videos/${vslug}`, step, opts);
   const saveState = async (patch) => {
-    const s = await api("PUT", `/api/brands/${slug}/state`, patch);
-    setD((cur) => ({ ...cur, state: s }));
-    return s;
+    const st = await api("PUT", `/api/brands/${slug}/state`, patch);
+    setD((cur) => ({ ...cur, state: st }));
+    return st;
   };
   const busy = job?.status === "running";
   const props = { d, run, refresh, saveState, setTab, fail, busy, slug };
 
   return html`<div class="app">
-    <${Sidebar} brands=${brands} slug=${slug} setSlug=${setSlug} health=${health} onCreated=${(s) => (loadBrands(), setSlug(s))} fail=${fail} />
+    <${Sidebar} brands=${brands} videos=${videos} route=${route} setRoute=${setRoute} health=${health} onCreated=${(r) => (loadLists(), setRoute(r))} fail=${fail} />
     <main class="main">
-      ${!slug && html`<${Welcome} />`}
-      ${slug && d && html`<div>
+      ${!route.kind && html`<${Welcome} />`}
+      ${route.kind === "brand" && d && html`<div>
         <div class="head">
           <h1>${d.state?.brief?.name || d.slug} <span class="badge">${d.state?.stage || "brief"}</span></h1>
           <nav class="steps">${TABS.map(([k, label], i) => {
@@ -146,37 +174,66 @@ function App() {
           ${tab === "kit" && html`<${Kit} ...${props} />`}
         </div>
       </div>`}
+      ${route.kind === "video" && vd && html`<${VideoPage} v=${vd} setV=${setVd} run=${runVideo} refresh=${refresh} fail=${fail} busy=${busy} job=${job} />`}
     </main>
     ${job && html`<${Console} job=${job} setJob=${setJob} />`}
     ${toast && html`<div class="toast" onClick=${() => setToast(null)}>${toast}</div>`}
   </div>`;
 }
 
-function Sidebar({ brands, slug, setSlug, health, onCreated, fail }) {
+function Sidebar({ brands, videos, route, setRoute, health, onCreated, fail }) {
   const [name, setName] = useState("");
-  const create = async () => {
+  const [vtitle, setVtitle] = useState("");
+  const [vbrand, setVbrand] = useState("");
+  const kits = brands.filter((b) => b.stage === "done");
+  const createBrand = async () => {
     try {
       const r = await api("POST", "/api/brands", { name });
       setName("");
-      onCreated(r.slug);
+      onCreated({ kind: "brand", slug: r.slug });
     } catch (e) {
       fail(e);
     }
   };
+  const createVideo = async () => {
+    try {
+      const r = await api("POST", "/api/videos", { title: vtitle, brand: vbrand || kits[0]?.slug });
+      setVtitle("");
+      onCreated({ kind: "video", slug: r.slug });
+    } catch (e) {
+      fail(e);
+    }
+  };
+  const on = (kind, s) => route.kind === kind && route.slug === s;
   return html`<aside class="side">
     <div class="logo"><i></i>vlog-editor studio</div>
+    <h4>Videos</h4>
+    <div class="stack" style="gap:2px">
+      ${videos.map(
+        (v) => html`<div key=${v.slug} class=${`brand-item ${on("video", v.slug) ? "on" : ""}`} onClick=${() => setRoute({ kind: "video", slug: v.slug })}>
+          <div class="av vt">${v.thumb ? html`<img src=${v.thumb} />` : "▶"}</div>
+          <div><div>${v.title}</div><small>${v.running ? "working…" : `${v.brand}${v.renders ? ` · ${v.renders} render${v.renders > 1 ? "s" : ""}` : ""}`}</small></div>
+        </div>`,
+      )}
+    </div>
+    <div class="stack">
+      <input type="text" placeholder="New video title" value=${vtitle} onInput=${(e) => setVtitle(e.target.value)} onKeyDown=${(e) => e.key === "Enter" && vtitle.trim() && kits.length && createVideo()} />
+      ${kits.length > 1 && html`<select value=${vbrand || kits[0].slug} onChange=${(e) => setVbrand(e.target.value)}>${kits.map((b) => html`<option value=${b.slug}>${b.name}</option>`)}</select>`}
+      <button class="btn primary" disabled=${!vtitle.trim() || !kits.length} onClick=${createVideo}>+ New video</button>
+      ${!kits.length && html`<small class="sub">Build a brand kit first.</small>`}
+    </div>
     <h4>Brands</h4>
     <div class="stack" style="gap:2px">
       ${brands.map(
-        (b) => html`<div key=${b.slug} class=${`brand-item ${b.slug === slug ? "on" : ""}`} onClick=${() => setSlug(b.slug)}>
+        (b) => html`<div key=${b.slug} class=${`brand-item ${on("brand", b.slug) ? "on" : ""}`} onClick=${() => setRoute({ kind: "brand", slug: b.slug })}>
           <div class="av">${b.avatar ? html`<img src=${b.avatar} />` : (b.name || "?")[0].toUpperCase()}</div>
           <div><div>${b.name}</div><small>${b.running ? "working…" : b.stage}</small></div>
         </div>`,
       )}
     </div>
     <div class="stack">
-      <input type="text" placeholder="New brand name (or working title)" value=${name} onInput=${(e) => setName(e.target.value)} onKeyDown=${(e) => e.key === "Enter" && name.trim() && create()} />
-      <button class="btn primary" disabled=${!name.trim()} onClick=${create}>+ New brand kit</button>
+      <input type="text" placeholder="New brand name (or working title)" value=${name} onInput=${(e) => setName(e.target.value)} onKeyDown=${(e) => e.key === "Enter" && name.trim() && createBrand()} />
+      <button class="btn" disabled=${!name.trim()} onClick=${createBrand}>+ New brand kit</button>
     </div>
     <div class="health">
       ${health &&
@@ -190,9 +247,9 @@ function Sidebar({ brands, slug, setSlug, health, onCreated, fail }) {
 
 function Welcome() {
   return html`<div class="empty"><div>
-    <h2>Build a brand kit from evidence</h2>
-    <p>Start from your own account, accounts you admire, or the top accounts in your niche.<br />The studio measures what works, proposes three rendered directions, and builds the kit.</p>
-    <p class="sub">Create a brand on the left to begin.</p>
+    <h2>Brand kits and videos</h2>
+    <p>Build a brand kit from evidence, then make videos with it: upload your clips, build a draft, and edit by talking to Claude.</p>
+    <p class="sub">Pick a video or a brand on the left, or create one.</p>
   </div></div>`;
 }
 
@@ -747,6 +804,231 @@ function Kit({ d, run, fail, busy }) {
         <p class="sub" style="margin-top:12px">Use it in a video: <code>node plugins/vlog-editor/scripts/apply-brand.mjs --brand brands/${d.slug} --project videos/&lt;video&gt;</code></p>
       </div>
     </div>`}
+  </div>`;
+}
+
+// ---------------- videos ----------------
+const ROLES = [["main", "Main: decks + mix audio"], ["face", "Face: opens the video"], ["broll", "B-roll"]];
+const QUICK = ["Make the hook punchier", "Show the recipe card right when the blend starts", "Crop more toward the mixer", "Add a lower third naming the technique", "End 2 seconds earlier"];
+const fieldsOf = (v) => ({ title: v.title, hook: v.hook || { text: "", emphasis: "" }, recipe: v.recipe || null, blendAt: v.blendAt ?? null, faceSeconds: v.faceSeconds ?? 2.5, maxSeconds: v.maxSeconds ?? 60, lowerThird: v.lowerThird || null, captions: v.captions || [], endCard: v.endCard || { cta: "", seconds: 2.5 } });
+const clipKey = (cs) => JSON.stringify(cs.map((c) => [c.id, c.role, c.in, c.out, c.focusX]));
+const num = (x) => (x === "" || x == null || Number.isNaN(+x) ? null : +x);
+
+function CropBox({ c, onChange }) {
+  const w = c.info?.width || 16;
+  const h = c.info?.height || 9;
+  const frac = w / h > 9 / 16 ? (h * 9) / 16 / w : 1;
+  const left = (c.focusX ?? 0.5) * (1 - frac) * 100;
+  return html`<div class="crop">
+    ${c.thumbUrl ? html`<img src=${c.thumbUrl} />` : html`<div class="crop-ph">ingest to see the frame</div>`}
+    <div class="box" style=${`left:${left}%;width:${frac * 100}%`}></div>
+    ${frac < 1 && html`<input type="range" min="0" max="1" step="0.01" value=${c.focusX ?? 0.5} onInput=${(e) => onChange(+e.target.value)} title="Vertical crop position" />`}
+  </div>`;
+}
+
+function VideoPage({ v, setV, run, fail, busy }) {
+  const renderFresh = (vv) => vv.renders?.length && new Date(vv.renders[0].at) >= new Date(vv.updatedAt || 0) - 2000;
+  const [view, setView] = useState(renderFresh(v) ? "render" : "frames");
+  const [f, setF] = useState(fieldsOf(v));
+  const [clips, setClips] = useState(v.clips);
+  const [msg, setMsg] = useState("");
+  const [armed, setArmed] = useState(false);
+  const [role, setRole] = useState(v.clips.some((c) => c.role === "main") ? "face" : "main");
+  const [uploading, setUploading] = useState(null);
+  const chatBox = useRef(null);
+  useEffect(() => {
+    setF(fieldsOf(v));
+    setClips(v.clips);
+    setArmed(false);
+  }, [v.updatedAt, v.slug]);
+  useEffect(() => {
+    if (chatBox.current) chatBox.current.scrollTop = chatBox.current.scrollHeight;
+  }, [v.chat?.length]);
+  const dirty = JSON.stringify(fieldsOf(v)) !== JSON.stringify(f) || clipKey(v.clips) !== clipKey(clips);
+  const set = (k, val) => setF((cur) => ({ ...cur, [k]: val }));
+  const save = async () => {
+    const r = await api("PUT", `/api/videos/${v.slug}`, { ...f, clips });
+    setV(r);
+    return r;
+  };
+  const guard = (fn) => async (...a) => {
+    try {
+      await fn(...a);
+    } catch (e) {
+      fail(e);
+    }
+  };
+  const build = guard(async () => {
+    if (dirty) await save();
+    if (v.locked && !armed) return setArmed(true);
+    setArmed(false);
+    await run("draft", { force: Boolean(v.locked) });
+    setView("frames");
+  });
+  const renderIt = guard(async () => {
+    if (dirty) await save();
+    await run("render");
+    setView("render");
+  });
+  const send = guard(async (text) => {
+    const t = String(text ?? msg).trim();
+    if (!t) return;
+    if (dirty) await save();
+    setMsg("");
+    setV({ ...v, chat: [...(v.chat || []), { role: "user", text: t, at: new Date().toISOString(), pending: true }] });
+    await run("chat", { message: t });
+    setView("frames");
+  });
+  const upload = async (files) => {
+    for (const file of files) {
+      setUploading(file.name);
+      try {
+        const r = await fetch(`/api/videos/${v.slug}/upload?name=${encodeURIComponent(file.name)}&role=${role}`, { method: "POST", headers: { "X-Studio": "1" }, body: file });
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error);
+        setV(j);
+        setRole("face");
+      } catch (e) {
+        fail(e);
+      }
+    }
+    setUploading(null);
+  };
+  const updClip = (id, patch) => setClips((cs) => cs.map((c) => (c.id === id ? { ...c, ...patch } : c)));
+  const rec = f.recipe;
+  const setRec = (patch) => set("recipe", { ...(rec || { label: "Combo", title: "", tracks: [], steps: [], cta: f.endCard?.cta || "" }), ...patch });
+  const hasMain = clips.some((c) => c.role === "main");
+  const ingested = clips.length > 0 && clips.every((c) => c.info);
+  const lc = v.lastCheck;
+
+  return html`<div class="content video">
+    <div class="vhead">
+      <input class="vtitle" value=${f.title} onInput=${(e) => set("title", e.target.value)} />
+      <span class="badge">${v.brand}</span>
+      ${v.locked && html`<span class="badge warn" title="Edited by hand or by Claude beyond the fields">hand-edited</span>`}
+      ${lc && html`<span class=${`badge ${lc.errors?.length ? "err" : lc.warnings?.length ? "warn" : "ok"}`}>${lc.errors?.length ? `${lc.errors.length} errors` : lc.warnings?.length ? `${lc.warnings.length} warnings` : "check ok"}</span>`}
+      ${v.plan && html`<span class="sub" style="margin:0">${v.plan.T.toFixed(1)} s</span>`}
+      ${dirty && html`<button class="btn sm" onClick=${guard(save)}>Save changes</button>`}
+    </div>
+    <div class=${`vgrid ${view === "live" ? "wide-left" : ""}`}>
+      <div class="vleft">
+        <div class="seg wide">
+          <button class=${view === "frames" ? "on" : ""} onClick=${() => setView("frames")}>Frames</button>
+          <button class=${view === "live" ? "on" : ""} onClick=${() => setView("live")}>Live editor</button>
+          <button class=${view === "render" ? "on" : ""} onClick=${() => setView("render")}>Render${v.renders?.length ? ` (${v.renders.length})` : ""}</button>
+        </div>
+        ${view === "frames" &&
+        (v.frames?.length
+          ? html`<div class="frames">${v.frames.map((fr) => html`<figure><img src=${fr.url} /><figcaption>${fr.t != null ? `${fr.t.toFixed(1)} s` : ""}</figcaption></figure>`)}</div>`
+          : html`<div class="empty-box">${ingested ? "Build a draft to see the video's key frames." : "Upload a main clip (your decks with the mix audio), then build a draft."}</div>`)}
+        ${view === "live" &&
+        (v.preview
+          ? html`<div class="live"><iframe src=${v.preview.url} title="HyperFrames Studio"></iframe><div class="row"><a href=${v.preview.url} target="_blank">Open in a new tab ↗</a><button class="btn sm ghost" disabled=${busy} onClick=${() => run("stop-preview").catch(fail)}>Stop</button></div></div>`
+          : html`<div class="empty-box"><p>HyperFrames' own editor: play the video, scrub the timeline, nudge clips and texts.</p><button class="btn" disabled=${busy || !v.plan} onClick=${() => run("preview").then(() => setView("live")).catch(fail)}>Start live editor</button></div>`)}
+        ${view === "render" &&
+        (v.renders?.length
+          ? html`<div class="stack">${!renderFresh(v) && html`<div class="note warn">This render is older than your latest changes. Render again to export them.</div>`}<video class="sizzle" style="max-width:100%" src=${v.renders[0].url} controls playsinline></video>
+              ${v.renders.map((r, i) => html`<div class="row sub" style="margin:0"><span>${i === 0 ? "latest" : new Date(r.at).toLocaleString()}</span><span>${r.seconds?.toFixed?.(1)} s · ${r.lufs ?? "–"} LUFS</span><a href=${r.url} download>download</a></div>`)}</div>`
+          : html`<div class="empty-box">No render yet. Render when the frames look right.</div>`)}
+        <div class="row" style="margin-top:12px">
+          <button class=${`btn ${armed ? "warn-btn" : ""}`} disabled=${busy || !hasMain} onClick=${build}>${armed ? "Overwrite hand edits?" : v.plan ? "Rebuild from fields" : "Build draft"}</button>
+          <button class="btn primary" disabled=${busy || !v.plan} onClick=${renderIt}>Render MP4</button>
+          <button class="btn ghost" disabled=${busy || !v.versions} onClick=${() => run("undo").catch(fail)} title="Restore the version before the last draft or Claude edit">↶ Undo${v.versions ? ` (${v.versions})` : ""}</button>
+        </div>
+        ${armed && html`<p class="sub">Claude or a hand edit changed this video beyond the fields. Rebuilding from the fields replaces those edits (Undo brings them back).</p>`}
+        ${lc && (lc.errors?.length || lc.warnings?.length) ? html`<div class="stack" style="margin-top:10px">${[...(lc.errors || []), ...(lc.warnings || [])].slice(0, 6).map((x) => html`<div class=${`note ${/error/i.test(x.level) ? "err" : "warn"}`}>${x.code ? html`<b>${x.code}</b> ` : ""}${x.message}</div>`)}</div>` : null}
+      </div>
+
+      <div class="vright">
+        <div class="card chat">
+          <h3>Edit with Claude</h3>
+          <p class="sub">Say what to change. Claude edits this video's project (one ongoing session that remembers earlier edits), checks it, and the frames update.</p>
+          <div class="msgs" ref=${chatBox}>
+            ${(v.chat || []).length === 0 && html`<div class="sub">No messages yet.</div>`}
+            ${(v.chat || []).map((m) => html`<div class=${`msg ${m.role} ${m.ok === false ? "bad" : ""}`}>${m.text}${m.pending ? html` <span class="spin inline"></span>` : ""}</div>`)}
+          </div>
+          <div class="chips" style="margin:8px 0">${QUICK.map((q) => html`<button class="chip" disabled=${busy || !v.plan} onClick=${() => send(q)}>${q}</button>`)}</div>
+          <div class="row">
+            <textarea style="flex:1;min-height:56px" placeholder=${v.plan ? "e.g. start on the drop at 0:12 and make the hook two lines" : "Build a draft first, then ask for changes"} value=${msg} onInput=${(e) => setMsg(e.target.value)} onKeyDown=${(e) => e.key === "Enter" && (e.metaKey || e.ctrlKey) && send()}></textarea>
+            <button class="btn primary" disabled=${busy || !msg.trim() || !v.plan} onClick=${() => send()}>Send</button>
+          </div>
+        </div>
+
+        <div class="card stack">
+          <div class="row" style="justify-content:space-between"><h3>Clips</h3>
+            <div class="row"><select style="width:220px" value=${role} onChange=${(e) => setRole(e.target.value)}>${ROLES.map(([k, l]) => html`<option value=${k}>${l}</option>`)}</select>
+            <label class="btn sm">${uploading ? `Uploading ${uploading}…` : "⬆ Add clip"}<input type="file" accept="video/*" multiple style="display:none" disabled=${Boolean(uploading)} onChange=${(e) => upload([...e.target.files])} /></label></div>
+          </div>
+          ${clips.length === 0 && html`<p class="sub">Add your decks clip as <b>Main</b> (its sound becomes the mix, mastered to the brand's loudness), and a short clip of your face as <b>Face</b> so frame 0 is you.</p>`}
+          ${clips.map(
+            (c) => html`<div class="clip" key=${c.id}>
+              <${CropBox} c=${c} onChange=${(x) => updClip(c.id, { focusX: x })} />
+              <div class="stack" style="gap:8px">
+                <div class="row"><b>${c.id}</b><span class="sub" style="margin:0">${c.info ? `${c.info.width}×${c.info.height} · ${c.info.duration.toFixed(1)} s${c.info.hasAudio ? " · audio" : ""}` : "not ingested yet"}</span></div>
+                <select value=${c.role} onChange=${(e) => updClip(c.id, { role: e.target.value })}>${ROLES.map(([k, l]) => html`<option value=${k}>${l}</option>`)}</select>
+                <div class="row"><label class="f">In (s)<input type="number" step="0.1" value=${c.in ?? 0} onInput=${(e) => updClip(c.id, { in: num(e.target.value) ?? 0 })} /></label>
+                <label class="f">Out (s)<input type="number" step="0.1" value=${c.out ?? ""} placeholder="end" onInput=${(e) => updClip(c.id, { out: num(e.target.value) })} /></label></div>
+                <div class="row"><button class="btn sm ghost" onClick=${() => setClips((cs) => cs.filter((x) => x.id !== c.id))}>Remove</button>${c.sheetUrl && html`<a class="sub" style="margin:0" href=${c.sheetUrl} target="_blank">contact sheet ↗</a>`}</div>
+              </div>
+            </div>`,
+          )}
+        </div>
+
+        <div class="card stack">
+          <h3>Story</h3>
+          <label class="f">Hook (on screen from frame 0)<textarea value=${f.hook.text} onInput=${(e) => set("hook", { ...f.hook, text: e.target.value })}></textarea></label>
+          ${v.brandInfo?.hookFormulas?.length > 0 && html`<div class="chips">${v.brandInfo.hookFormulas.map((h) => html`<button class="chip" title="Use this formula" onClick=${() => set("hook", { ...f.hook, text: h, formula: h })}>${h}</button>`)}</div>`}
+          <label class="f">Emphasised words (part of the hook)<input type="text" value=${f.hook.emphasis || ""} onInput=${(e) => set("hook", { ...f.hook, emphasis: e.target.value })} /></label>
+          <div class="grid3">
+            <label class="f">Recipe card at (s)<input type="number" step="0.1" value=${f.blendAt ?? ""} placeholder=${v.plan?.recipeAt != null ? String(v.plan.recipeAt) : "auto"} onInput=${(e) => set("blendAt", num(e.target.value))} /></label>
+            <label class="f">Face opens for (s)<input type="number" step="0.1" value=${f.faceSeconds} onInput=${(e) => set("faceSeconds", num(e.target.value) ?? 2.5)} /></label>
+            <label class="f">Max length (s)<input type="number" step="1" value=${f.maxSeconds} onInput=${(e) => set("maxSeconds", num(e.target.value) ?? 60)} /></label>
+          </div>
+          <div class="grid2">
+            <label class="f">Lower third title<input type="text" value=${f.lowerThird?.title || ""} placeholder="e.g. Bass swap" onInput=${(e) => set("lowerThird", e.target.value ? { ...(f.lowerThird || {}), title: e.target.value } : null)} /></label>
+            <label class="f">Lower third subtitle<input type="text" value=${f.lowerThird?.subtitle || ""} placeholder="e.g. 16 bars" disabled=${!f.lowerThird} onInput=${(e) => set("lowerThird", { ...f.lowerThird, subtitle: e.target.value })} /></label>
+          </div>
+          <label class="f">End card call to action<input type="text" value=${f.endCard?.cta || ""} onInput=${(e) => set("endCard", { ...f.endCard, cta: e.target.value })} /></label>
+          ${v.brandInfo?.ctas?.length > 0 && html`<div class="chips">${v.brandInfo.ctas.map((c) => html`<button class="chip" onClick=${() => set("endCard", { ...f.endCard, cta: c })}>${c}</button>`)}</div>`}
+        </div>
+
+        <div class="card stack">
+          <div class="row" style="justify-content:space-between"><h3>Recipe card</h3>
+            ${rec ? html`<button class="btn sm ghost" onClick=${() => set("recipe", null)}>Remove card</button>` : html`<button class="btn sm" onClick=${() => setRec({ tracks: [{ title: "", artist: "", meta: "" }, { title: "", artist: "", meta: "" }], steps: [""] })}>+ Add recipe card</button>`}
+          </div>
+          ${rec &&
+          html`<div class="stack">
+            <div class="grid2"><label class="f">Label<input type="text" value=${rec.label || ""} onInput=${(e) => setRec({ label: e.target.value })} /></label><label class="f">Title<input type="text" value=${rec.title || ""} onInput=${(e) => setRec({ title: e.target.value })} /></label></div>
+            ${(rec.tracks || []).map(
+              (t, i) => html`<div key=${i}>
+                ${i > 0 && html`<label class="f step-in">↓ Transition ${i}<input type="text" value=${rec.steps?.[i - 1] || ""} placeholder="EQ blend, bass swap · 16 bars" onInput=${(e) => { const st = [...(rec.steps || [])]; st[i - 1] = e.target.value; setRec({ steps: st }); }} /></label>`}
+                <div class="row"><span class="badge">${i + 1}</span>
+                  <input type="text" style="flex:2;width:auto" placeholder="Track title" value=${t.title} onInput=${(e) => setRec({ tracks: rec.tracks.map((x, j) => (j === i ? { ...x, title: e.target.value } : x)) })} />
+                  <input type="text" style="flex:1.2;width:auto" placeholder="Artist" value=${t.artist} onInput=${(e) => setRec({ tracks: rec.tracks.map((x, j) => (j === i ? { ...x, artist: e.target.value } : x)) })} />
+                  <input type="text" style="flex:1;width:auto" placeholder="124 BPM · 5A" value=${t.meta} onInput=${(e) => setRec({ tracks: rec.tracks.map((x, j) => (j === i ? { ...x, meta: e.target.value } : x)) })} />
+                  <button class="btn sm ghost" onClick=${() => setRec({ tracks: rec.tracks.filter((_, j) => j !== i), steps: (rec.steps || []).filter((_, j) => j !== Math.max(0, i - 1)) })}>✕</button></div>
+              </div>`,
+            )}
+            <div class="row"><button class="btn sm" onClick=${() => setRec({ tracks: [...(rec.tracks || []), { title: "", artist: "", meta: "" }], steps: [...(rec.steps || []), ""] })}>+ Track</button>
+            <label class="f" style="flex:1">Card CTA<input type="text" value=${rec.cta || ""} onInput=${(e) => setRec({ cta: e.target.value })} /></label></div>
+          </div>`}
+        </div>
+
+        <div class="card stack">
+          <div class="row" style="justify-content:space-between"><h3>On-screen text</h3><button class="btn sm" onClick=${() => set("captions", [...f.captions, { text: "", start: f.captions.length ? (f.captions.at(-1).end ?? 0) + 0.5 : 4, end: f.captions.length ? (f.captions.at(-1).end ?? 0) + 3 : 7 }])}>+ Text beat</button></div>
+          <p class="sub" style="margin:0">Short lines shown in the brand's caption style, e.g. "bass swap on the drop". Times are seconds in the video.</p>
+          ${f.captions.map(
+            (c, i) => html`<div class="row" key=${i}>
+              <input type="text" style="flex:3;width:auto" value=${c.text} placeholder="text" onInput=${(e) => set("captions", f.captions.map((x, j) => (j === i ? { ...x, text: e.target.value } : x)))} />
+              <input type="number" style="width:80px" step="0.1" value=${c.start} onInput=${(e) => set("captions", f.captions.map((x, j) => (j === i ? { ...x, start: num(e.target.value) ?? 0 } : x)))} />
+              <input type="number" style="width:80px" step="0.1" value=${c.end} onInput=${(e) => set("captions", f.captions.map((x, j) => (j === i ? { ...x, end: num(e.target.value) } : x)))} />
+              <button class="btn sm ghost" onClick=${() => set("captions", f.captions.filter((_, j) => j !== i))}>✕</button>
+            </div>`,
+          )}
+        </div>
+        <div class="row end"><button class="btn" disabled=${!dirty} onClick=${guard(save)}>Save</button><button class="btn primary" disabled=${busy || !hasMain} onClick=${build}>${dirty ? "Save and rebuild" : v.plan ? "Rebuild from fields" : "Build draft"}</button></div>
+      </div>
+    </div>
   </div>`;
 }
 

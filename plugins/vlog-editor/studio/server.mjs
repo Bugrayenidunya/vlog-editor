@@ -13,6 +13,8 @@ import crypto from "node:crypto";
 import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { STEPS, PLUGIN_ROOT } from "./lib/steps.mjs";
+import { VIDEO_STEPS, previews } from "./lib/video-steps.mjs";
+import { initVideo, addClip, loadVideo, saveVideo } from "../scripts/video.mjs";
 import { withDefaults } from "../scripts/lib/brand.mjs";
 
 const args = Object.fromEntries(
@@ -25,6 +27,7 @@ const PORT = Number(args.port || process.env.STUDIO_PORT || 4317);
 const WS = path.resolve(args.workspace || process.cwd());
 const PUBLIC = path.join(path.dirname(fileURLToPath(import.meta.url)), "public");
 const BRANDS = path.join(WS, "brands");
+const VIDEOS = path.join(WS, "videos");
 
 const MIME = { ".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8", ".css": "text/css; charset=utf-8", ".json": "application/json; charset=utf-8", ".md": "text/markdown; charset=utf-8", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".svg": "image/svg+xml", ".mp4": "video/mp4", ".mov": "video/quicktime", ".webm": "video/webm", ".woff2": "font/woff2", ".wav": "audio/wav", ".mp3": "audio/mpeg" };
 
@@ -57,13 +60,15 @@ async function fileRef(abs) {
 const jobs = new Map();
 const running = new Map(); // slug → jobId
 
-function startJob(slug, step, opts) {
-  if (!STEPS[step]) throw Object.assign(new Error(`unknown step ${step}`), { status: 404 });
-  if (running.has(slug)) throw Object.assign(new Error(`a job is already running for ${slug}`), { status: 409, job: running.get(slug) });
+function startJob(slug, step, opts, scope = "brand") {
+  const table = scope === "video" ? VIDEO_STEPS : STEPS;
+  const key = `${scope}:${slug}`;
+  if (!table[step]) throw Object.assign(new Error(`unknown step ${step}`), { status: 404 });
+  if (running.has(key)) throw Object.assign(new Error(`a job is already running for ${slug}`), { status: 409, job: running.get(key) });
   const id = `${Date.now().toString(36)}-${crypto.randomBytes(3).toString("hex")}`;
-  const job = { id, slug, step, opts, status: "running", logs: [], result: null, error: null, startedAt: new Date().toISOString(), endedAt: null, subs: new Set(), children: new Set() };
+  const job = { id, slug, scope, step, opts, status: "running", logs: [], result: null, error: null, startedAt: new Date().toISOString(), endedAt: null, subs: new Set(), children: new Set() };
   jobs.set(id, job);
-  running.set(slug, id);
+  running.set(key, id);
   const send = (event, data) => {
     for (const res of job.subs) res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
   };
@@ -73,9 +78,9 @@ function startJob(slug, step, opts) {
     if (job.logs.length > 3000) job.logs.shift();
     send("log", entry);
   };
-  const ctx = { slug, step, opts: opts || {}, ws: WS, brandDir: path.join(BRANDS, slug), log, onSpawn: (c) => (job.children.add(c), c.on("close", () => job.children.delete(c))) };
+  const ctx = { slug, step, opts: opts || {}, ws: WS, brandDir: path.join(BRANDS, slug), projectDir: path.join(VIDEOS, slug), log, onSpawn: (c) => (job.children.add(c), c.on("close", () => job.children.delete(c))) };
   log(`▶ ${step}`);
-  STEPS[step](ctx)
+  table[step](ctx)
     .then((result) => {
       job.status = "done";
       job.result = result;
@@ -88,17 +93,18 @@ function startJob(slug, step, opts) {
     })
     .finally(async () => {
       job.endedAt = new Date().toISOString();
-      running.delete(slug);
+      running.delete(key);
       send("done", publicJob(job));
       for (const res of job.subs) res.end();
       job.subs.clear();
       const { subs, children, ...persist } = job;
-      await writeJson(path.join(BRANDS, slug, ".studio", "jobs", `${id}.json`), persist).catch(() => {});
+      const jobsDir = scope === "video" ? path.join(VIDEOS, slug, ".vlog", "jobs") : path.join(BRANDS, slug, ".studio", "jobs");
+      await writeJson(path.join(jobsDir, `${id}.json`), persist).catch(() => {});
     });
   return job;
 }
 
-const publicJob = (j) => ({ id: j.id, slug: j.slug, step: j.step, opts: j.opts, status: j.status, result: j.result, error: j.error, startedAt: j.startedAt, endedAt: j.endedAt, logCount: j.logs.length });
+const publicJob = (j) => ({ id: j.id, slug: j.slug, scope: j.scope, step: j.step, opts: j.opts, status: j.status, result: j.result, error: j.error, startedAt: j.startedAt, endedAt: j.endedAt, logCount: j.logs.length });
 
 // ---------------- brand summaries ----------------
 async function listBrands() {
@@ -110,7 +116,7 @@ async function listBrands() {
     const state = await readJson(path.join(dir, "kit.state.json"));
     const brand = await readJson(path.join(dir, "brand.json"));
     if (!state && !brand) continue;
-    out.push({ slug: d.name, name: brand?.name || state?.brief?.name || d.name, stage: state?.stage || (brand ? "done" : "brief"), avatar: await fileRef(path.join(dir, "logo", "avatar.png")), running: running.get(d.name) || null });
+    out.push({ slug: d.name, name: brand?.name || state?.brief?.name || d.name, stage: state?.stage || (brand ? "done" : "brief"), avatar: await fileRef(path.join(dir, "logo", "avatar.png")), running: running.get(`brand:${d.name}`) || null });
   }
   return out;
 }
@@ -178,8 +184,51 @@ async function brandDetail(slug) {
     if (j) recent.push({ id: j.id, step: j.step, status: j.status, error: j.error, startedAt: j.startedAt, endedAt: j.endedAt });
   }
   const inbox = (await fsp.readdir(r("research/inbox")).catch(() => [])).filter((f) => !f.startsWith("."));
-  return { slug, state, sources, manifest: manifest ? { sources: manifest.sources, items: manifest.items?.length || 0, generatedAt: manifest.generatedAt } : null, dossier, dna, dnaMd, directions, directionsMeta: await readJson(r("directions/directions.json")), compare: comparePics, kit, files, recentJobs: recent.reverse(), running: running.get(slug) ? publicJob(jobs.get(running.get(slug))) : null, inbox };
+  return { slug, state, sources, manifest: manifest ? { sources: manifest.sources, items: manifest.items?.length || 0, generatedAt: manifest.generatedAt } : null, dossier, dna, dnaMd, directions, directionsMeta: await readJson(r("directions/directions.json")), compare: comparePics, kit, files, recentJobs: recent.reverse(), running: running.get(`brand:${slug}`) ? publicJob(jobs.get(running.get(`brand:${slug}`))) : null, inbox };
 }
+
+// ---------------- video summaries ----------------
+async function listVideos() {
+  const dirs = await fsp.readdir(VIDEOS, { withFileTypes: true }).catch(() => []);
+  const out = [];
+  for (const d of dirs) {
+    if (!d.isDirectory() || d.name.startsWith(".")) continue;
+    const dir = path.join(VIDEOS, d.name);
+    const v = await readJson(path.join(dir, "video.json"));
+    if (!v) continue;
+    const thumb = v.lastCheck?.frames?.[0] || v.clips?.find((c) => c.thumb)?.thumb;
+    out.push({ slug: d.name, title: v.title, brand: v.brand, updatedAt: v.updatedAt || v.createdAt, thumb: thumb ? await fileRef(path.join(dir, thumb)) : null, locked: Boolean(v.locked), renders: (v.renders || []).length, running: running.get(`video:${d.name}`) || null });
+  }
+  return out.sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
+}
+
+async function videoDetail(slug) {
+  const dir = path.join(VIDEOS, slug);
+  const v = await readJson(path.join(dir, "video.json"));
+  if (!v) return null;
+  const r = (p) => path.join(dir, p);
+  const clips = [];
+  for (const c of v.clips || []) clips.push({ ...c, thumbUrl: c.thumb ? await fileRef(r(c.thumb)) : null, sheetUrl: c.sheet ? await fileRef(r(c.sheet)) : null });
+  const frames = [];
+  for (const [i, f] of (v.lastCheck?.frames || []).entries()) frames.push({ t: v.lastCheck.times?.[i] ?? null, url: await fileRef(r(f)) });
+  const renders = [];
+  for (const x of (v.renders || []).slice().reverse()) renders.push({ ...x, url: await fileRef(r(x.file)) });
+  const brand = await readJson(path.join(BRANDS, v.brand, "brand.json"));
+  const versions = (await fsp.readdir(r(".vlog/versions")).catch(() => [])).length;
+  const key = `video:${slug}`;
+  return {
+    ...v,
+    clips,
+    frames,
+    renders,
+    versions,
+    brandInfo: brand ? { name: brand.name, hookFormulas: brand.voice?.hookFormulas || [], ctas: brand.voice?.ctas || [], colors: brand.colors } : null,
+    preview: previews.get(slug) || null,
+    running: running.get(key) ? publicJob(jobs.get(running.get(key))) : null,
+  };
+}
+
+const VIDEO_FIELDS = ["title", "hook", "recipe", "blendAt", "faceSeconds", "maxSeconds", "lowerThird", "captions", "endCard"];
 
 // ---------------- http ----------------
 function send(res, status, body, headers = {}) {
@@ -291,6 +340,57 @@ const server = http.createServer(async (req, res) => {
         return send(res, e.status || 500, { error: e.message, job: e.job || null });
       }
     }
+    // ---- videos ----
+    if (p === "/api/videos" && req.method === "GET") return send(res, 200, { videos: await listVideos() });
+    if (p === "/api/videos" && req.method === "POST") {
+      const { title, brand } = await body(req);
+      if (!brand || !SLUG_RE.test(brand) || !(await exists(path.join(BRANDS, brand, "brand.json")))) return send(res, 400, { error: "pick a brand with a built kit" });
+      try {
+        const r = await initVideo({ brandDir: path.join(BRANDS, brand), title: String(title || "").trim() || "Untitled", workspace: WS });
+        return send(res, 201, { slug: r.video.slug });
+      } catch (e) {
+        return send(res, 409, { error: e.message });
+      }
+    }
+    if ((m = p.match(/^\/api\/videos\/([a-z0-9-]+)$/)) && req.method === "GET") {
+      const d = await videoDetail(m[1]);
+      return d ? send(res, 200, d) : send(res, 404, { error: "no such video" });
+    }
+    if ((m = p.match(/^\/api\/videos\/([a-z0-9-]+)$/)) && req.method === "PUT") {
+      const dir = path.join(VIDEOS, m[1]);
+      const v = await loadVideo(dir).catch(() => null);
+      if (!v) return send(res, 404, { error: "no such video" });
+      const patch = await body(req);
+      for (const k of VIDEO_FIELDS) if (k in patch) v[k] = patch[k];
+      if (Array.isArray(patch.clips)) {
+        const byId = new Map(v.clips.map((c) => [c.id, c]));
+        v.clips = patch.clips.filter((c) => byId.has(c.id)).map((c) => ({ ...byId.get(c.id), role: c.role, in: Number(c.in) || 0, out: c.out === "" || c.out == null ? null : Number(c.out), focusX: Math.max(0, Math.min(1, Number(c.focusX ?? 0.5))) }));
+      }
+      await saveVideo(dir, v);
+      return send(res, 200, await videoDetail(m[1]));
+    }
+    if ((m = p.match(/^\/api\/videos\/([a-z0-9-]+)\/upload$/)) && req.method === "POST") {
+      const dir = path.join(VIDEOS, m[1]);
+      if (!(await exists(path.join(dir, "video.json")))) return send(res, 404, { error: "no such video" });
+      const name = path.basename(url.searchParams.get("name") || "").replace(/[^\w.\- ]+/g, "_");
+      const role = ["main", "face", "broll"].includes(url.searchParams.get("role")) ? url.searchParams.get("role") : "main";
+      if (!name || !/\.(mp4|mov|m4v|webm)$/i.test(name)) return send(res, 400, { error: "video files only (mp4, mov, m4v, webm)" });
+      await fsp.mkdir(path.join(dir, "source"), { recursive: true });
+      const dst = path.join(dir, "source", name);
+      await new Promise((resolve, reject) => req.pipe(fs.createWriteStream(dst)).on("finish", resolve).on("error", reject));
+      await addClip(dir, dst, role);
+      return send(res, 201, await videoDetail(m[1]));
+    }
+    if ((m = p.match(/^\/api\/videos\/([a-z0-9-]+)\/run\/([a-z-]+)$/)) && req.method === "POST") {
+      if (!(await exists(path.join(VIDEOS, m[1], "video.json")))) return send(res, 404, { error: "no such video" });
+      const opts = await body(req);
+      try {
+        return send(res, 202, publicJob(startJob(m[1], m[2], opts, "video")));
+      } catch (e) {
+        return send(res, e.status || 500, { error: e.message, job: e.job || null });
+      }
+    }
+
     if ((m = p.match(/^\/api\/jobs\/([\w-]+)$/))) {
       const j = jobs.get(m[1]);
       return j ? send(res, 200, { ...publicJob(j), logs: j.logs }) : send(res, 404, { error: "no such job" });

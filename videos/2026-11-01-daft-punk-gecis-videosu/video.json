@@ -1,0 +1,51 @@
+{
+  "schema": "vlog-editor/video@1",
+  "slug": "2026-11-01-daft-punk-gecis-videosu",
+  "title": "daft punk gecis videosu",
+  "brand": "itsbgra",
+  "createdAt": "2026-11-01T18:07:31.710Z",
+  "clips": [],
+  "hook": {
+    "text": "If you're a beginner DJ, steal this 16-bar blend",
+    "emphasis": "16-bar blend"
+  },
+  "recipe": {
+    "label": "Combo",
+    "title": "Up the wheel",
+    "tracks": [
+      {
+        "title": "At Night (Purple Disco Machine Remix)",
+        "artist": "Shakedown",
+        "meta": "122 BPM · 4A"
+      },
+      {
+        "title": "Lola's Theme (Radio Edit)",
+        "artist": "The Shapeshifters",
+        "meta": "124 BPM · 5A"
+      }
+    ],
+    "steps": [
+      "EQ blend, bass swap · 16 bars"
+    ],
+    "cta": "Save it in Mixnote"
+  },
+  "blendAt": null,
+  "faceSeconds": 2.5,
+  "maxSeconds": 60,
+  "lowerThird": null,
+  "captions": [],
+  "endCard": {
+    "cta": "Save it in Mixnote",
+    "seconds": 2.5
+  },
+  "audio": {
+    "lufs": -14
+  },
+  "locked": false,
+  "claude": {
+    "session": null
+  },
+  "chat": [],
+  "renders": [],
+  "updatedAt": "2026-11-01T18:07:31.710Z"
+}

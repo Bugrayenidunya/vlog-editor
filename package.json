@@ -1,6 +1,6 @@
 {
   "name": "vlog-editor",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Vlog and short-form social video studio (TikTok, Instagram Reels) on HeyGen HyperFrames, packaged as a Claude Code plugin.",

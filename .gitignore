@@ -39,3 +39,10 @@ brands/.cache/
 brands/*/.work/
 brands/*/.studio/
 **/.board/
+# Video projects: source footage, working copies, audio masters and engine scratch stay local.
+# Tracked: video.json, index.html, compositions/, DESIGN.md, brand.lock.json, edit.json.
+videos/*/source/
+videos/*/.vlog/
+videos/**/*.m4a
+videos/**/*.mp3
+**/.waveform-cache/

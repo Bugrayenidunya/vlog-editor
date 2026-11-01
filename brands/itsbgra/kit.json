@@ -1,8 +1,8 @@
 {
   "schema": "vlog-editor/kit@1",
   "brand": "itsbgra",
-  "version": 2,
-  "builtAt": "2026-11-01T17:46:27.164Z",
+  "version": 4,
+  "builtAt": "2026-11-01T18:06:28.936Z",
   "files": {
     "design": "DESIGN.md",
     "tokens": "tokens.css",

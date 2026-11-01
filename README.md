@@ -8,7 +8,7 @@ uses that kit to make videos with [HeyGen HyperFrames](https://github.com/heygen
 It comes with two interfaces that share one engine:
 
 - **Studio**: a localhost web UI you click through (`npm run studio`)
-- **Claude Code skills**: chat in the terminal (`/vlog-editor:brand-kit`)
+- **Claude Code skills**: chat in the terminal (`/vlog-editor:brand-kit`, `/vlog-editor:video`)
 
 ## Brand kit, from nothing
 
@@ -27,6 +27,21 @@ It comes with two interfaces that share one engine:
 7. **Sound** (optional): music bed, sting, sound effects, voice.
 8. **Kit**: `DESIGN.md` (HyperFrames' design spec), tokens, local fonts (Turkish-safe), logo and profile
    picture, caption/hook/lower-third/end-card components, and a rendered sizzle reel.
+
+## Videos, edited by conversation
+
+1. **New video** (studio sidebar): pick the brand and upload clips. **Main** is the footage whose sound is the mix,
+   **face** opens the video so frame 0 is you, and **b-roll** is optional.
+2. **Build draft**: the clips become a vertical video in your brand's style:
+   - the face clip at frame 0 while the mix already plays
+   - the footage cropped to 9:16 (drag the crop box)
+   - the hook, the recipe card at the blend, a lower third, on-screen text and the end card
+   - audio mastered to the brand's loudness (−14 LUFS)
+3. **Edit with Claude**: type what to change ("show the card when the blend starts", "crop toward the mixer").
+   Each video keeps one Claude Code session that remembers earlier edits, checks every change and refreshes the
+   frames. **Live editor** opens HyperFrames' own timeline editor; **Undo** restores the previous version.
+4. **Render MP4**: 1080×1920, H.264, loudness-checked, plus an `edit.json` style fingerprint for the coming
+   performance loop.
 
 ## Install as a Claude Code plugin
 
@@ -68,5 +83,6 @@ Downloaded reference videos and their frames are for private analysis and stay o
 
 - [x] HyperFrames setup and plugin scaffold
 - [x] Brand kit: engine, skill, studio
+- [x] Videos: brand-styled drafts from clips, Claude chat editing, live HyperFrames editor, render
 - [ ] Performance loop: track published posts' analytics, learn which styles and edits win, update the kit
-- [ ] Video workflows: footage → transcript → cut → captions → render → export per platform
+- [ ] Video: b-roll placement, beat-synced cuts, spoken captions, per-platform export presets
