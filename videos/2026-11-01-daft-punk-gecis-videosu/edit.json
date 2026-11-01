@@ -3,8 +3,8 @@
   "video": "2026-11-01-daft-punk-gecis-videosu",
   "outputs": {
     "tiktok": {
-      "file": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_2026-11-01-19-53-22.mp4",
-      "renderedAt": "2026-11-01T19:53:52.642Z",
+      "file": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok.mp4",
+      "renderedAt": "2026-11-01T19:58:23.997Z",
       "format": "horizontal-feed",
       "seconds": 32,
       "lufs": -14.24,
@@ -50,10 +50,9 @@
       "faceAtFrame0": false,
       "captions": "burn",
       "cover": {
-        "png": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_cover.png",
         "jpg": "renders/2026-11-01-daft-punk-gecis-videosu__tiktok_cover.jpg"
       }
     }
   },
-  "updatedAt": "2026-11-01T19:53:52.642Z"
+  "updatedAt": "2026-11-01T19:58:23.998Z"
 }

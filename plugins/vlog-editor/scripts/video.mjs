@@ -714,16 +714,13 @@ export async function makeCover(projectDir, v, o, R, b) {
   const s = await runHf(["snapshot", dir, "--at", "0.5", "--no-end", "-o", shots, "--json"], { cwd: dir, timeoutMs: 180000, workspace: dir });
   const png = (await fsp.readdir(shots).catch(() => [])).find((f) => f.endsWith(".png"));
   if (!png) throw new Error(`cover snapshot failed: ${(s.stderr || s.stdout).trim().split("\n").slice(-2).join(" ")}`);
+  // One share-ready file per output: <slug>__<output>_cover.jpg (YouTube thumbnails at 1280×720, under 2 MB).
   const base = path.join(projectDir, "renders", `${v.slug}__${o.name}_cover`);
   await ensureDir(path.dirname(base));
-  await fsp.copyFile(path.join(shots, png), `${base}.png`);
-  await run("ffmpeg", ["-v", "error", "-y", "-i", `${base}.png`, "-q:v", "2", `${base}.jpg`]);
-  const files = { png: path.relative(projectDir, `${base}.png`), jpg: path.relative(projectDir, `${base}.jpg`) };
-  if (o.format === "horizontal") {
-    await run("ffmpeg", ["-v", "error", "-y", "-i", `${base}.png`, "-vf", "scale=1280:720", "-q:v", "2", `${base}-1280x720.jpg`]);
-    files.youtube = path.relative(projectDir, `${base}-1280x720.jpg`);
-  }
-  return files;
+  const scale = o.format === "horizontal" ? ["-vf", "scale=1280:720"] : [];
+  await run("ffmpeg", ["-v", "error", "-y", "-i", path.join(shots, png), ...scale, "-q:v", "2", `${base}.jpg`]);
+  for (const old of [`${base}.png`, `${base}-1280x720.jpg`]) await fsp.rm(old, { force: true });
+  return { jpg: path.relative(projectDir, `${base}.jpg`) };
 }
 
 export async function covers(projectDir, { output = "all" } = {}) {
@@ -746,9 +743,12 @@ export async function render(projectDir, { output = "all", quality } = {}) {
     const dir = outputDir(projectDir, o);
     if (!exists(path.join(dir, "index.html"))) throw new Error(`output ${o.name} is not drafted — run draft first`);
     const lock = await readJson(path.join(dir, "brand.lock.json"), {});
-    const stamp = new Date().toISOString().replace(/[:T]/g, "-").slice(0, 19);
-    const out = path.join(projectDir, "renders", `${v.slug}__${o.name}_${stamp}.mp4`);
+    // One final file per output, always share-ready: renders/<slug>__<output>.mp4. Rendered to a temporary
+    // file first, so a failed render never destroys the last good one.
+    const final = path.join(projectDir, "renders", `${v.slug}__${o.name}.mp4`);
+    const out = final.replace(/\.mp4$/, ".rendering.mp4");
     await ensureDir(path.dirname(out));
+    await fsp.rm(out, { force: true });
     const { A, B } = windowFor(o, R);
     log(`→ render ${o.name} (${o.format}, ${mmss(B - A)})`);
     const r = await runHf(["render", dir, "-o", out, "--quiet", ...(quality ? ["--quality", quality] : [])], { cwd: dir, timeoutMs: 12 * 3600000, workspace: dir });
@@ -768,19 +768,24 @@ export async function render(projectDir, { output = "all", quality } = {}) {
         ln = await loudnessOf(out);
       } else await fsp.rm(tmp, { force: true });
     }
+    await fsp.rename(out, final);
+    // Older versions of this output (timestamped renders from before) are superseded.
+    const rdir = path.dirname(final);
+    const prefix = `${v.slug}__${o.name}_`;
+    for (const f of await fsp.readdir(rdir)) if (f.startsWith(prefix) && /_\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}\./.test(f)) await fsp.rm(path.join(rdir, f), { force: true });
     const extras = {};
     if (o.format === "horizontal") {
       const ch = R.chapters.filter((c) => c.start >= A && c.start < B).map((c) => ({ ...c, start: c.start - A }));
       if (ch.length) {
         if (ch[0].start > 0.5) ch.unshift({ title: "Intro", start: 0 });
-        const f = out.replace(/\.mp4$/, ".chapters.txt");
+        const f = final.replace(/\.mp4$/, ".chapters.txt");
         await fsp.writeFile(f, ch.map((c) => `${mmss(c.start)} ${c.title}`).join("\n") + "\n");
         extras.chapters = path.relative(projectDir, f);
         if (ch.length < 3 || ch.some((c, i) => i && c.start - ch[i - 1].start < 10)) extras.chaptersNote = "YouTube needs ≥ 3 chapters, the first at 0:00, each ≥ 10 s";
       }
       const words = spokenWords(projectDir, R, A, B);
       if (words.length) {
-        const f = out.replace(/\.mp4$/, ".captions.srt");
+        const f = final.replace(/\.mp4$/, ".captions.srt");
         await fsp.writeFile(f, srtFrom(words));
         extras.captions = path.relative(projectDir, f);
       }
@@ -794,7 +799,7 @@ export async function render(projectDir, { output = "all", quality } = {}) {
     }
     const firstSeg = R.segs.find((s) => s.end > A);
     const entry = {
-      file: path.relative(projectDir, out),
+      file: path.relative(projectDir, final),
       renderedAt: new Date().toISOString(),
       format: o.format,
       seconds: info.duration,
@@ -810,7 +815,7 @@ export async function render(projectDir, { output = "all", quality } = {}) {
       ...extras,
     };
     fp.outputs[o.name] = entry;
-    v.renders = [...(v.renders || []), { output: o.name, file: entry.file, at: entry.renderedAt, seconds: entry.seconds, lufs: entry.lufs }];
+    v.renders = [...(v.renders || []).filter((x) => x.output !== o.name), { output: o.name, file: entry.file, at: entry.renderedAt, seconds: entry.seconds, lufs: entry.lufs }];
     results.push({ output: o.name, ...entry });
   }
   fp.updatedAt = new Date().toISOString();

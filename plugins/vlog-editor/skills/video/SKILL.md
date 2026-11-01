@@ -21,7 +21,7 @@ it prints JSON.
 | `plan` | the resolved edit: segment times, overlay times, each output's window, chapters |
 | `draft [--output name]` | builds `outputs/<name>/` HyperFrames projects + mastered audio, then check + key frames (`.vlog/frames/<name>/`) |
 | `check [--output name]` | `hyperframes check` + key frames again |
-| `render [--output name\|all] [--quality draft]` | MP4s in `renders/` at the brand's loudness + the **cover image** (`<slug>__<output>_cover.png/.jpg`, YouTube also 1280×720), `.chapters.txt` and `.captions.srt` for 16:9; fingerprints in `edit.json` |
+| `render [--output name\|all] [--quality draft]` | **one share-ready final per output**: `renders/<slug>__<output>.mp4` (replaced on every render, only after a successful one) + `renders/<slug>__<output>_cover.jpg` (YouTube: 1280×720); `.chapters.txt` and `.captions.srt` for YouTube; fingerprints in `edit.json`. Old versions are removed. |
 | `cover [--output name]` | regenerate only the cover image |
 | `undo` | restores the previous `video.json` (then `draft` again) |
 
