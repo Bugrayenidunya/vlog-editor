@@ -1,0 +1,1608 @@
+{
+  "generatedAt": "2026-11-01T17:12:27.725Z",
+  "brandDir": ".",
+  "dryRun": false,
+  "sources": [
+    {
+      "key": "tiktok-itsbgra",
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "role": "self",
+      "url": "https://www.tiktok.com/@itsbgra",
+      "channel": null,
+      "followers": null,
+      "scanned": 11,
+      "rankedBy": "likes",
+      "picked": 11,
+      "top": [
+        {
+          "id": "7700305703503695137",
+          "likes": 633,
+          "views": 13500,
+          "title": "each blend goes one step up the wheel, 4A -> 7A, 122 to 126. I keep n..."
+        },
+        {
+          "id": "7702617860006251809",
+          "likes": 208,
+          "views": 4707,
+          "title": "I’ll start with a classic one on this combo and build up the energy o..."
+        },
+        {
+          "id": "7652707675725253921",
+          "likes": 44,
+          "views": 831,
+          "title": "First videography work. #videography #fyp"
+        },
+        {
+          "id": "7700940448788942113",
+          "likes": 20,
+          "views": 544,
+          "title": "three absolute classics and they actually flow into each other really..."
+        },
+        {
+          "id": "7698840631522676001",
+          "likes": 14,
+          "views": 430,
+          "title": "DJ Journey — Mix 02 Nightcrawlers — Push the Feeling On → Daft Punk —..."
+        }
+      ],
+      "failed": [
+        {
+          "id": "7700305703503695137",
+          "url": "https://www.tiktok.com/@itsbgra/video/7700305703503695137",
+          "code": "fetch_failed",
+          "hint": ""
+        },
+        {
+          "id": "7702617860006251809",
+          "url": "https://www.tiktok.com/@itsbgra/video/7702617860006251809",
+          "code": "fetch_failed",
+          "hint": ""
+        },
+        {
+          "id": "7700940448788942113",
+          "url": "https://www.tiktok.com/@itsbgra/video/7700940448788942113",
+          "code": "fetch_failed",
+          "hint": ""
+        },
+        {
+          "id": "7701879093821852960",
+          "url": "https://www.tiktok.com/@itsbgra/video/7701879093821852960",
+          "code": "fetch_failed",
+          "hint": ""
+        }
+      ],
+      "downloaded": 7
+    },
+    {
+      "key": "tiktok-offtherackjack",
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "role": "discovered",
+      "url": "https://www.tiktok.com/@offtherackjack",
+      "channel": null,
+      "followers": null,
+      "scanned": 60,
+      "rankedBy": "likes",
+      "picked": 8,
+      "top": [
+        {
+          "id": "7663226046455565590",
+          "likes": 19100,
+          "views": 246500,
+          "title": "This syatem makes DJing way too easy! 🎧"
+        },
+        {
+          "id": "7646004129998966038",
+          "likes": 10400,
+          "views": 145300,
+          "title": "How to use your headphones when DJing 🎧 Learn to DJ: offtherackjack.c..."
+        },
+        {
+          "id": "7637919471717436694",
+          "likes": 10100,
+          "views": 118200,
+          "title": "How to mix \"Show Me Love\" by Robin S for beginner DJs 🎧"
+        },
+        {
+          "id": "7645596083506220310",
+          "likes": 9225,
+          "views": 108500,
+          "title": "Wordplay DJ Mix Tutorial 🎧 Track IDs: Chris Brown - Ayo 2Pac - Califo..."
+        },
+        {
+          "id": "7651634409518550294",
+          "likes": 6611,
+          "views": 87400,
+          "title": "How to take a request when DJing live 🎧"
+        }
+      ],
+      "downloaded": 8
+    },
+    {
+      "key": "tiktok-wearecrossfader",
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "role": "discovered",
+      "url": "https://www.tiktok.com/@wearecrossfader",
+      "channel": null,
+      "followers": null,
+      "scanned": 60,
+      "rankedBy": "likes",
+      "picked": 8,
+      "top": [
+        {
+          "id": "7676144411880852758",
+          "likes": 95000,
+          "views": 1300000,
+          "title": "Day one of learning to DJ #dj #DAY1 #beginnerdj #howtodj #learningtodj "
+        },
+        {
+          "id": "7676551673069702422",
+          "likes": 20100,
+          "views": 216900,
+          "title": "Day 2 of you learning how to DJ #day2 #dj #beginnerdj #howtodj #learn..."
+        },
+        {
+          "id": "7669727684141813025",
+          "likes": 4729,
+          "views": 62100,
+          "title": "Finding the perfect remix can completely transform your DJ sets."
+        },
+        {
+          "id": "7688699368899235104",
+          "likes": 3893,
+          "views": 71000,
+          "title": "Here’s a creative way to use 3/4 echo to build your own live DJ mashu..."
+        },
+        {
+          "id": "7677591131332365590",
+          "likes": 3889,
+          "views": 53900,
+          "title": "Replying to @Ntsika Luzuko Xipula #day5 #dj #beginnerdj #howtodj #lea..."
+        }
+      ],
+      "downloaded": 8
+    },
+    {
+      "key": "tiktok-dj-r2e",
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "role": "discovered",
+      "url": "https://www.tiktok.com/@dj.r2e",
+      "channel": null,
+      "followers": null,
+      "scanned": 60,
+      "rankedBy": "likes",
+      "picked": 8,
+      "top": [
+        {
+          "id": "7691568869026139444",
+          "likes": 4056,
+          "views": 33300,
+          "title": "Two of their best songs. So lucky we got to hear them both live ❤️ A ..."
+        },
+        {
+          "id": "7678954156165516562",
+          "likes": 2312,
+          "views": 20000,
+          "title": "@Kyle Starkey @WOLTERS got a tune for you✌️✌️ #targetaudience #housem..."
+        },
+        {
+          "id": "7684103390426615047",
+          "likes": 2067,
+          "views": 20700,
+          "title": "Dj Heartstring Woolstore spawn us there cheers 😆 DJ transition, mixin..."
+        },
+        {
+          "id": "7688644886660205844",
+          "likes": 1478,
+          "views": 21500,
+          "title": "This is a great way to keep the energy going and the crowd moving, mi..."
+        },
+        {
+          "id": "7676362817213173000",
+          "likes": 1213,
+          "views": 19000,
+          "title": "How to perform a DJ transition! Save this for later!  #learntodj #dj ..."
+        }
+      ],
+      "failed": [
+        {
+          "id": "7678954156165516562",
+          "url": "https://www.tiktok.com/@dj.r2e/video/7678954156165516562",
+          "code": "fetch_failed",
+          "hint": ""
+        },
+        {
+          "id": "7688155821393317140",
+          "url": "https://www.tiktok.com/@dj.r2e/video/7688155821393317140",
+          "code": "fetch_failed",
+          "hint": ""
+        },
+        {
+          "id": "7691183780869983509",
+          "url": "https://www.tiktok.com/@dj.r2e/video/7691183780869983509",
+          "code": "fetch_failed",
+          "hint": ""
+        }
+      ],
+      "downloaded": 5
+    },
+    {
+      "key": "tiktok-dj-mandy",
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "role": "discovered",
+      "url": "https://www.tiktok.com/@dj__mandy",
+      "channel": null,
+      "followers": null,
+      "scanned": 60,
+      "rankedBy": "likes",
+      "picked": 8,
+      "top": [
+        {
+          "id": "7694023033438129421",
+          "likes": 245000,
+          "views": 1600000,
+          "title": "i just wanna be ok"
+        },
+        {
+          "id": "7656993947151093005",
+          "likes": 155000,
+          "views": 994600,
+          "title": ""
+        },
+        {
+          "id": "7642086164060556558",
+          "likes": 100400,
+          "views": 594600,
+          "title": "confusing everyone at edc <3"
+        },
+        {
+          "id": "7666155165644344590",
+          "likes": 94700,
+          "views": 522600,
+          "title": "and now im going on tour this fall xx link in bio for tix 🪩🏠🕺📀 "
+        },
+        {
+          "id": "7650613543003245838",
+          "likes": 79000,
+          "views": 414700,
+          "title": "it’s my fav time of year   "
+        }
+      ],
+      "downloaded": 8
+    },
+    {
+      "key": "tiktok-theonlydjdrip",
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "role": "discovered",
+      "url": "https://www.tiktok.com/@theonlydjdrip",
+      "channel": null,
+      "followers": null,
+      "scanned": 40,
+      "rankedBy": "likes",
+      "note": "fewer than 8 posts in the last 365 days; older posts included",
+      "picked": 8,
+      "top": [
+        {
+          "id": "7103650499370601774",
+          "likes": 218100,
+          "views": 1000000,
+          "title": "it needed to be done, shoutout @love_jomy for the idea 💡 #chicago #dj..."
+        },
+        {
+          "id": "7101372945745988906",
+          "likes": 87400,
+          "views": 570500,
+          "title": "How To Instantly Get A Chicago Function Jukin 🤸🏽‍♀️😂💯 #chicago #dj #f..."
+        },
+        {
+          "id": "7105158084850355502",
+          "likes": 80000,
+          "views": 491400,
+          "title": "Reply to @ann.0.0 Ask & You Shall Receive 🤞🏼🌟 What Songs Should I Do ..."
+        },
+        {
+          "id": "7068473322866183471",
+          "likes": 71200,
+          "views": 409300,
+          "title": "When You Have a Quince at 8 but the Club at 10 😩😂 #Chicago #juke #lat..."
+        },
+        {
+          "id": "6922308317566061829",
+          "likes": 64000,
+          "views": 315400,
+          "title": "you guys blew up my last video so it was only right. #fyp #chicago #d..."
+        }
+      ],
+      "downloaded": 8
+    }
+  ],
+  "items": [
+    {
+      "key": "tiktok-itsbgra/7652707675725253921",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7652707675725253921",
+      "type": "video",
+      "file": "research/media/tiktok-itsbgra/7652707675725253921.mp4",
+      "url": "https://www.tiktok.com/@itsbgra/video/7652707675725253921",
+      "rank": 3,
+      "metrics": {
+        "views": 831,
+        "likes": 44,
+        "comments": 1,
+        "shares": 2,
+        "saves": 3,
+        "duration": 23,
+        "timestamp": 1781784860,
+        "title": "First videography work. #videography #fyp",
+        "description": "First videography work. #videography #fyp",
+        "track": "borderline",
+        "artists": [
+          "user29757336941"
+        ],
+        "followers": null,
+        "engagementRate": 0.0602
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7698840631522676001",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7698840631522676001",
+      "type": "video",
+      "file": "research/media/tiktok-itsbgra/7698840631522676001.mp4",
+      "url": "https://www.tiktok.com/@itsbgra/video/7698840631522676001",
+      "rank": 5,
+      "metrics": {
+        "views": 430,
+        "likes": 14,
+        "comments": 2,
+        "shares": 0,
+        "saves": 4,
+        "duration": 33,
+        "timestamp": 1792526024,
+        "title": "DJ Journey — Mix 02 Nightcrawlers — Push the Feeling On → Daft Punk —...",
+        "description": "DJ Journey — Mix 02 Nightcrawlers — Push the Feeling On → Daft Punk — Around the World Two classics, one transition. 16 bars of overlap, a gradual bass swap, and a high-pass filter to fade out the outgoing track. Still experimenting with EQ and phrasing, and logging what I learn in Mixnote. How does this transition sound? #DJJourney #LearningToDJ #HouseMusic #DJTransitions #Mixnote",
+        "track": "original sound",
+        "artists": [
+          "itsbgra"
+        ],
+        "followers": null,
+        "engagementRate": 0.0465
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7700695148107189536",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7700695148107189536",
+      "type": "video",
+      "file": "research/media/tiktok-itsbgra/7700695148107189536.mp4",
+      "url": "https://www.tiktok.com/@itsbgra/video/7700695148107189536",
+      "rank": 6,
+      "metrics": {
+        "views": 429,
+        "likes": 13,
+        "comments": 3,
+        "shares": 1,
+        "saves": 2,
+        "duration": 33,
+        "timestamp": 1792957810,
+        "title": "Day 3 of learning how to DJ. How did you find this one out? #djlife #...",
+        "description": "Day 3 of learning how to DJ. How did you find this one out? #djlife #djtransition #djmix #dj #djset ",
+        "track": "original sound",
+        "artists": [
+          "itsbgra"
+        ],
+        "followers": null,
+        "engagementRate": 0.0443
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7698078502033050912",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7698078502033050912",
+      "type": "video",
+      "file": "research/media/tiktok-itsbgra/7698078502033050912.mp4",
+      "url": "https://www.tiktok.com/@itsbgra/video/7698078502033050912",
+      "rank": 8,
+      "metrics": {
+        "views": 365,
+        "likes": 11,
+        "comments": 2,
+        "shares": 0,
+        "saves": 2,
+        "duration": 50,
+        "timestamp": 1792348578,
+        "title": "Day 1 of learning to DJ. First transition recorded! Purple Disco Mach...",
+        "description": "Day 1 of learning to DJ. First transition recorded! Purple Disco Machine — Body Funk → Daft Punk — One More Time Today’s practice: phrasing, hot cues, and a clean 16-bar transition. Still learning, still experimenting. Every mix gets me a little closer. Saved my first transition in Mixnote so I can remember what worked. One transition at a time. #DJJourney #LearningToDJ #BedroomDJ #HouseMusic #Mixnote ",
+        "track": "original sound",
+        "artists": [
+          "itsbgra"
+        ],
+        "followers": null,
+        "engagementRate": 0.0411
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7693242693710908705",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7693242693710908705",
+      "type": "video",
+      "file": "research/media/tiktok-itsbgra/7693242693710908705.mp4",
+      "url": "https://www.tiktok.com/@itsbgra/video/7693242693710908705",
+      "rank": 9,
+      "metrics": {
+        "views": 324,
+        "likes": 7,
+        "comments": 1,
+        "shares": 1,
+        "saves": 3,
+        "duration": 23,
+        "timestamp": 1791222652,
+        "title": "Who’s that chick? ➡️ Barbra Streisand #dj #djmix #fyp #davidguetta #b...",
+        "description": "Who’s that chick? ➡️ Barbra Streisand #dj #djmix #fyp #davidguetta #barbrastriesand ",
+        "track": "original sound",
+        "artists": [
+          "itsbgra"
+        ],
+        "followers": null,
+        "engagementRate": 0.037
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7702983614232939809",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7702983614232939809",
+      "type": "video",
+      "file": "research/media/tiktok-itsbgra/7702983614232939809.mp4",
+      "url": "https://www.tiktok.com/@itsbgra/video/7702983614232939809",
+      "rank": 10,
+      "metrics": {
+        "views": 277,
+        "likes": 3,
+        "comments": 1,
+        "shares": 1,
+        "saves": 4,
+        "duration": 33,
+        "timestamp": 1793490637,
+        "title": "how does the mix sounds? i’m not able to share a link somewhere, I ca...",
+        "description": "how does the mix sounds? i’m not able to share a link somewhere, I can send it to you via DM if you want 🙌🏻🪩 #dj #djmix #djlifestyle #djset ",
+        "track": "original sound",
+        "artists": [
+          "itsbgra"
+        ],
+        "followers": null,
+        "engagementRate": 0.0325
+      }
+    },
+    {
+      "key": "tiktok-itsbgra/7701413698438516000",
+      "sourceKey": "tiktok-itsbgra",
+      "role": "self",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "id": "7701413698438516000",
+      "type": "video",
+      "file": "research/media/tiktok-itsbgra/7701413698438516000.mp4",
+      "url": "https://www.tiktok.com/@itsbgra/video/7701413698438516000",
+      "rank": 11,
+      "metrics": {
+        "views": 304,
+        "likes": 3,
+        "comments": 2,
+        "shares": 2,
+        "saves": 3,
+        "duration": 36,
+        "timestamp": 1793125111,
+        "title": "#tate McRae’s HOUSEWIFE just found its evil twin.  Housewife x Heads ...",
+        "description": "#tate McRae’s HOUSEWIFE just found its evil twin.  Housewife x Heads Will Roll #djtransition #housewife #djlife #djmix ",
+        "track": "original sound",
+        "artists": [
+          "itsbgra"
+        ],
+        "followers": null,
+        "engagementRate": 0.0329
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7663226046455565590",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7663226046455565590",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7663226046455565590.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7663226046455565590",
+      "rank": 1,
+      "metrics": {
+        "views": 246500,
+        "likes": 19100,
+        "comments": 156,
+        "shares": 893,
+        "saves": 9344,
+        "duration": 22,
+        "timestamp": 1784233857,
+        "title": "This syatem makes DJing way too easy! 🎧",
+        "description": "This syatem makes DJing way too easy! 🎧",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.1196
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7646004129998966038",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7646004129998966038",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7646004129998966038.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7646004129998966038",
+      "rank": 2,
+      "metrics": {
+        "views": 145300,
+        "likes": 10400,
+        "comments": 38,
+        "shares": 331,
+        "saves": 5334,
+        "duration": 163,
+        "timestamp": 1780224073,
+        "title": "How to use your headphones when DJing 🎧 Learn to DJ: offtherackjack.c...",
+        "description": "How to use your headphones when DJing 🎧 Learn to DJ: offtherackjack.com  (link in bio)",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.1108
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7637919471717436694",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7637919471717436694",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7637919471717436694.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7637919471717436694",
+      "rank": 3,
+      "metrics": {
+        "views": 118200,
+        "likes": 10100,
+        "comments": 26,
+        "shares": 195,
+        "saves": 3872,
+        "duration": 94,
+        "timestamp": 1778341713,
+        "title": "How to mix \"Show Me Love\" by Robin S for beginner DJs 🎧",
+        "description": "How to mix \"Show Me Love\" by Robin S for beginner DJs 🎧",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.1201
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7645596083506220310",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7645596083506220310",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7645596083506220310.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7645596083506220310",
+      "rank": 4,
+      "metrics": {
+        "views": 108500,
+        "likes": 9225,
+        "comments": 73,
+        "shares": 368,
+        "saves": 3556,
+        "duration": 129,
+        "timestamp": 1780129070,
+        "title": "Wordplay DJ Mix Tutorial 🎧 Track IDs: Chris Brown - Ayo 2Pac - Califo...",
+        "description": "Wordplay DJ Mix Tutorial 🎧 Track IDs: Chris Brown - Ayo 2Pac - California Love  DJ Courses: offtherackjack.com  (Link in bio)",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.1219
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7651634409518550294",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7651634409518550294",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7651634409518550294.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7651634409518550294",
+      "rank": 5,
+      "metrics": {
+        "views": 87400,
+        "likes": 6611,
+        "comments": 39,
+        "shares": 75,
+        "saves": 936,
+        "duration": 164,
+        "timestamp": 1781534974,
+        "title": "How to take a request when DJing live 🎧",
+        "description": "How to take a request when DJing live 🎧",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.0877
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7638652744898809110",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7638652744898809110",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7638652744898809110.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7638652744898809110",
+      "rank": 6,
+      "metrics": {
+        "views": 93600,
+        "likes": 6293,
+        "comments": 38,
+        "shares": 154,
+        "saves": 2948,
+        "duration": 131,
+        "timestamp": 1778512442,
+        "title": "Bgeinner DJ mix tutorial 🎧 Track IDs: Fisher - Losing It  Endor - Pum...",
+        "description": "Bgeinner DJ mix tutorial 🎧 Track IDs: Fisher - Losing It  Endor - Pump It Up If you want to learn to DJ, go to: offtherackjack.com  (link in bio)",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.1008
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7698482393627266326",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7698482393627266326",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7698482393627266326.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7698482393627266326",
+      "rank": 7,
+      "metrics": {
+        "views": 47600,
+        "likes": 5713,
+        "comments": 1314,
+        "shares": 86,
+        "saves": 1215,
+        "duration": 64,
+        "timestamp": 1792442618,
+        "title": "How to do a perfectly timed DJ transition every time 🎧 ",
+        "description": "How to do a perfectly timed DJ transition every time 🎧 ",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.175
+      }
+    },
+    {
+      "key": "tiktok-offtherackjack/7655026444472519958",
+      "sourceKey": "tiktok-offtherackjack",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "id": "7655026444472519958",
+      "type": "video",
+      "file": "research/media/tiktok-offtherackjack/7655026444472519958.mp4",
+      "url": "https://www.tiktok.com/@offtherackjack/video/7655026444472519958",
+      "rank": 8,
+      "metrics": {
+        "views": 74700,
+        "likes": 5079,
+        "comments": 43,
+        "shares": 155,
+        "saves": 2333,
+        "duration": 160,
+        "timestamp": 1782324743,
+        "title": "Works every time 🎧",
+        "description": "Works every time 🎧",
+        "track": "original sound",
+        "artists": [
+          "Off The Rack Jack"
+        ],
+        "followers": null,
+        "engagementRate": 0.1019
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7676144411880852758",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7676144411880852758",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7676144411880852758.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7676144411880852758",
+      "rank": 1,
+      "metrics": {
+        "views": 1300000,
+        "likes": 95000,
+        "comments": 412,
+        "shares": 4889,
+        "saves": 56000,
+        "duration": 54,
+        "timestamp": 1787241652,
+        "title": "Day one of learning to DJ #dj #DAY1 #beginnerdj #howtodj #learningtodj ",
+        "description": "Day one of learning to DJ #dj #DAY1 #beginnerdj #howtodj #learningtodj ",
+        "track": "original sound",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.1202
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7676551673069702422",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7676551673069702422",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7676551673069702422.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7676551673069702422",
+      "rank": 2,
+      "metrics": {
+        "views": 216900,
+        "likes": 20100,
+        "comments": 69,
+        "shares": 435,
+        "saves": 5751,
+        "duration": 48,
+        "timestamp": 1787336472,
+        "title": "Day 2 of you learning how to DJ #day2 #dj #beginnerdj #howtodj #learn...",
+        "description": "Day 2 of you learning how to DJ #day2 #dj #beginnerdj #howtodj #learningtodj ",
+        "track": "original sound",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.1215
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7669727684141813025",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7669727684141813025",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7669727684141813025.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7669727684141813025",
+      "rank": 3,
+      "metrics": {
+        "views": 62100,
+        "likes": 4729,
+        "comments": 24,
+        "shares": 110,
+        "saves": 1158,
+        "duration": 53,
+        "timestamp": 1785747615,
+        "title": "Finding the perfect remix can completely transform your DJ sets.",
+        "description": "Finding the perfect remix can completely transform your DJ sets.",
+        "track": "original sound - Crossfader | Learn To DJ",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.097
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7688699368899235104",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7688699368899235104",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7688699368899235104.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7688699368899235104",
+      "rank": 4,
+      "metrics": {
+        "views": 71000,
+        "likes": 3893,
+        "comments": 95,
+        "shares": 143,
+        "saves": 1198,
+        "duration": 44,
+        "timestamp": 1790164807,
+        "title": "Here’s a creative way to use 3/4 echo to build your own live DJ mashu...",
+        "description": "Here’s a creative way to use 3/4 echo to build your own live DJ mashup. 👀  ",
+        "track": "original sound",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.0751
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7677591131332365590",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7677591131332365590",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7677591131332365590.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7677591131332365590",
+      "rank": 5,
+      "metrics": {
+        "views": 53900,
+        "likes": 3889,
+        "comments": 106,
+        "shares": 82,
+        "saves": 1070,
+        "duration": 56,
+        "timestamp": 1787578493,
+        "title": "Replying to @Ntsika Luzuko Xipula #day5 #dj #beginnerdj #howtodj #lea...",
+        "description": "Replying to @Ntsika Luzuko Xipula #day5 #dj #beginnerdj #howtodj #learningtodj ",
+        "track": "original sound",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.0955
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7689797143267134752",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7689797143267134752",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7689797143267134752.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7689797143267134752",
+      "rank": 6,
+      "metrics": {
+        "views": 54100,
+        "likes": 3444,
+        "comments": 15,
+        "shares": 83,
+        "saves": 1047,
+        "duration": 53,
+        "timestamp": 1790420406,
+        "title": "Here’s a creative way to use stems and looping to build tension befor...",
+        "description": "Here’s a creative way to use stems and looping to build tension before a drop. 👀  ",
+        "track": "original sound",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.0848
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7694675268639755542",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7694675268639755542",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7694675268639755542.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7694675268639755542",
+      "rank": 7,
+      "metrics": {
+        "views": 38500,
+        "likes": 3372,
+        "comments": 11,
+        "shares": 83,
+        "saves": 1146,
+        "duration": 66,
+        "timestamp": 1791556204,
+        "title": "#beginnerdj #howtodj #learningtodj #day3 #music ",
+        "description": "#beginnerdj #howtodj #learningtodj #day3 #music ",
+        "track": "original sound",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.1198
+      }
+    },
+    {
+      "key": "tiktok-wearecrossfader/7677268667469499670",
+      "sourceKey": "tiktok-wearecrossfader",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "id": "7677268667469499670",
+      "type": "video",
+      "file": "research/media/tiktok-wearecrossfader/7677268667469499670.mp4",
+      "url": "https://www.tiktok.com/@wearecrossfader/video/7677268667469499670",
+      "rank": 8,
+      "metrics": {
+        "views": 44500,
+        "likes": 3010,
+        "comments": 14,
+        "shares": 68,
+        "saves": 801,
+        "duration": 43,
+        "timestamp": 1787503411,
+        "title": "Replying to @alvin lyons  #day3 #dj #beginnerdj #howtodj #learningtodj ",
+        "description": "Replying to @alvin lyons  #day3 #dj #beginnerdj #howtodj #learningtodj ",
+        "track": "original sound",
+        "artists": [
+          "Crossfader | Learn To DJ"
+        ],
+        "followers": null,
+        "engagementRate": 0.0875
+      }
+    },
+    {
+      "key": "tiktok-dj-r2e/7691568869026139444",
+      "sourceKey": "tiktok-dj-r2e",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "id": "7691568869026139444",
+      "type": "video",
+      "file": "research/media/tiktok-dj-r2e/7691568869026139444.mp4",
+      "url": "https://www.tiktok.com/@dj.r2e/video/7691568869026139444",
+      "rank": 1,
+      "metrics": {
+        "views": 33300,
+        "likes": 4056,
+        "comments": 39,
+        "shares": 181,
+        "saves": 199,
+        "duration": 67,
+        "timestamp": 1790832937,
+        "title": "Two of their best songs. So lucky we got to hear them both live ❤️ A ...",
+        "description": "Two of their best songs. So lucky we got to hear them both live ❤️ A DJ transition using two DJ Heartstring songs #djheartstring #dj #djtransition #djmix #targetaudience  @DJ HEARTSTRING  ",
+        "track": "original sound",
+        "artists": [
+          "R2E"
+        ],
+        "followers": null,
+        "engagementRate": 0.1344
+      }
+    },
+    {
+      "key": "tiktok-dj-r2e/7684103390426615047",
+      "sourceKey": "tiktok-dj-r2e",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "id": "7684103390426615047",
+      "type": "video",
+      "file": "research/media/tiktok-dj-r2e/7684103390426615047.mp4",
+      "url": "https://www.tiktok.com/@dj.r2e/video/7684103390426615047",
+      "rank": 3,
+      "metrics": {
+        "views": 20700,
+        "likes": 2067,
+        "comments": 35,
+        "shares": 52,
+        "saves": 111,
+        "duration": 59,
+        "timestamp": 1789094745,
+        "title": "Dj Heartstring Woolstore spawn us there cheers 😆 DJ transition, mixin...",
+        "description": "Dj Heartstring Woolstore spawn us there cheers 😆 DJ transition, mixing in the style of DJ heartstring. #djtransition #djheartstring #dj #targetaudience #floating  @DJ HEARTSTRING  ",
+        "track": "original sound",
+        "artists": [
+          "R2E"
+        ],
+        "followers": null,
+        "engagementRate": 0.1094
+      }
+    },
+    {
+      "key": "tiktok-dj-r2e/7688644886660205844",
+      "sourceKey": "tiktok-dj-r2e",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "id": "7688644886660205844",
+      "type": "video",
+      "file": "research/media/tiktok-dj-r2e/7688644886660205844.mp4",
+      "url": "https://www.tiktok.com/@dj.r2e/video/7688644886660205844",
+      "rank": 4,
+      "metrics": {
+        "views": 21500,
+        "likes": 1478,
+        "comments": 33,
+        "shares": 53,
+        "saves": 194,
+        "duration": 93,
+        "timestamp": 1790152145,
+        "title": "This is a great way to keep the energy going and the crowd moving, mi...",
+        "description": "This is a great way to keep the energy going and the crowd moving, mixing straight into the build up!  A DJ transition for you to watch and learn! #djheartstring #dj #djtransition #djlesson #learntodj  @S3PPA @Sam Alfred ",
+        "track": "original sound",
+        "artists": [
+          "R2E"
+        ],
+        "followers": null,
+        "engagementRate": 0.0818
+      }
+    },
+    {
+      "key": "tiktok-dj-r2e/7676362817213173000",
+      "sourceKey": "tiktok-dj-r2e",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "id": "7676362817213173000",
+      "type": "video",
+      "file": "research/media/tiktok-dj-r2e/7676362817213173000.mp4",
+      "url": "https://www.tiktok.com/@dj.r2e/video/7676362817213173000",
+      "rank": 5,
+      "metrics": {
+        "views": 19000,
+        "likes": 1213,
+        "comments": 26,
+        "shares": 24,
+        "saves": 393,
+        "duration": 88,
+        "timestamp": 1787292502,
+        "title": "How to perform a DJ transition! Save this for later!  #learntodj #dj ...",
+        "description": "How to perform a DJ transition! Save this for later!  #learntodj #dj #djlesson #djtransition #djmix  @S3PPA @wempe.music @Jeno.music  ",
+        "track": "original sound",
+        "artists": [
+          "R2E"
+        ],
+        "followers": null,
+        "engagementRate": 0.0872
+      }
+    },
+    {
+      "key": "tiktok-dj-r2e/7675974206051421447",
+      "sourceKey": "tiktok-dj-r2e",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "id": "7675974206051421447",
+      "type": "video",
+      "file": "research/media/tiktok-dj-r2e/7675974206051421447.mp4",
+      "url": "https://www.tiktok.com/@dj.r2e/video/7675974206051421447",
+      "rank": 8,
+      "metrics": {
+        "views": 12500,
+        "likes": 673,
+        "comments": 17,
+        "shares": 11,
+        "saves": 253,
+        "duration": 67,
+        "timestamp": 1787202026,
+        "title": "Full breakdown of a DJ transition! Save this for when your practicing...",
+        "description": "Full breakdown of a DJ transition! Save this for when your practicing!  #dj #learntodj #djlesson #djtransition #djmix  @K.ONE @APRD   ",
+        "track": "original sound",
+        "artists": [
+          "R2E"
+        ],
+        "followers": null,
+        "engagementRate": 0.0763
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7694023033438129421",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7694023033438129421",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7694023033438129421.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7694023033438129421",
+      "rank": 1,
+      "metrics": {
+        "views": 1600000,
+        "likes": 245000,
+        "comments": 850,
+        "shares": 35900,
+        "saves": 9480,
+        "duration": 30,
+        "timestamp": 1791404364,
+        "title": "i just wanna be ok",
+        "description": "i just wanna be ok",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.182
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7656993947151093005",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7656993947151093005",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7656993947151093005.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7656993947151093005",
+      "rank": 2,
+      "metrics": {
+        "views": 994600,
+        "likes": 155000,
+        "comments": 444,
+        "shares": 12500,
+        "saves": 4173,
+        "duration": 17,
+        "timestamp": 1782782852,
+        "title": "",
+        "description": "",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.1731
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7642086164060556558",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7642086164060556558",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7642086164060556558.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7642086164060556558",
+      "rank": 3,
+      "metrics": {
+        "views": 594600,
+        "likes": 100400,
+        "comments": 398,
+        "shares": 8386,
+        "saves": 3844,
+        "duration": 44,
+        "timestamp": 1779311862,
+        "title": "confusing everyone at edc <3",
+        "description": "confusing everyone at edc <3",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.1901
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7666155165644344590",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7666155165644344590",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7666155165644344590.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7666155165644344590",
+      "rank": 4,
+      "metrics": {
+        "views": 522600,
+        "likes": 94700,
+        "comments": 92,
+        "shares": 1672,
+        "saves": 1854,
+        "duration": 20,
+        "timestamp": 1784915855,
+        "title": "and now im going on tour this fall xx link in bio for tix 🪩🏠🕺📀 ",
+        "description": "and now im going on tour this fall xx link in bio for tix 🪩🏠🕺📀 ",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.1881
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7650613543003245838",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7650613543003245838",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7650613543003245838.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7650613543003245838",
+      "rank": 5,
+      "metrics": {
+        "views": 414700,
+        "likes": 79000,
+        "comments": 616,
+        "shares": 10900,
+        "saves": 2512,
+        "duration": 30,
+        "timestamp": 1781297304,
+        "title": "it’s my fav time of year   ",
+        "description": "it’s my fav time of year   ",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.2243
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7641684739346173197",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7641684739346173197",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7641684739346173197.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7641684739346173197",
+      "rank": 6,
+      "metrics": {
+        "views": 381300,
+        "likes": 46900,
+        "comments": 186,
+        "shares": 1438,
+        "saves": 1117,
+        "duration": 27,
+        "timestamp": 1779218405,
+        "title": "Still can’t believe i opened circuit grounds at EDC 🪩😭 thank you to e...",
+        "description": "Still can’t believe i opened circuit grounds at EDC 🪩😭 thank you to everyone who came early for my set xoxo",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.1302
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7675174703564082446",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7675174703564082446",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7675174703564082446.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7675174703564082446",
+      "rank": 7,
+      "metrics": {
+        "views": 153300,
+        "likes": 34600,
+        "comments": 272,
+        "shares": 3352,
+        "saves": 1742,
+        "duration": 37,
+        "timestamp": 1787015883,
+        "title": "",
+        "description": "",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.2607
+      }
+    },
+    {
+      "key": "tiktok-dj-mandy/7700360371734990093",
+      "sourceKey": "tiktok-dj-mandy",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "id": "7700360371734990093",
+      "type": "video",
+      "file": "research/media/tiktok-dj-mandy/7700360371734990093.mp4",
+      "url": "https://www.tiktok.com/@dj__mandy/video/7700360371734990093",
+      "rank": 8,
+      "metrics": {
+        "views": 135800,
+        "likes": 25900,
+        "comments": 109,
+        "shares": 1343,
+        "saves": 792,
+        "duration": 57,
+        "timestamp": 1792879875,
+        "title": "side quested too hard and ended up on jeopardy @Jeopardy! ",
+        "description": "side quested too hard and ended up on jeopardy @Jeopardy! ",
+        "track": "original sound",
+        "artists": [
+          "DJ MANDY"
+        ],
+        "followers": null,
+        "engagementRate": 0.2072
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/7103650499370601774",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "7103650499370601774",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/7103650499370601774.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/7103650499370601774",
+      "rank": 1,
+      "metrics": {
+        "views": 1000000,
+        "likes": 218100,
+        "comments": 2277,
+        "shares": 6303,
+        "saves": 9930,
+        "duration": 60,
+        "timestamp": 1653947519,
+        "title": "it needed to be done, shoutout @love_jomy for the idea 💡 #chicago #dj...",
+        "description": "it needed to be done, shoutout @love_jomy for the idea 💡 #chicago #dj #mashup #fyp",
+        "track": "original sound",
+        "artists": [
+          "DJ Drip"
+        ],
+        "followers": null,
+        "engagementRate": 0.2366
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/7101372945745988906",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "7101372945745988906",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/7101372945745988906.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/7101372945745988906",
+      "rank": 2,
+      "metrics": {
+        "views": 570500,
+        "likes": 87400,
+        "comments": 2606,
+        "shares": 6744,
+        "saves": 10200,
+        "duration": 59,
+        "timestamp": 1653417235,
+        "title": "How To Instantly Get A Chicago Function Jukin 🤸🏽‍♀️😂💯 #chicago #dj #f...",
+        "description": "How To Instantly Get A Chicago Function Jukin 🤸🏽‍♀️😂💯 #chicago #dj #fyp #frunkthebeat￼",
+        "track": "original sound",
+        "artists": [
+          "DJ Drip"
+        ],
+        "followers": null,
+        "engagementRate": 0.1875
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/7105158084850355502",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "7105158084850355502",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/7105158084850355502.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/7105158084850355502",
+      "rank": 3,
+      "metrics": {
+        "views": 491400,
+        "likes": 80000,
+        "comments": 829,
+        "shares": 2896,
+        "saves": 3847,
+        "duration": 55,
+        "timestamp": 1654298531,
+        "title": "Reply to @ann.0.0 Ask & You Shall Receive 🤞🏼🌟 What Songs Should I Do ...",
+        "description": "Reply to @ann.0.0 Ask & You Shall Receive 🤞🏼🌟 What Songs Should I Do Next?? #chicago #mashup #dj #reggaeton #fyp #MINDORDERING",
+        "track": "original sound",
+        "artists": [
+          "DJ Drip"
+        ],
+        "followers": null,
+        "engagementRate": 0.1782
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/7068473322866183471",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "7068473322866183471",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/7068473322866183471.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/7068473322866183471",
+      "rank": 4,
+      "metrics": {
+        "views": 409300,
+        "likes": 71200,
+        "comments": 1095,
+        "shares": 5653,
+        "saves": 4414,
+        "duration": 60,
+        "timestamp": 1645757194,
+        "title": "When You Have a Quince at 8 but the Club at 10 😩😂 #Chicago #juke #lat...",
+        "description": "When You Have a Quince at 8 but the Club at 10 😩😂 #Chicago #juke #latin #artistsoftiktok #fyp",
+        "track": "original sound",
+        "artists": [
+          "DJ Drip"
+        ],
+        "followers": null,
+        "engagementRate": 0.2012
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/6922308317566061829",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "6922308317566061829",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/6922308317566061829.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/6922308317566061829",
+      "rank": 5,
+      "metrics": {
+        "views": 315400,
+        "likes": 64000,
+        "comments": 992,
+        "shares": 2458,
+        "saves": 4592,
+        "duration": 59,
+        "timestamp": 1611725535,
+        "title": "you guys blew up my last video so it was only right. #fyp #chicago #d...",
+        "description": "you guys blew up my last video so it was only right. #fyp #chicago #dj #lildurk #SwitchTheChobaniFlip",
+        "track": "Back in Blood (feat. Lil Durk)",
+        "artists": [
+          "Pooh Shiesty"
+        ],
+        "followers": null,
+        "engagementRate": 0.2284
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/6928184145780804869",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "6928184145780804869",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/6928184145780804869.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/6928184145780804869",
+      "rank": 6,
+      "metrics": {
+        "views": 432800,
+        "likes": 62000,
+        "comments": 3161,
+        "shares": 8685,
+        "saves": 5085,
+        "duration": 59,
+        "timestamp": 1613093588,
+        "title": "If you from Chicago, You’ll Understand This #fyp #chicago #dj #juke #...",
+        "description": "If you from Chicago, You’ll Understand This #fyp #chicago #dj #juke #TrulyGlowingSelfieLove",
+        "track": "original sound",
+        "artists": [
+          "DJ Drip"
+        ],
+        "followers": null,
+        "engagementRate": 0.1824
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/7104419683843034411",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "7104419683843034411",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/7104419683843034411.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/7104419683843034411",
+      "rank": 7,
+      "metrics": {
+        "views": 276400,
+        "likes": 50800,
+        "comments": 539,
+        "shares": 1821,
+        "saves": 3728,
+        "duration": 60,
+        "timestamp": 1654126609,
+        "title": "Reply to @xkoan These Went Together PERFECTLY! #chicago #dj #mashup #...",
+        "description": "Reply to @xkoan These Went Together PERFECTLY! #chicago #dj #mashup #fyp #badbunny",
+        "track": "original sound",
+        "artists": [
+          "DJ Drip"
+        ],
+        "followers": null,
+        "engagementRate": 0.2058
+      }
+    },
+    {
+      "key": "tiktok-theonlydjdrip/6938928454259805445",
+      "sourceKey": "tiktok-theonlydjdrip",
+      "role": "discovered",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "id": "6938928454259805445",
+      "type": "video",
+      "file": "research/media/tiktok-theonlydjdrip/6938928454259805445.mp4",
+      "url": "https://www.tiktok.com/@theonlydjdrip/video/6938928454259805445",
+      "rank": 8,
+      "metrics": {
+        "views": 241400,
+        "likes": 44700,
+        "comments": 451,
+        "shares": 1217,
+        "saves": 5948,
+        "duration": 59,
+        "timestamp": 1615595182,
+        "title": "Dembow Mix 🇩🇴🚨 #fyp  #chicago #dj #dembow #sabias #lifestyle",
+        "description": "Dembow Mix 🇩🇴🚨 #fyp  #chicago #dj #dembow #sabias #lifestyle",
+        "track": "original sound",
+        "artists": [
+          "DJ Drip"
+        ],
+        "followers": null,
+        "engagementRate": 0.2167
+      }
+    }
+  ]
+}

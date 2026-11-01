@@ -1,0 +1,84 @@
+{
+  "cookiesFromBrowser": null,
+  "defaults": {
+    "top": 8,
+    "scan": 40,
+    "sinceDays": 365,
+    "maxDuration": 180,
+    "rankBy": "likes"
+  },
+  "sources": [
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@ayakmusic",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@_vnlo_",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@jacobdior",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@maszamusic",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@nextdimensional",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@djhabibeats",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@djlilli",
+      "role": "discovered"
+    }
+  ]
+}

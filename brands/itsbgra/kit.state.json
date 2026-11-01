@@ -1,0 +1,50 @@
+{
+  "schema": "vlog-editor/kit-state@1",
+  "slug": "itsbgra",
+  "stage": "analyze",
+  "brief": {
+    "name": "itsbgra",
+    "nameSource": "handle",
+    "handles": {
+      "tiktok": "@itsbgra"
+    },
+    "startingPoints": [
+      "self",
+      "discover"
+    ],
+    "platforms": [
+      "tiktok"
+    ],
+    "languages": [
+      "en"
+    ],
+    "niche": "DJ journey (learning to DJ, progress, gigs) and DJ transitions",
+    "audience": "new and beginner DJs worldwide",
+    "personality": {
+      "energy": 0.6,
+      "polish": 0.65,
+      "warmth": 0.65,
+      "playfulness": 0.5
+    },
+    "mustHave": "",
+    "avoid": "",
+    "sound": true,
+    "tone": "friend on the journey: honest wins and fails, warm, encouraging"
+  },
+  "traitChoices": {},
+  "chosenDirection": null,
+  "history": [
+    {
+      "at": "2026-11-01T17:10:00.000Z",
+      "stage": "brief"
+    },
+    {
+      "at": "2026-11-01T17:12:00.000Z",
+      "stage": "sources"
+    },
+    {
+      "at": "2026-11-01T17:20:00.000Z",
+      "stage": "collect"
+    }
+  ]
+}

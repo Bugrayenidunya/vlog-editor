@@ -1,0 +1,49 @@
+{
+  "cookiesFromBrowser": null,
+  "defaults": {
+    "top": 8,
+    "scan": 60,
+    "sinceDays": 365,
+    "maxDuration": 180,
+    "rankBy": "likes"
+  },
+  "sources": [
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@itsbgra",
+      "role": "self",
+      "top": 12
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@offtherackjack",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@wearecrossfader",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@dj.r2e",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@dj__mandy",
+      "role": "discovered"
+    },
+    {
+      "kind": "account",
+      "platform": "tiktok",
+      "handle": "@theonlydjdrip",
+      "role": "discovered"
+    }
+  ]
+}

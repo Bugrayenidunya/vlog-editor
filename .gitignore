@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# OS / editor
+.DS_Store
+*.swp
+
+# Claude Code personal settings (project settings in .claude/settings.json ARE committed)
+.claude/settings.local.json
+
+# HyperFrames caches, check reports, debug artifacts
+.hyperframes/
+**/.hyperframes/
+**/.debug/
+
+# Render outputs — finals get published, not committed
+renders/
+**/renders/
+
+# Raw footage and heavy media inside video projects (brand assets in brands/ stay tracked).
+# Force-add a small clip with `git add -f` if a project really needs it in git.
+videos/**/*.mp4
+videos/**/*.mov
+videos/**/*.m4v
+videos/**/*.webm
+videos/**/*.wav
+videos/**/*.aif
+videos/**/*.aiff
+
+# Brand research: downloaded videos and frames of other creators' posts are for private analysis only.
+# Metadata (sources.json, manifest.json, dossier.*, style-dna.*) stays tracked.
+brands/*/research/media/
+brands/*/research/analysis/
+brands/*/research/sheets/
+brands/*/research/inbox/
+brands/*/research/.work/
+# Engine and studio scratch
+brands/.cache/
+brands/*/.work/
+brands/*/.studio/
+**/.board/
